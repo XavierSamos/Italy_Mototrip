@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mototrip Planner 2026: Barcelona ➔ Rome ➔ Sicily ➔ Sardinia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Leaflet CSS & JS with Reliable CartoDB Map Tiles (Fixes 403 OSM tile blockage) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    #map { height: 460px; width: 100%; border-radius: 1rem; }
+    .tab-btn.active {
+      background-color: rgba(245, 158, 11, 0.2);
+      border-color: #f59e0b;
+      color: #f59e0b;
+    }
+
+    /* Hide scrollbar but keep scroll functionality */
+    .overflow-x-auto::-webkit-scrollbar { height: 4px; }
+    .overflow-x-auto::-webkit-scrollbar-track { background: transparent; }
+    .overflow-x-auto::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+
+    /* Mobile Responsive Overrides */
+    @media (max-width: 768px) {
+      #map { height: 280px; }
+      h1 { font-size: 1.25rem !important; }
+      h2 { font-size: 1.1rem !important; }
+      .max-w-7xl { padding-left: 0; padding-right: 0; }
+    }
+
+    /* Mobile Responsiveness & Badge Alignment Fixes */
+    .badge-pill {
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      white-space: nowrap !important;
+      line-height: 1.2 !important;
+    }
+    
+    /* Light Theme as Default (Google Material Inspired & High-Contrast Overrides) */
+    body.light-theme {
+      background-color: #f1f5f9 !important;
+      color: #0f172a !important;
+    }
+    body.light-theme .bg-slate-900,
+    body.light-theme #hourly-modal > div,
+    body.light-theme #activity-modal > div {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04) !important;
+    }
+    body.light-theme .bg-slate-950,
+    body.light-theme .card-box {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05) !important;
+    }
+    body.light-theme .card-box:hover {
+      border-color: #d97706 !important;
+      box-shadow: 0 6px 16px rgba(217, 119, 6, 0.12) !important;
+    }
+    body.light-theme .bg-slate-800\/50, 
+    body.light-theme .bg-slate-800\/60,
+    body.light-theme .bg-slate-800\/90,
+    body.light-theme .bg-slate-900\/60,
+    body.light-theme .bg-slate-900\/40,
+    body.light-theme .bg-slate-900\/80 {
+      background-color: #f8fafc !important;
+      border-color: #e2e8f0 !important;
+    }
+    body.light-theme .text-white {
+      color: #0f172a !important;
+    }
+    body.light-theme .text-slate-400, 
+    body.light-theme .text-slate-300 {
+      color: #334155 !important;
+    }
+    body.light-theme .text-slate-200 {
+      color: #1e293b !important;
+    }
+    body.light-theme .text-amber-400, 
+    body.light-theme .text-amber-300 {
+      color: #b45309 !important;
+    }
+    body.light-theme .text-emerald-400, 
+    body.light-theme .text-emerald-300 {
+      color: #047857 !important;
+    }
+    body.light-theme .border-slate-800, 
+    body.light-theme .border-slate-700 {
+      border-color: #e2e8f0 !important;
+    }
+    body.light-theme input {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    body.light-theme .tab-btn.active {
+      background-color: #fef3c7 !important;
+      border-color: #d97706 !important;
+      color: #b45309 !important;
+    }
+    /* Region Badges & Km Badges in Light Theme */
+    body.light-theme .bg-red-500\/20 { background-color: #fee2e2 !important; color: #991b1b !important; border-color: #fca5a5 !important; }
+    body.light-theme .bg-emerald-500\/20 { background-color: #d1fae5 !important; color: #065f46 !important; border-color: #6ee7b7 !important; }
+    body.light-theme .bg-amber-500\/20 { background-color: #fef3c7 !important; color: #92400e !important; border-color: #fcd34d !important; }
+    body.light-theme .bg-sky-500\/20 { background-color: #e0f2fe !important; color: #075985 !important; border-color: #7dd3fc !important; }
+    body.light-theme .bg-blue-500\/10, body.light-theme .bg-blue-500\/20 { background-color: #dbeafe !important; color: #1e40af !important; border-color: #93c5fd !important; }
+    body.light-theme .bg-slate-800, 
+    body.light-theme .day-km-badge { 
+      background-color: #e2e8f0 !important; 
+      color: #0f172a !important; 
+    }
+    body.light-theme .bg-slate-700, 
+    body.light-theme .bg-slate-700\/80 { 
+      background-color: #cbd5e1 !important; 
+      color: #0f172a !important; 
+    }
+  </style>
+</head>
+<body class="light-theme bg-slate-950 text-slate-100 font-sans antialiased p-3 md:p-8 transition-colors duration-200">
+
+  <div class="max-w-7xl mx-auto space-y-6">
+    
+    <!-- Top Header -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:p-7 shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div>
+        <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400">
+          <span>🏍️ 2 Motorbikes</span> • <span>Lloret de Mar ➔ Rome ➔ Sicily ➔ Sardinia</span> • <span>November 2026</span>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-black text-white mt-1">Father & Son Mototrip Master Planner</h1>
+        <p class="text-xs md:text-sm text-slate-400 mt-1">14-Day Route, Detailed Hour-by-Hour Schedules, Highway vs Secondary Desglose & Sightseeing</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="flex flex-wrap gap-2">
+          <span class="bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs px-3 py-1.5 rounded-full font-semibold">14 Days</span>
+          <span class="bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs px-3 py-1.5 rounded-full font-semibold">1,865 km Riding</span>
+          <span class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs px-3 py-1.5 rounded-full font-semibold">€1,215 – €1,800 / Person</span>
+        </div>
+        <!-- Google Style Theme Toggle Button -->
+        <button onclick="toggleTheme()" id="theme-toggle-btn" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm">
+          ☀️ <span>Light Mode</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs Header (Horizontal Scroll on Mobile) -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-2 shadow-lg flex items-center gap-2 text-xs font-bold overflow-x-auto whitespace-nowrap">
+      <button onclick="switchTab('map-view')" id="tab-map-view" class="tab-btn active px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
+        📍 <span>Map & Overview</span>
+      </button>
+      <button onclick="switchTab('itinerary-view')" id="tab-itinerary-view" class="tab-btn px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
+        📅 <span>Daily Itinerary</span>
+      </button>
+      <button onclick="switchTab('cities-view')" id="tab-cities-view" class="tab-btn px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
+        🏙️ <span>Km & Cities Passed</span>
+      </button>
+      <button onclick="switchTab('prices-view')" id="tab-prices-view" class="tab-btn px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
+        💰 <span>Price & Budget</span>
+      </button>
+      <button onclick="switchTab('transport-view')" id="tab-transport-view" class="tab-btn px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
+        🚢 <span>Motorbike vs. Ferry</span>
+      </button>
+      <button onclick="switchTab('activities-view')" id="tab-activities-view" class="tab-btn px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
+        ♨️ <span>Activities & Spas</span>
+      </button>
+      <button onclick="switchTab('packing-view')" id="tab-packing-view" class="tab-btn px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
+        🧰 <span>Packing Checklist</span>
+      </button>
+    </div>
+
+    <!-- TAB 1: MAP & OVERVIEW -->
+    <div id="view-map-view" class="tab-content space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Interactive Leaflet Map with CartoDB Reliable Tiles -->
+        <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col">
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="font-bold text-lg text-white flex items-center gap-2">
+              📍 Full Route Map
+            </h2>
+            <span class="text-xs text-slate-400">CartoDB Voyager Tiles (No 403 OSM Block)</span>
+          </div>
+          <div id="map"></div>
+        </div>
+
+        <!-- Sidebar Summary -->
+        <div class="space-y-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
+            <h3 class="font-bold text-md text-amber-400">🌤️ November Weather & Daylight</h3>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                <span class="text-slate-400 block">Usable Daylight</span>
+                <span class="text-sm font-bold text-white">07:00 – 16:45</span>
+                <span class="text-[11px] text-amber-300 block mt-0.5">~9.5 hrs/day</span>
+              </div>
+              <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                <span class="text-slate-400 block">Islands (Sicily/Sardinia)</span>
+                <span class="text-sm font-bold text-emerald-400">18°C – 20°C</span>
+                <span class="text-[11px] text-emerald-300 block mt-0.5">Warm & Sunny</span>
+              </div>
+              <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                <span class="text-slate-400 block">Mainland Italy</span>
+                <span class="text-sm font-bold text-blue-300">15°C – 18°C</span>
+                <span class="text-[11px] text-slate-400 block mt-0.5">Crisp autumn</span>
+              </div>
+              <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+                <span class="text-slate-400 block">Mt. Etna / Passes</span>
+                <span class="text-sm font-bold text-cyan-300">6°C – 11°C</span>
+                <span class="text-[11px] text-cyan-200 block mt-0.5">Thermals needed</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-2">
+            <h3 class="font-bold text-md text-emerald-400">⚡ Quick Stats</h3>
+            <ul class="text-xs space-y-2 text-slate-300">
+              <li class="flex justify-between border-b border-slate-800 pb-1.5">
+                <span>Total Riding Distance:</span> <strong class="text-amber-400 font-mono">1,865 km</strong>
+              </li>
+              <li class="flex justify-between border-b border-slate-800 pb-1.5">
+                <span>🛣️ Highway (Autopista):</span> <strong class="text-blue-400 font-mono">620 km (33%)</strong>
+              </li>
+              <li class="flex justify-between border-b border-slate-800 pb-1.5">
+                <span>🏍️ Secondary / Mountain:</span> <strong class="text-emerald-400 font-mono">1,245 km (67%)</strong>
+              </li>
+              <li class="flex justify-between border-b border-slate-800 pb-1.5">
+                <span>Total Motorbike Hours:</span> <strong class="text-amber-400 font-mono">~30.5 hours</strong>
+              </li>
+              <li class="flex justify-between border-b border-slate-800 pb-1.5">
+                <span>Ferry Overnight Legs:</span> <strong class="text-blue-400 font-mono">3 Major Sailings</strong>
+              </li>
+              <li class="flex justify-between">
+                <span>Hot Springs & Spas:</span> <strong class="text-emerald-400 font-mono">2 Natural Sites</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: DAILY ITINERARY & HOURLY BREAKDOWN -->
+    <div id="view-itinerary-view" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <div class="flex justify-between items-center">
+          <div>
+            <h2 class="font-bold text-xl text-white">📅 Daily Itinerary (Click any day to expand hour-by-hour details)</h2>
+            <p class="text-xs text-slate-400">Includes hourly timelines, meal stops, riding times & sights</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="itinerary-cards-container">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: KM & CITIES PASSED -->
+    <div id="view-cities-view" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 md:p-6 shadow-xl space-y-4">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-1">
+          <h2 class="font-bold text-xl text-white">🏙️ Route Breakdown by Cities & Motorbike Kilometers</h2>
+          <span class="text-[11px] text-slate-400 block md:hidden">👈 Swipe table horizontally to see full breakdown 👉</span>
+        </div>
+        <div class="overflow-x-auto rounded-xl border border-slate-800/80">
+          <table class="w-full text-xs text-left text-slate-300 border-collapse min-w-[700px]">
+            <thead class="bg-slate-950 text-amber-400 uppercase text-[11px] border-b border-slate-800">
+              <tr>
+                <th class="p-3">Day</th>
+                <th class="p-3">Region</th>
+                <th class="p-3">Starting Point</th>
+                <th class="p-3">Cities & Waypoints Passed</th>
+                <th class="p-3">Destination City</th>
+                <th class="p-3 text-right">Total Km</th>
+                <th class="p-3 text-right text-blue-400">🛣️ Highway</th>
+                <th class="p-3 text-right text-emerald-400">🏍️ Secondary</th>
+                <th class="p-3 text-right">Est. GPS Route</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60" id="cities-table-body">
+              <!-- Injected via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: PRICES & BUDGET BREAKDOWN -->
+    <div id="view-prices-view" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <h2 class="font-bold text-xl text-white">💰 Detailed Price & Budget Breakdown (Per Person)</h2>
+        <p class="text-xs text-slate-400">Based on 2 riders traveling together, sharing 2-bed ferry cabins & hotel twin rooms in November.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-3">
+            <h3 class="font-bold text-sm text-amber-400 uppercase">Fixed Costs (Ferries & Transport)</h3>
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
+              <div class="flex justify-between border-b border-slate-800 pb-2">
+                <span>Barcelona ➔ Civitavecchia Ferry (Grimaldi)</span>
+                <span class="font-mono text-amber-300 font-bold">€110 – €160</span>
+              </div>
+              <div class="flex justify-between border-b border-slate-800 pb-2">
+                <span>Strait of Messina Ferry (Villa San Giovanni)</span>
+                <span class="font-mono text-amber-300 font-bold">€15 – €20</span>
+              </div>
+              <div class="flex justify-between border-b border-slate-800 pb-2">
+                <span>Palermo ➔ Cagliari Ferry (Sardinia)</span>
+                <span class="font-mono text-amber-300 font-bold">€70 – €110</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Porto Torres ➔ Barcelona Return Ferry</span>
+                <span class="font-mono text-amber-300 font-bold">€90 – €140</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <h3 class="font-bold text-sm text-emerald-400 uppercase">Variable Costs (Hotels, Fuel, Food)</h3>
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
+              <div class="flex justify-between border-b border-slate-800 pb-2">
+                <span>Motorbike Fuel (~1,865 km @ 1.85€/L)</span>
+                <span class="font-mono text-emerald-300 font-bold">€180 – €240</span>
+              </div>
+              <div class="flex justify-between border-b border-slate-800 pb-2">
+                <span>Hotels & B&Bs (10 Nights shared room)</span>
+                <span class="font-mono text-emerald-300 font-bold">€350 – €550</span>
+              </div>
+              <div class="flex justify-between border-b border-slate-800 pb-2">
+                <span>Food, Meals & Espresso (14 Days)</span>
+                <span class="font-mono text-emerald-300 font-bold">€350 – €500</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Tolls, Museum Tickets & Spa Entries</span>
+                <span class="font-mono text-emerald-300 font-bold">€50 – €80</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-amber-500/20 to-emerald-500/20 border border-amber-500/40 p-4 rounded-xl flex justify-between items-center text-sm font-bold">
+          <span>GRAND TOTAL ESTIMATED COST PER PERSON:</span>
+          <span class="text-xl font-mono text-amber-300">€1,215 – €1,800</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 5: MOTORBIKE VS. FERRY BREAKDOWN -->
+    <div id="view-transport-view" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <h2 class="font-bold text-xl text-white">🚢 Transport Mode Breakdown (Motorbike vs. Ferry)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="transport-grid">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 6: ACTIVITIES, RUINS & SPAS (WITH CATEGORY FILTERS & SEARCH) -->
+    <div id="view-activities-view" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4">
+          <div>
+            <h2 class="font-bold text-xl text-white">♨️ Sightseeing, Thermal Spas & Motorbike Miradors</h2>
+            <p class="text-xs text-slate-400">Filter activities by type or region. Click any activity for detailed history & rider tips.</p>
+          </div>
+          <!-- Search Bar -->
+          <div class="w-full md:w-72">
+            <input type="text" id="activity-search" onkeyup="filterActivities()" placeholder="🔍 Search by keyword..." class="w-full bg-slate-950 border border-slate-700 text-xs px-3.5 py-2.5 rounded-xl text-slate-200 focus:outline-none focus:border-amber-400">
+          </div>
+        </div>
+
+        <!-- Easy Category Filter Pills -->
+        <div class="flex flex-wrap gap-2 text-xs font-semibold" id="activity-category-pills">
+          <button onclick="setActivityCategory('ALL')" id="act-cat-ALL" class="act-cat-btn active bg-amber-500/20 text-amber-300 border border-amber-500/40 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            🌟 <span>All Activities</span>
+          </button>
+          <button onclick="setActivityCategory('Thermal Spa')" id="act-cat-Thermal Spa" class="act-cat-btn bg-slate-950 text-emerald-400 border border-slate-700 hover:border-emerald-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            ♨️ <span>Thermal Spas (Termas)</span>
+          </button>
+          <button onclick="setActivityCategory('Archaeology & Ruins')" id="act-cat-Archaeology & Ruins" class="act-cat-btn bg-slate-950 text-amber-400 border border-slate-700 hover:border-amber-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            🏛️ <span>Ruins & Archaeology</span>
+          </button>
+          <button onclick="setActivityCategory('Motorcycle Route')" id="act-cat-Motorcycle Route" class="act-cat-btn bg-slate-950 text-sky-400 border border-slate-700 hover:border-sky-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            🏍️ <span>Motorbike Passes & Miradors</span>
+          </button>
+          <button onclick="setActivityCategory('Sightseeing & Nature')" id="act-cat-Sightseeing & Nature" class="act-cat-btn bg-slate-950 text-purple-400 border border-slate-700 hover:border-purple-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            🌅 <span>Nature & Overlooks</span>
+          </button>
+        </div>
+
+        <!-- Grouped Activity Cards Container -->
+        <div id="activities-grouped-container" class="space-y-6 pt-2">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 7: MOTORBIKE PACKING & GEAR LIST -->
+    <div id="view-packing-view" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
+        <div>
+          <h2 class="font-bold text-xl text-white">🧰 Essential Motorbike Trip Packing List (November Edition)</h2>
+          <p class="text-xs text-slate-400">Interactive checklist for father & son. Check off items as you pack your panniers!</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-xs">
+          
+          <!-- Category 1: Documents & Ferry Essentials -->
+          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-sm text-amber-400 flex items-center gap-1.5">
+              📄 Documents & Ferry Tickets
+            </h3>
+            <ul class="space-y-2 text-slate-300">
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Passports / DNI & Driving Licenses</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Motorcycle Registrations & Insurance (Green Card)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Printed Ferry Tickets (Grimaldi & GNV)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Spare Ignition / Pannier Keys (Kept separate)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>European Health Insurance Cards (EHIC/TSE)</span></li>
+            </ul>
+          </div>
+
+          <!-- Category 2: November Riding Gear -->
+          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-sm text-blue-400 flex items-center gap-1.5">
+              🧥 Riding Gear (November Cold & Rain)
+            </h3>
+            <ul class="space-y-2 text-slate-300">
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Gore-Tex / Waterproof Jacket & Pants</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Thermal Base Layer Shirt & Tights (for Mt. Etna)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Waterproof Winter Gloves + Mild Weather Gloves</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Windproof Neck Gaiter / Balaclava</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Waterproof Riding Boots & Pinlock Visor</span></li>
+            </ul>
+          </div>
+
+          <!-- Category 3: Tools & Tire Repair -->
+          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-sm text-emerald-400 flex items-center gap-1.5">
+              🛠️ Tools & Bike Repair Kit
+            </h3>
+            <ul class="space-y-2 text-slate-300">
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Tire Tubeless Plug Kit & CO2 Cartridges / Mini Pump</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Compact Multi-Tool / Allen Wrenches / Torx</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Chain Lube & Small Cleaning Rag</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Zip Ties, Duct Tape & Electric Tape</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Ferry Tie-Down Straps / Rags (Protect seat on ferry)</span></li>
+            </ul>
+          </div>
+
+          <!-- Category 4: Electronics & Navigation -->
+          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-sm text-purple-400 flex items-center gap-1.5">
+              📱 Electronics & GPS Navigation
+            </h3>
+            <ul class="space-y-2 text-slate-300">
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Handlebar Phone Mounts & Waterproof Charging Cables</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Intercom / Helmet Bluetooth (Father-Son Comms)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>High-Capacity Power Bank (20,000mAh)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Offline Maps Downloaded (Google Maps / Maps.me)</span></li>
+            </ul>
+          </div>
+
+          <!-- Category 5: Hot Springs & Casual Clothing -->
+          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-sm text-rose-400 flex items-center gap-1.5">
+              ♨️ Hot Springs & Casual Wear
+            </h3>
+            <ul class="space-y-2 text-slate-300">
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Swimsuits (for Terme Segestane & Caronte)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Quick-Dry Towel & Water Shoes (for rocky hot rivers)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Compact Casual Evening Clothes & Walking Shoes</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Toiletry Kit & Microfiber Towel</span></li>
+            </ul>
+          </div>
+
+          <!-- Category 6: Safety & Emergency -->
+          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-sm text-cyan-400 flex items-center gap-1.5">
+              🩹 First Aid & Roadside Safety
+            </h3>
+            <ul class="space-y-2 text-slate-300">
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Compact Motorcycle First Aid Kit</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>High-Visibility Reflective Vests (Required in Italy)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Small LED Torch / Headlamp</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Personal Medications & Ibuprofen</span></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- HOURLY ITINERARY MODAL -->
+  <div id="hourly-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-start">
+        <div>
+          <span id="modal-day-badge" class="text-xs font-bold text-amber-400 uppercase tracking-wider">Day 1</span>
+          <h3 id="modal-title" class="text-xl font-bold text-white mt-1">Title</h3>
+        </div>
+        <button onclick="closeModal('hourly-modal')" class="text-slate-400 hover:text-white text-xl font-bold p-1">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-3" id="modal-timeline">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ACTIVITY DETAILS MODAL -->
+  <div id="activity-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-start">
+        <div>
+          <span id="act-type-badge" class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Thermal Spa</span>
+          <h3 id="act-title" class="text-xl font-bold text-white mt-1">Activity Title</h3>
+          <p id="act-location" class="text-xs text-slate-400">Location</p>
+        </div>
+        <button onclick="closeModal('activity-modal')" class="text-slate-400 hover:text-white text-xl font-bold p-1">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-3">
+        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-1">
+          <strong class="text-amber-400 block text-xs">Historical Background & Significance:</strong>
+          <p id="act-history" class="text-slate-300 leading-relaxed">History content...</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-slate-400 block text-[11px]">Recommended Duration</span>
+            <span id="act-duration" class="font-bold text-white">1.5 - 2 Hours</span>
+          </div>
+          <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
+            <span class="text-slate-400 block text-[11px]">Approximate Cost</span>
+            <span id="act-price" class="font-bold text-emerald-400">Free / Natural</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-1">
+          <strong class="text-amber-400 block text-xs">Motorbike & Rider Tips:</strong>
+          <p id="act-tips" class="text-slate-300 leading-relaxed">Rider tips content...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tab Switcher
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      
+      document.getElementById('view-' + tabId).classList.remove('hidden');
+      document.getElementById('tab-' + tabId).classList.add('active');
+
+      if (tabId === 'map-view' && window.map) {
+        setTimeout(() => { window.map.invalidateSize(); }, 200);
+      }
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.add('hidden');
+    }
+
+    // Comprehensive Data Objects with Region Categorization & Color Coding
+    const daysData = [
+      {
+        day: 1, title: "Lloret de Mar ➔ Port of Barcelona (Ferry)", km: "75 km", highwayKm: "50 km", secondaryKm: "25 km", time: "1.0 hr", mode: "Motorbike + Ferry",
+        region: "Spain", regionColor: "bg-red-500/20 text-red-300 border-red-500/40",
+        cities: ["Lloret de Mar", "Blanes", "Mataró", "Barcelona"],
+        summary: "Ride coastal roads down to Barcelona Port. Check-in for Grimaldi overnight ferry.",
+        gmaps: "https://www.google.com/maps/dir/Lloret+de+Mar,+Spain/Port+de+Barcelona,+Barcelona,+Spain",
+        timeline: [
+          { time: "18:00 - 19:00", act: "Depart Lloret de Mar, ride scenic coastal highway down to Barcelona Port (75 km)." },
+          { time: "19:30 - 20:30", act: "Arrive Port of Barcelona. Port check-in with motorbikes (security & vehicle registration check)." },
+          { time: "20:30 - 21:30", act: "Board Grimaldi Lines vessel. Secure bikes in ship garage, check into 2-bed cabin." },
+          { time: "22:00", act: "Ferry departs Barcelona heading across the Mediterranean to Civitavecchia (20 hrs crossing)." }
+        ]
+      },
+      {
+        day: 2, title: "At Sea ➔ Arrive Civitavecchia (Rome)", km: "15 km", highwayKm: "0 km", secondaryKm: "15 km", time: "0.3 hrs", mode: "Ferry + Motorbike",
+        region: "Mainland Italy", regionColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+        cities: ["At Sea", "Civitavecchia", "Santa Severa"],
+        summary: "Relax on board crossing the Mediterranean. Disembark in Civitavecchia Port.",
+        gmaps: "https://www.google.com/maps/dir/Porto+di+Civitavecchia,+Italy/Santa+Severa,+Lazio,+Italy",
+        timeline: [
+          { time: "08:00 - 17:00", act: "Day at sea. Breakfast on deck, rest, prepare route maps for mainland Italy." },
+          { time: "18:30 - 19:30", act: "Ferry docks in Civitavecchia. Disembark with motorbikes." },
+          { time: "19:45 - 20:15", act: "Short 15 km ride to hotel near Santa Severa / Civitavecchia coast." },
+          { time: "20:30", act: "Dinner in seaside trattoria (fresh seafood & pasta)." }
+        ]
+      },
+      {
+        day: 3, title: "Civitavecchia ➔ Amalfi Coast (SS163) ➔ Cilento", km: "340 km", highwayKm: "220 km", secondaryKm: "120 km", time: "4.5 hrs", mode: "Motorbike",
+        region: "Mainland Italy", regionColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+        cities: ["Civitavecchia", "Rome Outer Ring", "Naples Bypass", "Sorrento", "Positano", "Amalfi", "Salerno", "Cilento"],
+        summary: "Ride past Naples down the world-famous Amalfi Coast road (SS163) into Cilento.",
+        gmaps: "https://www.google.com/maps/dir/Civitavecchia,+Italy/Sorrento,+Italy/Positano,+Italy/Amalfi,+Italy/Salerno,+Italy/Cilento,+Italy",
+        timeline: [
+          { time: "08:00 - 11:30", act: "Depart Civitavecchia, ride south along highway past Rome towards Naples (230 km)." },
+          { time: "11:30 - 14:00", act: "Enter Sorrento Peninsula & ride iconic SS163 Amalfi Coast twisties (Positano, Amalfi). Lunch stop." },
+          { time: "14:00 - 16:30", act: "Continue past Salerno into peaceful Cilento National Park (SS269). Check into hotel." }
+        ]
+      },
+      {
+        day: 4, title: "Cilento ➔ Terme di Caronte ➔ Scilla (Calabria)", km: "310 km", highwayKm: "110 km", secondaryKm: "200 km", time: "4.5 hrs", mode: "Motorbike",
+        region: "Mainland Italy", regionColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+        cities: ["Cilento", "Sapri", "Maratea", "Acquappesa", "Lamezia Terme", "Scilla"],
+        summary: "Coastal SS18 ride down Calabria. Soak at Terme di Caronte natural sulfur hot springs.",
+        gmaps: "https://www.google.com/maps/dir/Cilento,+Italy/Maratea,+Italy/Terme+di+Caronte,+Lamezia+Terme,+Italy/Scilla,+Italy",
+        timeline: [
+          { time: "08:30 - 12:00", act: "Ride Tyrrhenian coastal road SS18 down Calabria through Maratea cliffs (180 km)." },
+          { time: "12:30 - 14:30", act: "Stop at Terme di Caronte near Lamezia Terme. Soak in 39°C natural sulfur hot spring pools." },
+          { time: "14:30 - 17:00", act: "Ride final coastal stretch down to Scilla fishing village overlooking the Messina Strait." }
+        ]
+      },
+      {
+        day: 5, title: "Riace Bronzes ➔ Messina Ferry ➔ Mt. Etna Loop ➔ Taormina", km: "180 km", highwayKm: "30 km", secondaryKm: "150 km", time: "3.5 hrs", mode: "Motorbike + Ferry",
+        region: "Sicily", regionColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+        cities: ["Scilla", "Reggio Calabria", "Messina", "Nicolosi", "Rifugio Sapienza (Etna)", "Taormina"],
+        summary: "Visit Riace Bronzes in Reggio Calabria. 20-min ferry to Sicily ➔ Mt. Etna volcano loop (1,900m).",
+        gmaps: "https://www.google.com/maps/dir/Scilla,+Italy/Museo+Nazionale+Reggio+Calabria,+Italy/Villa+San+Giovanni,+Italy/Rifugio+Sapienza,+Nicolosi,+Italy/Taormina,+Italy",
+        timeline: [
+          { time: "08:30 - 10:30", act: "Visit Reggio Calabria National Museum to view original 5th Century BC Riace Bronzes." },
+          { time: "10:45 - 11:15", act: "Ride to Villa San Giovanni & board 20-min car ferry across Messina Strait to Sicily." },
+          { time: "11:30 - 15:30", act: "Climb Mt. Etna SP92 volcano circuit through lava fields up to Rifugio Sapienza (1,900m)." },
+          { time: "16:00 - 17:30", act: "Descend to coastal Taormina. Visit ancient Greek Theater with Etna views." }
+        ]
+      },
+      {
+        day: 6, title: "Taormina ➔ Villa Romana Mosaics ➔ Agrigento (Valley of Temples)", km: "250 km", highwayKm: "100 km", secondaryKm: "150 km", time: "4.0 hrs", mode: "Motorbike",
+        region: "Sicily", regionColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+        cities: ["Taormina", "Catania", "Piazza Armerina", "Caltanissetta", "Agrigento"],
+        summary: "Inland ride to UNESCO Roman mosaics at Villa Romana del Casale & Agrigento Valley of Temples.",
+        gmaps: "https://www.google.com/maps/dir/Taormina,+Italy/Villa+Romana+del+Casale,+Piazza+Armerina,+Italy/Valle+dei+Templi,+Agrigento,+Italy",
+        timeline: [
+          { time: "08:30 - 11:30", act: "Ride inland through Sicilian countryside to Piazza Armerina (150 km)." },
+          { time: "11:30 - 13:30", act: "Tour UNESCO Villa Romana del Casale (world's best preserved Roman floor mosaics)." },
+          { time: "14:00 - 16:00", act: "Ride to Agrigento. Sunset walk at Valley of the Temples & fallen Icarus bronze statue." }
+        ]
+      },
+      {
+        day: 7, title: "Agrigento ➔ Selinunte ➔ Terme Segestane ➔ Palermo Port", km: "190 km", highwayKm: "40 km", secondaryKm: "150 km", time: "3.5 hrs", mode: "Motorbike + Ferry",
+        region: "Sicily", regionColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+        cities: ["Agrigento", "Sciacca", "Selinunte", "Segesta", "Palermo"],
+        summary: "Visit Selinunte seaside temple ruins, soak in 47°C Terme Segestane hot river, board ferry to Sardinia.",
+        gmaps: "https://www.google.com/maps/dir/Agrigento,+Italy/Parco+Archeologico+di+Selinunte,+Italy/Terme+Segestane,+Calatafimi-Segesta,+Italy/Porto+di+Palermo,+Italy",
+        timeline: [
+          { time: "08:30 - 11:00", act: "Ride coastal route to Selinunte Archaeological Park (massive Greek seaside temples)." },
+          { time: "11:30 - 14:00", act: "Ride to Segesta. Dip in natural 47°C hot spring river (Terme Segestane / Fiume Caldo)." },
+          { time: "14:30 - 16:30", act: "Ride to Port of Palermo. Board Grimaldi overnight ferry to Cagliari, Sardinia (Departs ~17:00, 12 hrs)." }
+        ]
+      },
+      {
+        day: 8, title: "Arrive Cagliari ➔ SS125 Orientale Sarda ➔ Baunei", km: "180 km", highwayKm: "20 km", secondaryKm: "160 km", time: "3.0 hrs", mode: "Ferry + Motorbike",
+        region: "Sardinia", regionColor: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+        cities: ["Palermo Port", "Cagliari", "Villasimius", "Muravera", "Baunei / Arbatax"],
+        summary: "Arrive Cagliari Port (~05:00). Morning espresso ➔ Ride legendary SS125 Orientale Sarda mountain pass.",
+        gmaps: "https://www.google.com/maps/dir/Porto+di+Cagliari,+Italy/Villasimius,+Italy/Muravera,+Italy/Baunei,+Italy",
+        timeline: [
+          { time: "05:00 - 06:00", act: "Disembark ferry in Cagliari, Sardinia. Morning coffee along harbor." },
+          { time: "07:00 - 12:00", act: "Hit southern SS125 Orientale Sarda—sweeping mountain bends & canyon views up to Baunei." },
+          { time: "13:00 - 16:00", act: "Check into mountain hotel, relax, explore Ogliastra coastline." }
+        ]
+      },
+      {
+        day: 9, title: "Baunei ➔ Gorropu Canyon ➔ Alghero", km: "220 km", highwayKm: "0 km", secondaryKm: "220 km", time: "4.0 hrs", mode: "Motorbike",
+        region: "Sardinia", regionColor: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+        cities: ["Baunei", "Dorgali", "Gorropu Canyon", "Nuoro", "Bosa", "Alghero"],
+        summary: "Ride heart of SS125 through Gorropu Canyon & Gennargentu mountains to medieval coastal Alghero.",
+        gmaps: "https://www.google.com/maps/dir/Baunei,+Italy/Dorgali,+Italy/Gola+di+Gorropu,+Italy/Bosa,+Italy/Alghero,+Italy",
+        timeline: [
+          { time: "08:30 - 12:00", act: "Ride northern SS125 pass through Gorropu Canyon & Gennargentu mountain twisties." },
+          { time: "12:30 - 14:00", act: "Ride Bosa-to-Alghero coastal cliff road (one of Europe's top motorcycle roads)." },
+          { time: "14:30 - 17:00", act: "Explore medieval walled city of Alghero. Hotel check-in." }
+        ]
+      },
+      {
+        day: 10, title: "Alghero Cliff Road ➔ Porto Torres (Ferry to Spain)", km: "90 km", highwayKm: "0 km", secondaryKm: "90 km", time: "1.5 hrs", mode: "Motorbike + Ferry",
+        region: "Sardinia", regionColor: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+        cities: ["Alghero", "Capo Caccia", "Stintino", "Porto Torres"],
+        summary: "Capo Caccia coastal cliff ride & Stintino beaches. Board overnight ferry back to Barcelona.",
+        gmaps: "https://www.google.com/maps/dir/Alghero,+Italy/Capo+Caccia,+Italy/Stintino,+Italy/Porto+Torres+Ferry+Terminal,+Italy",
+        timeline: [
+          { time: "09:00 - 12:00", act: "Ride out to Capo Caccia limestone cliffs & Neptune's Grotto overlook." },
+          { time: "13:00 - 15:00", act: "Ride north to Stintino beaches & arrive Porto Torres ferry port." },
+          { time: "16:00 - 17:00", act: "Check-in at Porto Torres port." },
+          { time: "17:00", act: "Board Grimaldi Lines ferry. Overnight crossing (~13.5 hours)." }
+        ]
+      },
+      {
+        day: 11, title: "Arrive Barcelona Port ➔ Home to Lloret de Mar", km: "75 km", highwayKm: "50 km", secondaryKm: "25 km", time: "1.0 hr", mode: "Ferry + Motorbike",
+        region: "Spain", regionColor: "bg-red-500/20 text-red-300 border-red-500/40",
+        cities: ["At Sea", "Port of Barcelona", "Mataró", "Blanes", "Lloret de Mar"],
+        summary: "Arrive Port of Barcelona in the morning (~06:30). Final scenic coastal ride along Costa Brava back home to Lloret.",
+        gmaps: "https://www.google.com/maps/dir/Port+de+Barcelona,+Barcelona,+Spain/Lloret+de+Mar,+Spain",
+        timeline: [
+          { time: "06:30", act: "Ferry docks at Port of Barcelona in the morning. Disembark with motorbikes." },
+          { time: "07:30 - 08:30", act: "Morning ride up Costa Brava highway back home to Lloret de Mar!" },
+          { time: "09:00", act: "Arrive home in Lloret de Mar! Trip complete." }
+        ]
+      }
+    ];
+
+    const activitiesData = [
+      {
+        name: "Terme Segestane (Fiume Caldo)",
+        type: "Thermal Spa",
+        region: "Sicily",
+        location: "Segesta, Western Sicily",
+        bestTime: "Late afternoon / Sunset",
+        price: "Free (Natural River)",
+        duration: "2 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Terme+Segestane+Fiume+Caldo+Calatafimi+Segesta",
+        history: "Naturally heated thermal sulfur water (~47°C) flowing through a green river canyon near ancient Segesta. Known since ancient Greek times for therapeutic mineral healing.",
+        tips: "Bring water shoes and a towel. The natural pools behind the main spa complex are open air and free of charge."
+      },
+      {
+        name: "Terme di Caronte",
+        type: "Thermal Spa",
+        region: "Mainland Italy",
+        location: "Lamezia Terme, Calabria",
+        bestTime: "Mid-day stopover",
+        price: "Free (Public Spring)",
+        duration: "1.5 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Terme+di+Caronte+Lamezia+Terme",
+        history: "Sulfur thermal springs naturally bubbling at 39°C at the base of Mount Reventino. Used by Romans as a rest stop along the Via Popilia highway.",
+        tips: "Located right off the SS18 coastal route down Calabria—perfect riding break."
+      },
+      {
+        name: "Terme di Fordongianus (Forum Traiani)",
+        type: "Thermal Spa",
+        region: "Sardinia",
+        location: "Fordongianus, Central Sardinia",
+        bestTime: "Late afternoon",
+        price: "Free (River Pools) / €5 Ruins",
+        duration: "1.5 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Terme+ di+Fordongianus+Sardinia",
+        history: "Ancient Roman thermal bath complex built by Emperor Trajan (1st Century AD). Thermal water gushes out at 54°C directly into the Tirso River bank, where stone pools let you mix hot thermal water with cold river water.",
+        tips: "Stop on the ride between Cagliari and Baunei/Alghero for a relaxing outdoor hot spring soak."
+      },
+      {
+        name: "Nuraghe Su Nuraxi di Barumini",
+        type: "Archaeology & Ruins",
+        region: "Sardinia",
+        location: "Barumini, South-Central Sardinia",
+        bestTime: "Morning",
+        price: "€15 per person",
+        duration: "1.5 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Su+Nuraxi+di+Barumini",
+        history: "UNESCO World Heritage mega-nuraghe complex dating back to 1500 BC (Bronze Age). Features a central 3-story megalithic stone tower surrounded by a prehistoric fortified village.",
+        tips: "Easily accessed right off the SS198 mountain route through interior Sardinia."
+      },
+      {
+        name: "Riace Bronzes (Bronzi di Riace)",
+        type: "Archaeology & Ruins",
+        region: "Mainland Italy",
+        location: "Reggio Calabria National Museum",
+        bestTime: "Morning (09:00)",
+        price: "€8 per person",
+        duration: "1.5 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Museo+Nazionale+Reggio+Calabria+Bronzi+di+Riace",
+        history: "Two original 5th-century BC Greek bronze statues of warrior heroes discovered underwater near Riace in 1972. Widely considered among the greatest surviving ancient Greek sculptures on Earth.",
+        tips: "Museum has secure parking nearby for motorbikes right before taking the Messina ferry."
+      },
+      {
+        name: "Valley of the Temples & Fallen Icarus",
+        type: "Archaeology & Ruins",
+        region: "Sicily",
+        location: "Agrigento, Southern Sicily",
+        bestTime: "Sunset (16:00 - 18:00)",
+        price: "€12 per person",
+        duration: "2.5 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Valle+dei+Templi+Agrigento",
+        history: "World UNESCO site featuring 7 magnificent 5th-century BC Doric Greek temples perched on a ridge facing the Mediterranean. Features Igor Mitoraj's famous fallen bronze sculpture of Icarus framed in front of Concordia Temple.",
+        tips: "Visit during golden hour when the temple stone glows gold against the sunset."
+      },
+      {
+        name: "Tharros Phoenician Ruins & Capo San Marco",
+        type: "Archaeology & Ruins",
+        region: "Sardinia",
+        location: "Sinis Peninsula, Western Sardinia",
+        bestTime: "Late morning",
+        price: "€9 per person",
+        duration: "2 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Area+Archeologica+di+Tharros",
+        history: "Ancient seaside city founded by Phoenicians in the 8th Century BC, later expanded by Carthaginians and Romans. Features columns standing directly over the turquoise sea.",
+        tips: "The motorcycle ride along the Sinis peninsula leads directly to the sea-cliff parking area."
+      },
+      {
+        name: "SS125 Orientale Sarda Pass",
+        type: "Motorcycle Route",
+        region: "Sardinia",
+        location: "Ogliastra, Eastern Sardinia",
+        bestTime: "Morning / Mid-day",
+        price: "Free (Public Highway)",
+        duration: "Full Day Ride",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=SS125+Orientale+Sarda+Baunei",
+        history: "Built through rugged granite mountains and deep canyons, this road is legendary among European bikers for its flawless, coarse, grippy asphalt and sweeping open turns.",
+        tips: "Maintain steady line speed; roads are virtually empty in November."
+      },
+      {
+        name: "SP105 Bosa to Alghero Coastal Cliff Road",
+        type: "Motorcycle Route",
+        region: "Sardinia",
+        location: "Western Coast, Sardinia",
+        bestTime: "Sunset",
+        price: "Free",
+        duration: "1.5 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=SP105+Bosa+Alghero",
+        history: "45 kilometers of unbroken coastal twists carved high into volcanic cliffs above the Mediterranean with zero traffic lights or junctions.",
+        tips: "Consistently ranked in top 5 coastal motorcycle roads in Southern Europe."
+      },
+      {
+        name: "Mt. Etna SP92 Volcano Circuit",
+        type: "Motorcycle Route",
+        region: "Sicily",
+        location: "Nicolosi to Rifugio Sapienza, Sicily",
+        bestTime: "Mid-day (Warmest)",
+        price: "Free",
+        duration: "3 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Rifugio+Sapienza+Etna+SP92",
+        history: "Climbs up Europe's highest active volcano to 1,900m elevation through black lava flows from recent eruptions.",
+        tips: "Temperatures drop significantly at 1,900m—wear your thermal jacket layer under your gear!"
+      },
+      {
+        name: "Capo Caccia & Escala del Cabirol Mirador",
+        type: "Sightseeing & Nature",
+        region: "Sardinia",
+        location: "Alghero, Northwestern Sardinia",
+        bestTime: "Sunset",
+        price: "Free Overlook / €14 Cave",
+        duration: "1.5 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Capo+Caccia+Escala+del+Cabirol",
+        history: "Vertical 110-meter limestone sea cliff headland marking the westernmost tip of Alghero. Features the 654-step stairs zigzagging down to Neptune's Grotto.",
+        tips: "Park motorbikes right at the cliff edge lighthouse for iconic sunset photos."
+      },
+      {
+        name: "Castelsardo Citadel & Elephant Rock (Roccia dell'Elefante)",
+        type: "Sightseeing & Culture",
+        region: "Sardinia",
+        location: "Northern Sardinia",
+        bestTime: "Afternoon",
+        price: "Free",
+        duration: "1 Hour",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Roccia+dell+Elefante+Castelsardo",
+        history: "A natural 4-meter trachyte rock weathered into the exact shape of an elephant, containing prehistoric Domus de Janas (chamber tombs) inside.",
+        tips: "Located right alongside the SS134 road near Castelsardo, perfect quick roadside moto photo stop."
+      },
+      {
+        name: "Neptune's Grotto Sea Caves",
+        type: "Sightseeing & Nature",
+        region: "Sardinia",
+        location: "Alghero, Northwestern Sardinia",
+        bestTime: "Morning (09:30)",
+        price: "€14 per person",
+        duration: "2 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Grotte+di+Nettuno+Capo+Caccia+Alghero",
+        history: "Dramatically carved sea caves beneath 110m limestone sea cliffs. Accessible via Escala del Cabirol (654 carved cliff stairs).",
+        tips: "The motorcycle ride out along the Capo Caccia headland offers sweeping Mediterranean cliff views."
+      },
+      {
+        name: "Ortygia Island & Syracuse Greek Theater",
+        type: "Archaeology & Ruins",
+        region: "Sicily",
+        location: "Syracuse, Eastern Sicily",
+        bestTime: "Afternoon",
+        price: "€13 per person",
+        duration: "2 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Parco+Archeologico+ della+Neapolis+Siracusa",
+        history: "Ancient Syracuse was the superpower of Magna Graecia (home to Archimedes). Features the massive 5th-century BC Greek Theater carved into limestone rock and the Ear of Dionysius cave.",
+        tips: "Park motorbikes near Ortygia bridge for an easy walk through Baroque marble plazas."
+      },
+      {
+        name: "Christ of Maratea Coastal Overlook",
+        type: "Sightseeing & Nature",
+        region: "Mainland Italy",
+        location: "Maratea, Calabria / Basilicata Coast",
+        bestTime: "Late morning",
+        price: "Free",
+        duration: "1 Hour",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Cristo+Redentore+di+Maratea",
+        history: "A 21m white marble Redeemer statue standing atop Mount San Biagio overlooking 50 km of Tyrrhenian coastline.",
+        tips: "The mountain switchback road leading up to the statue is a thrilling short motorcycle climb."
+      },
+      {
+        name: "Selinunte Greek Seaside Ruins",
+        type: "Archaeology & Ruins",
+        region: "Sicily",
+        location: "Marinella di Selinunte, Western Sicily",
+        bestTime: "Morning",
+        price: "€9 per person",
+        duration: "2 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Parco+Archeologico+di+Selinunte",
+        history: "Largest archaeological park in Europe featuring massive fallen Doric temples overlooking sandy Mediterranean beaches.",
+        tips: "You can park right at the main entrance; very quiet in November."
+      },
+      {
+        name: "Cefalù Cathedral & Coastal Old Town",
+        type: "Sightseeing & Culture",
+        region: "Sicily",
+        location: "Cefalù, Northern Sicily Coast",
+        bestTime: "Afternoon",
+        price: "Free",
+        duration: "1.5 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Duomo+di+Cefalu",
+        history: "Norman fortress cathedral built in 1131 featuring Byzantine gold mosaics nestled under La Rocca mountain cliff.",
+        tips: "Great espresso stop along the northern Sicilian coastal road (SS113)."
+      },
+      {
+        name: "Cilento National Park & Cape Palinuro",
+        type: "Motorcycle Route",
+        region: "Mainland Italy",
+        location: "Cilento Coast, Southern Campania",
+        bestTime: "Morning",
+        price: "Free",
+        duration: "2.5 Hours",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Capo+Palinuro+Cilento",
+        history: "Wild coastal nature reserve named after Palinurus, Aeneas' mythical pilot in Virgil's Aeneid.",
+        tips: "SS269 switchbacks feature dense pine forests and rocky sea cove overlooks."
+      }
+    ];
+
+    // Render Itinerary Cards (Tab 2)
+    function renderItineraryCards() {
+      const container = document.getElementById('itinerary-cards-container');
+      container.innerHTML = '';
+      daysData.forEach(d => {
+        const card = document.createElement('div');
+        card.className = "card-box bg-slate-950 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between space-y-4 hover:border-amber-500/60 transition-all cursor-pointer shadow-sm";
+        card.onclick = () => openHourlyModal(d.day);
+        card.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-semibold">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="text-amber-400 font-black text-sm whitespace-nowrap">DAY ${d.day}</span>
+                <span class="badge-pill text-[10px] px-2.5 py-1 rounded-full border font-bold uppercase whitespace-nowrap ${d.regionColor}">${d.region}</span>
+              </div>
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span class="day-km-badge badge-pill bg-slate-800 text-slate-200 px-2 py-0.5 rounded font-mono font-bold whitespace-nowrap">${d.km}</span>
+                <span class="badge-pill bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono font-bold whitespace-nowrap">⏱️ ${d.time}</span>
+              </div>
+            </div>
+
+            <!-- Road Desglose Badges -->
+            <div class="flex flex-wrap gap-1.5 text-[11px]">
+              <span class="badge-pill bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-md font-mono whitespace-nowrap">🛣️ Hwy: ${d.highwayKm}</span>
+              <span class="badge-pill bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-md font-mono whitespace-nowrap">🏍️ Sec: ${d.secondaryKm}</span>
+            </div>
+
+            <h4 class="font-bold text-sm text-white leading-snug">${d.title}</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">${d.summary}</p>
+          </div>
+          <div class="pt-3 border-t border-slate-800/80 flex justify-between items-center text-[11px] text-amber-400 font-medium">
+            <a href="${d.gmaps}" target="_blank" onclick="event.stopPropagation();" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 px-3 py-1.5 rounded-lg flex items-center gap-1 font-bold transition-all">
+              🗺️ Google Maps GPS
+            </a>
+            <span class="text-amber-400 font-bold hover:underline">Hourly schedule ➔</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    // Render Cities Table (Tab 3)
+    function renderCitiesTable() {
+      const body = document.getElementById('cities-table-body');
+      body.innerHTML = '';
+      daysData.forEach(d => {
+        const row = document.createElement('tr');
+        row.className = "hover:bg-slate-900/60 transition-all border-b border-slate-800/40";
+        row.innerHTML = `
+          <td class="p-3 font-bold text-amber-400 whitespace-nowrap">Day ${d.day}</td>
+          <td class="p-3 whitespace-nowrap">
+            <span class="badge-pill text-[10px] px-2.5 py-1 rounded-full border font-bold uppercase whitespace-nowrap ${d.regionColor}">${d.region}</span>
+          </td>
+          <td class="p-3 font-medium text-white whitespace-nowrap">${d.cities[0]}</td>
+          <td class="p-3 text-slate-400 min-w-[200px]">${d.cities.slice(1, -1).join(' ➔ ')}</td>
+          <td class="p-3 font-medium text-emerald-400 whitespace-nowrap">${d.cities[d.cities.length - 1]}</td>
+          <td class="p-3 text-right font-mono text-amber-300 font-bold whitespace-nowrap">${d.km}</td>
+          <td class="p-3 text-right font-mono text-blue-400 whitespace-nowrap">${d.highwayKm}</td>
+          <td class="p-3 text-right font-mono text-emerald-400 whitespace-nowrap">${d.secondaryKm}</td>
+          <td class="p-3 text-right font-mono text-slate-300 whitespace-nowrap">
+            <a href="${d.gmaps}" target="_blank" class="text-amber-400 underline font-semibold">Start GPS ➔</a>
+          </td>
+        `;
+        body.appendChild(row);
+      });
+    }
+
+    // Render Transport Breakdown (Tab 5) - Grouped by Region
+    function renderTransportGrid() {
+      const grid = document.getElementById('transport-grid');
+      
+      const regions = ["Spain", "Mainland Italy", "Sicily", "Sardinia"];
+      let motorbikeHtml = '';
+
+      regions.forEach(reg => {
+        const legs = daysData.filter(d => d.region === reg);
+        if (legs.length === 0) return;
+
+        let badgeColor = "bg-red-500/20 text-red-300 border-red-500/40";
+        if (reg === "Mainland Italy") badgeColor = "bg-emerald-500/20 text-emerald-300 border-emerald-500/40";
+        if (reg === "Sicily") badgeColor = "bg-amber-500/20 text-amber-300 border-amber-500/40";
+        if (reg === "Sardinia") badgeColor = "bg-sky-500/20 text-sky-300 border-sky-500/40";
+
+        motorbikeHtml += `
+          <div class="mb-4">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs px-2.5 py-0.5 rounded-full border font-bold uppercase ${badgeColor}">${reg}</span>
+              <span class="text-xs text-slate-400">(${legs.length} Days)</span>
+            </div>
+            <ul class="text-xs space-y-1.5 text-slate-300 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+        `;
+
+        legs.forEach(l => {
+          motorbikeHtml += `
+            <li class="flex justify-between items-center py-1.5 border-b border-slate-800/40 last:border-none text-xs">
+              <span><strong class="text-slate-200">Day ${l.day}:</strong> ${l.title}</span>
+              <div class="flex items-center gap-2 font-mono">
+                <span class="text-blue-400 text-[11px]">🛣️ ${l.highwayKm}</span>
+                <span class="text-emerald-400 text-[11px]">🏍️ ${l.secondaryKm}</span>
+                <span class="text-amber-300 font-bold ml-1">${l.km}</span>
+              </div>
+            </li>
+          `;
+        });
+
+        motorbikeHtml += `</ul></div>`;
+      });
+
+      grid.innerHTML = `
+        <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
+          <h3 class="font-bold text-md text-amber-400 flex items-center gap-2">🏍️ Motorbike Riding Legs (Grouped by Region)</h3>
+          ${motorbikeHtml}
+        </div>
+
+        <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
+          <h3 class="font-bold text-md text-blue-400 flex items-center gap-2">🚢 Ferry Sea Sailings (Grouped by Connection)</h3>
+          <ul class="text-xs space-y-3 text-slate-300">
+            <li class="p-3 bg-slate-900 rounded-lg border border-slate-800 flex flex-col space-y-1">
+              <div class="flex justify-between items-center">
+                <strong class="text-white">1. Spain ➔ Mainland Italy</strong>
+                <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-emerald-500/20 text-emerald-300 border-emerald-500/40">CIVITAVECCHIA</span>
+              </div>
+              <span class="text-slate-400 text-[11px]">Barcelona ➔ Civitavecchia (Rome) • Grimaldi Lines • ~20 Hours Overnight</span>
+            </li>
+            <li class="p-3 bg-slate-900 rounded-lg border border-slate-800 flex flex-col space-y-1">
+              <div class="flex justify-between items-center">
+                <strong class="text-white">2. Mainland Italy ➔ Sicily</strong>
+                <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-amber-500/20 text-amber-300 border-amber-500/40">MESSINA STRAIT</span>
+              </div>
+              <span class="text-slate-400 text-[11px]">Villa San Giovanni ➔ Messina • Caronte & Tourist Shuttle • 20 Minutes</span>
+            </li>
+            <li class="p-3 bg-slate-900 rounded-lg border border-slate-800 flex flex-col space-y-1">
+              <div class="flex justify-between items-center">
+                <strong class="text-white">3. Sicily ➔ Sardinia</strong>
+                <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-sky-500/20 text-sky-300 border-sky-500/40">CAGLIARI</span>
+              </div>
+              <span class="text-slate-400 text-[11px]">Palermo ➔ Cagliari • Grimaldi Lines • ~12 Hours Overnight</span>
+            </li>
+            <li class="p-3 bg-slate-900 rounded-lg border border-slate-800 flex flex-col space-y-1">
+              <div class="flex justify-between items-center">
+                <strong class="text-white">4. Sardinia ➔ Spain</strong>
+                <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-red-500/20 text-red-300 border-red-500/40">BARCELONA RETURN</span>
+              </div>
+              <span class="text-slate-400 text-[11px]">Porto Torres ➔ Barcelona • Grimaldi Lines • ~13.5 Hours Overnight</span>
+            </li>
+          </ul>
+        </div>
+      `;
+    }
+
+    let currentActivityCategory = 'ALL';
+
+    function setActivityCategory(cat) {
+      currentActivityCategory = cat;
+      document.querySelectorAll('.act-cat-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-amber-500/20', 'text-amber-300', 'border-amber-500/40');
+        btn.classList.add('bg-slate-950', 'border-slate-700');
+      });
+
+      const activeBtn = document.getElementById('act-cat-' + cat);
+      if (activeBtn) {
+        activeBtn.classList.remove('bg-slate-950', 'border-slate-700');
+        activeBtn.classList.add('active', 'bg-amber-500/20', 'text-amber-300', 'border-amber-500/40');
+      }
+
+      renderActivitiesGrouped();
+    }
+
+    // Render Activities Grouped by Category & Region (Tab 6)
+    function renderActivitiesGrouped() {
+      const container = document.getElementById('activities-grouped-container');
+      container.innerHTML = '';
+
+      const searchVal = document.getElementById('activity-search').value.toLowerCase();
+
+      // Filter data by category pill & search string
+      const filtered = activitiesData.filter(a => {
+        const matchesCat = (currentActivityCategory === 'ALL') || (a.type === currentActivityCategory);
+        const matchesSearch = a.name.toLowerCase().includes(searchVal) ||
+                              a.type.toLowerCase().includes(searchVal) ||
+                              a.location.toLowerCase().includes(searchVal) ||
+                              a.history.toLowerCase().includes(searchVal);
+        return matchesCat && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="p-8 text-center text-slate-400 bg-slate-950 rounded-xl border border-slate-800">
+            <span>No activities found matching your search and category filter.</span>
+          </div>
+        `;
+        return;
+      }
+
+      // Group filtered activities by type/category
+      const categoryMap = {
+        "Thermal Spa": { label: "♨️ Natural Thermal Spas & Hot Rivers (Termas)", color: "border-emerald-500/40 text-emerald-400" },
+        "Archaeology & Ruins": { label: "🏛️ Ancient Greek & Roman Ruins & Archaeology", color: "border-amber-500/40 text-amber-400" },
+        "Motorcycle Route": { label: "🏍️ Iconic Motorbike Mountain Passes & Cliff Roads", color: "border-sky-500/40 text-sky-400" },
+        "Sightseeing & Nature": { label: "🌅 Panoramic Miradors, Coastal Overlooks & Caves", color: "border-purple-500/40 text-purple-400" },
+        "Sightseeing & Culture": { label: "🏰 Medieval Old Towns & UNESCO Monuments", color: "border-rose-500/40 text-rose-400" }
+      };
+
+      const grouped = {};
+      filtered.forEach(act => {
+        if (!grouped[act.type]) grouped[act.type] = [];
+        grouped[act.type].push(act);
+      });
+
+      Object.keys(grouped).forEach(catKey => {
+        const groupInfo = categoryMap[catKey] || { label: catKey, color: "text-white" };
+        const actList = grouped[catKey];
+
+        const section = document.createElement('div');
+        section.className = "space-y-3";
+
+        let cardsHtml = '';
+        actList.forEach(a => {
+          let regionBadge = "bg-emerald-500/20 text-emerald-300 border-emerald-500/40";
+          if (a.region === "Spain") regionBadge = "bg-red-500/20 text-red-300 border-red-500/40";
+          if (a.region === "Sicily") regionBadge = "bg-amber-500/20 text-amber-300 border-amber-500/40";
+          if (a.region === "Sardinia") regionBadge = "bg-sky-500/20 text-sky-300 border-sky-500/40";
+
+          cardsHtml += `
+            <div onclick='openActivityModal(${JSON.stringify(a).replace(/'/g, "&apos;")})' class="card-box bg-slate-950 border border-slate-800 p-5 rounded-2xl space-y-4 hover:border-amber-500/60 transition-all cursor-pointer shadow-sm flex flex-col justify-between">
+              <div class="space-y-2">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="badge-pill text-[10px] px-2.5 py-1 rounded-full border font-bold uppercase whitespace-nowrap ${regionBadge}">${a.region}</span>
+                  <span class="font-mono text-amber-300 font-bold text-xs whitespace-nowrap">${a.price}</span>
+                </div>
+                <h4 class="font-bold text-sm text-white pt-1">${a.name}</h4>
+                <p class="text-xs text-slate-400">📍 ${a.location}</p>
+                <p class="text-xs text-slate-300 line-clamp-2 leading-relaxed pt-1">${a.history}</p>
+              </div>
+
+              <div class="pt-3 border-t border-slate-800/80 flex justify-between items-center text-[11px]">
+                <a href="${a.gmaps}" target="_blank" onclick="event.stopPropagation();" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1">
+                  📍 Google Maps
+                </a>
+                <span class="text-amber-400 font-bold hover:underline">Details & Tips ➔</span>
+              </div>
+            </div>
+          `;
+        });
+
+        section.innerHTML = `
+          <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
+            <h3 class="font-bold text-sm uppercase ${groupInfo.color}">${groupInfo.label}</h3>
+            <span class="text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full font-bold">(${actList.length})</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            ${cardsHtml}
+          </div>
+        `;
+
+        container.appendChild(section);
+      });
+    }
+
+    function filterActivities() {
+      renderActivitiesGrouped();
+    }
+
+    // Modal Triggers
+    function openHourlyModal(dayNum) {
+      const data = daysData.find(d => d.day === dayNum);
+      if (!data) return;
+
+      document.getElementById('modal-day-badge').innerText = `DAY ${data.day} • ${data.km} • ⏱️ ${data.time}`;
+      document.getElementById('modal-title').innerText = data.title;
+
+      const timelineContainer = document.getElementById('modal-timeline');
+      timelineContainer.innerHTML = `
+        <div class="pb-2">
+          <a href="${data.gmaps}" target="_blank" class="inline-flex items-center gap-1.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 px-3 py-1.5 rounded-lg text-xs font-bold">
+            🗺️ Open Live GPS Driving Directions for Day ${data.day} in Google Maps ➔
+          </a>
+        </div>
+      `;
+      data.timeline.forEach(t => {
+        const item = document.createElement('div');
+        item.className = "flex gap-3 bg-slate-950 p-3 rounded-xl border border-slate-800";
+        item.innerHTML = `
+          <span class="font-mono text-amber-400 font-bold w-28 shrink-0">${t.time}</span>
+          <span class="text-slate-300">${t.act}</span>
+        `;
+        timelineContainer.appendChild(item);
+      });
+
+      document.getElementById('hourly-modal').classList.remove('hidden');
+    }
+
+    function openActivityModal(act) {
+      document.getElementById('act-type-badge').innerText = act.type;
+      document.getElementById('act-title').innerText = act.name;
+      document.getElementById('act-location').innerText = act.location;
+      document.getElementById('act-history').innerText = act.history;
+      document.getElementById('act-duration').innerText = act.duration;
+      document.getElementById('act-price').innerText = act.price;
+      document.getElementById('act-tips').innerText = act.tips;
+
+      const tipsContainer = document.getElementById('act-tips').parentElement;
+      let gmapsLink = tipsContainer.querySelector('.gmaps-act-link');
+      if (!gmapsLink) {
+        gmapsLink = document.createElement('div');
+        gmapsLink.className = "gmaps-act-link pt-2";
+        tipsContainer.appendChild(gmapsLink);
+      }
+      gmapsLink.innerHTML = `
+        <a href="${act.gmaps}" target="_blank" class="inline-flex items-center gap-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-3 py-1.5 rounded-lg text-xs font-bold mt-1">
+          📍 Open ${act.name} in Google Maps ➔
+        </a>
+      `;
+
+      document.getElementById('activity-modal').classList.remove('hidden');
+    }
+
+    // Initialize Map with CartoDB Voyager Tiles (Fixes 403 Tile Blockage)
+    function initMap() {
+      const map = L.map('map').setView([39.0, 12.5], 6);
+      window.map = map;
+
+      // 100% Free Public Esri WorldTopoMap (No API key, No 403 blocks)
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community',
+        maxZoom: 18
+      }).addTo(map);
+
+      const waypoints = [
+        { name: "Lloret de Mar (Home)", lat: 41.7005, lng: 2.8456, desc: "Starting & Ending Point" },
+        { name: "Port of Barcelona (Ferry)", lat: 41.368, lng: 2.175, desc: "Grimaldi Lines Ferry Port" },
+        { name: "Civitavecchia (Rome Port)", lat: 42.092, lng: 11.796, desc: "Mainland Gateway Port" },
+        { name: "Amalfi Coast (SS163)", lat: 40.634, lng: 14.602, desc: "Iconic Coastal Motorbike Road" },
+        { name: "Terme di Caronte (Calabria)", lat: 38.973, lng: 16.291, desc: "Natural Thermal Sulfur Baths" },
+        { name: "Riace Bronzes (Reggio Calabria)", lat: 38.114, lng: 15.651, desc: "5th-Century BC Greek Bronze Sculptures" },
+        { name: "Mt. Etna SP92 Loop", lat: 37.702, lng: 15.000, desc: "Volcano Lava Field Ride (1,900m)" },
+        { name: "Valley of the Temples & Icarus", lat: 37.288, lng: 13.586, desc: "Greek Temples & Bronze Sculpture" },
+        { name: "Terme Segestane (Hot River)", lat: 37.973, lng: 12.839, desc: "Natural 47°C Thermal River Dip" },
+        { name: "Palermo Port (Ferry to Sardinia)", lat: 38.127, lng: 13.369, desc: "Overnight Ferry to Cagliari" },
+        { name: "Cagliari Port (Sardinia)", lat: 39.215, lng: 9.112, desc: "Sardinia Starting Point" },
+        { name: "SS125 Orientale Sarda (Baunei)", lat: 40.031, lng: 9.664, desc: "Legendary Grippy Mountain Pass" },
+        { name: "Alghero & Capo Caccia", lat: 40.558, lng: 8.319, desc: "Medieval Coastal Town & Cliff Road" },
+        { name: "Porto Torres (Ferry to Barcelona)", lat: 40.836, lng: 8.402, desc: "Direct Ferry Port back to Spain" }
+      ];
+
+      const latlngs = waypoints.map(wp => [wp.lat, wp.lng]);
+      L.polyline(latlngs, { color: '#f59e0b', weight: 4, opacity: 0.85, dashArray: '6, 6' }).addTo(map);
+
+      waypoints.forEach(wp => {
+        L.marker([wp.lat, wp.lng])
+          .addTo(map)
+          .bindPopup(`<b style="color:#0f172a;">${wp.name}</b><br><span style="font-size:12px; color:#475569;">${wp.desc}</span>`);
+      });
+    }
+
+    // Google-style Dark / Light Mode Toggle Handler
+    function toggleTheme() {
+      const body = document.body;
+      const btn = document.getElementById('theme-toggle-btn');
+      body.classList.toggle('light-theme');
+
+      if (body.classList.contains('light-theme')) {
+        btn.innerHTML = '☀️ <span>Light Mode</span>';
+        btn.className = 'bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm';
+      } else {
+        btn.innerHTML = '🌙 <span>Dark Mode</span>';
+        btn.className = 'bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm';
+      }
+    }
+
+    // Load everything on DOM Ready
+    document.addEventListener('DOMContentLoaded', () => {
+      initMap();
+      renderItineraryCards();
+      renderCitiesTable();
+      renderTransportGrid();
+      renderActivitiesGrouped();
+    });
+  </script>
+</body>
+</html>
