@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mototrip Planner 2026: Barcelona ➔ Rome ➔ Sicily ➔ Sardinia</title>
+  <title>Planificador Mototrip 2026: Barcelona ➔ Roma ➔ Sicilia ➔ Cerdeña</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Leaflet CSS & JS with Reliable CartoDB Map Tiles (Fixes 403 OSM tile blockage) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -127,20 +127,20 @@
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 md:p-7 shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
       <div>
         <div class="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400">
-          <span>🏍️ 2 Motorbikes</span> • <span>Lloret de Mar ➔ Rome ➔ Sicily ➔ Sardinia</span> • <span>November 2026</span>
+          <span>🏍️ 2 Motos</span> • <span>Lloret de Mar ➔ Roma ➔ Sicilia ➔ Cerdeña</span> • <span>Noviembre 2026</span>
         </div>
-        <h1 class="text-2xl md:text-3xl font-black text-white mt-1">Father & Son Mototrip Master Planner</h1>
-        <p class="text-xs md:text-sm text-slate-400 mt-1">14-Day Route, Detailed Hour-by-Hour Schedules, Highway vs Secondary Desglose & Sightseeing</p>
+        <h1 class="text-2xl md:text-3xl font-black text-white mt-1">Planificador Mototrip Padre e Hijo</h1>
+        <p class="text-xs md:text-sm text-slate-400 mt-1">Ruta de 14 días, horarios detallados por horas, Autopista vs Carretera secundaria / Curvas de montaña y visitas</p>
       </div>
       <div class="flex flex-wrap items-center gap-3">
         <div class="flex flex-wrap gap-2">
-          <span class="bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs px-3 py-1.5 rounded-full font-semibold">14 Days</span>
-          <span class="bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs px-3 py-1.5 rounded-full font-semibold">1,865 km Riding</span>
-          <span class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs px-3 py-1.5 rounded-full font-semibold">€1,215 – €1,800 / Person</span>
+          <span class="bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs px-3 py-1.5 rounded-full font-semibold">14 Días</span>
+          <span class="bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs px-3 py-1.5 rounded-full font-semibold">1.865 km en moto</span>
+          <span class="bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs px-3 py-1.5 rounded-full font-semibold">€1.215 – €1.800 / Persona</span>
         </div>
         <!-- Google Style Theme Toggle Button -->
         <button onclick="toggleTheme()" id="theme-toggle-btn" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm">
-          ☀️ <span>Light Mode</span>
+          ☀️ <span>Modo claro</span>
         </button>
       </div>
     </div>
@@ -148,25 +148,28 @@
     <!-- Navigation Tabs Header (Horizontal Scroll on Mobile) -->
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-2 shadow-lg flex items-center gap-2 text-xs font-bold overflow-x-auto whitespace-nowrap">
       <button onclick="switchTab('map-view')" id="tab-map-view" class="tab-btn active px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
-        📍 <span>Map & Overview</span>
+        📍 <span>Mapa y Resumen</span>
       </button>
       <button onclick="switchTab('itinerary-view')" id="tab-itinerary-view" class="tab-btn px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
-        📅 <span>Daily Itinerary</span>
+        📅 <span>Itinerario Diario</span>
       </button>
       <button onclick="switchTab('cities-view')" id="tab-cities-view" class="tab-btn px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
-        🏙️ <span>Km & Cities Passed</span>
+        🏙️ <span>Km y Ciudades</span>
       </button>
       <button onclick="switchTab('prices-view')" id="tab-prices-view" class="tab-btn px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
-        💰 <span>Price & Budget</span>
+        💰 <span>Presupuesto y Precios</span>
       </button>
       <button onclick="switchTab('transport-view')" id="tab-transport-view" class="tab-btn px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
-        🚢 <span>Motorbike vs. Ferry</span>
+        🚢 <span>Motos vs. Ferrys</span>
       </button>
       <button onclick="switchTab('activities-view')" id="tab-activities-view" class="tab-btn px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
-        ♨️ <span>Activities & Spas</span>
+        ♨️ <span>Actividades y Termas</span>
       </button>
       <button onclick="switchTab('packing-view')" id="tab-packing-view" class="tab-btn px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
-        🧰 <span>Packing Checklist</span>
+        🧰 <span>Lista de Equipaje</span>
+      </button>
+      <button onclick="switchTab('hotels-view')" id="tab-hotels-view" class="tab-btn px-3.5 py-2.5 rounded-xl border border-transparent transition-all flex items-center gap-1.5 shrink-0">
+        🏨 <span>Alojamientos y Parking</span>
       </button>
     </div>
 
@@ -177,9 +180,9 @@
         <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl flex flex-col">
           <div class="flex justify-between items-center mb-3">
             <h2 class="font-bold text-lg text-white flex items-center gap-2">
-              📍 Full Route Map
+              📍 Mapa completo de la ruta
             </h2>
-            <span class="text-xs text-slate-400">CartoDB Voyager Tiles (No 403 OSM Block)</span>
+            <span class="text-xs text-slate-400">Teselas CartoDB Voyager (sin bloqueo 403 de OSM)</span>
           </div>
           <div id="map"></div>
         </div>
@@ -187,51 +190,51 @@
         <!-- Sidebar Summary -->
         <div class="space-y-4">
           <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
-            <h3 class="font-bold text-md text-amber-400">🌤️ November Weather & Daylight</h3>
+            <h3 class="font-bold text-md text-amber-400">🌤️ Clima y horas de luz en noviembre</h3>
             <div class="grid grid-cols-2 gap-2 text-xs">
               <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <span class="text-slate-400 block">Usable Daylight</span>
+                <span class="text-slate-400 block">Horas de luz útiles</span>
                 <span class="text-sm font-bold text-white">07:00 – 16:45</span>
-                <span class="text-[11px] text-amber-300 block mt-0.5">~9.5 hrs/day</span>
+                <span class="text-[11px] text-amber-300 block mt-0.5">~9,5 h/día</span>
               </div>
               <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <span class="text-slate-400 block">Islands (Sicily/Sardinia)</span>
+                <span class="text-slate-400 block">Islas (Sicilia/Cerdeña)</span>
                 <span class="text-sm font-bold text-emerald-400">18°C – 20°C</span>
-                <span class="text-[11px] text-emerald-300 block mt-0.5">Warm & Sunny</span>
+                <span class="text-[11px] text-emerald-300 block mt-0.5">Templado y soleado</span>
               </div>
               <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <span class="text-slate-400 block">Mainland Italy</span>
+                <span class="text-slate-400 block">Italia continental</span>
                 <span class="text-sm font-bold text-blue-300">15°C – 18°C</span>
-                <span class="text-[11px] text-slate-400 block mt-0.5">Crisp autumn</span>
+                <span class="text-[11px] text-slate-400 block mt-0.5">Otoño fresco</span>
               </div>
               <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-                <span class="text-slate-400 block">Mt. Etna / Passes</span>
+                <span class="text-slate-400 block">Monte Etna / Puertos</span>
                 <span class="text-sm font-bold text-cyan-300">6°C – 11°C</span>
-                <span class="text-[11px] text-cyan-200 block mt-0.5">Thermals needed</span>
+                <span class="text-[11px] text-cyan-200 block mt-0.5">Ropa térmica necesaria</span>
               </div>
             </div>
           </div>
 
           <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-2">
-            <h3 class="font-bold text-md text-emerald-400">⚡ Quick Stats</h3>
+            <h3 class="font-bold text-md text-emerald-400">⚡ Resumen rápido</h3>
             <ul class="text-xs space-y-2 text-slate-300">
               <li class="flex justify-between border-b border-slate-800 pb-1.5">
-                <span>Total Riding Distance:</span> <strong class="text-amber-400 font-mono">1,865 km</strong>
+                <span>Distancia total en moto:</span> <strong class="text-amber-400 font-mono">1.865 km</strong>
               </li>
               <li class="flex justify-between border-b border-slate-800 pb-1.5">
-                <span>🛣️ Highway (Autopista):</span> <strong class="text-blue-400 font-mono">620 km (33%)</strong>
+                <span>🛣️ Autopista:</span> <strong class="text-blue-400 font-mono">620 km (33 %)</strong>
               </li>
               <li class="flex justify-between border-b border-slate-800 pb-1.5">
-                <span>🏍️ Secondary / Mountain:</span> <strong class="text-emerald-400 font-mono">1,245 km (67%)</strong>
+                <span>🏍️ Carretera secundaria / Curvas de montaña:</span> <strong class="text-emerald-400 font-mono">1.245 km (67 %)</strong>
               </li>
               <li class="flex justify-between border-b border-slate-800 pb-1.5">
-                <span>Total Motorbike Hours:</span> <strong class="text-amber-400 font-mono">~30.5 hours</strong>
+                <span>Horas totales en moto:</span> <strong class="text-amber-400 font-mono">~30,5 horas</strong>
               </li>
               <li class="flex justify-between border-b border-slate-800 pb-1.5">
-                <span>Ferry Overnight Legs:</span> <strong class="text-blue-400 font-mono">3 Major Sailings</strong>
+                <span>Tramos en ferry nocturno:</span> <strong class="text-blue-400 font-mono">3 travesías principales</strong>
               </li>
               <li class="flex justify-between">
-                <span>Hot Springs & Spas:</span> <strong class="text-emerald-400 font-mono">2 Natural Sites</strong>
+                <span>Termas y aguas termales:</span> <strong class="text-emerald-400 font-mono">2 lugares naturales</strong>
               </li>
             </ul>
           </div>
@@ -244,8 +247,8 @@
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
         <div class="flex justify-between items-center">
           <div>
-            <h2 class="font-bold text-xl text-white">📅 Daily Itinerary (Click any day to expand hour-by-hour details)</h2>
-            <p class="text-xs text-slate-400">Includes hourly timelines, meal stops, riding times & sights</p>
+            <h2 class="font-bold text-xl text-white">📅 Itinerario Diario (haz clic en cualquier día para ver el detalle por horas)</h2>
+            <p class="text-xs text-slate-400">Incluye horarios por horas, paradas para comer, tiempos de conducción y visitas</p>
           </div>
         </div>
 
@@ -259,22 +262,22 @@
     <div id="view-cities-view" class="tab-content hidden space-y-6">
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 md:p-6 shadow-xl space-y-4">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-1">
-          <h2 class="font-bold text-xl text-white">🏙️ Route Breakdown by Cities & Motorbike Kilometers</h2>
-          <span class="text-[11px] text-slate-400 block md:hidden">👈 Swipe table horizontally to see full breakdown 👉</span>
+          <h2 class="font-bold text-xl text-white">🏙️ Desglose de ruta por ciudades y kilómetros en moto</h2>
+          <span class="text-[11px] text-slate-400 block md:hidden">👈 Desliza la tabla horizontalmente para ver el desglose completo 👉</span>
         </div>
         <div class="overflow-x-auto rounded-xl border border-slate-800/80">
           <table class="w-full text-xs text-left text-slate-300 border-collapse min-w-[700px]">
             <thead class="bg-slate-950 text-amber-400 uppercase text-[11px] border-b border-slate-800">
               <tr>
-                <th class="p-3">Day</th>
-                <th class="p-3">Region</th>
-                <th class="p-3">Starting Point</th>
-                <th class="p-3">Cities & Waypoints Passed</th>
-                <th class="p-3">Destination City</th>
-                <th class="p-3 text-right">Total Km</th>
-                <th class="p-3 text-right text-blue-400">🛣️ Highway</th>
-                <th class="p-3 text-right text-emerald-400">🏍️ Secondary</th>
-                <th class="p-3 text-right">Est. GPS Route</th>
+                <th class="p-3">Día</th>
+                <th class="p-3">Región</th>
+                <th class="p-3">Salida</th>
+                <th class="p-3">Ciudades y puntos de paso</th>
+                <th class="p-3">Destino</th>
+                <th class="p-3 text-right">Km totales</th>
+                <th class="p-3 text-right text-blue-400">🛣️ Autopista</th>
+                <th class="p-3 text-right text-emerald-400">🏍️ Secundaria</th>
+                <th class="p-3 text-right">Ruta GPS est.</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-800/60" id="cities-table-body">
@@ -287,59 +290,107 @@
 
     <!-- TAB 4: PRICES & BUDGET BREAKDOWN -->
     <div id="view-prices-view" class="tab-content hidden space-y-6">
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-        <h2 class="font-bold text-xl text-white">💰 Detailed Price & Budget Breakdown (Per Person)</h2>
-        <p class="text-xs text-slate-400">Based on 2 riders traveling together, sharing 2-bed ferry cabins & hotel twin rooms in November.</p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="space-y-3">
-            <h3 class="font-bold text-sm text-amber-400 uppercase">Fixed Costs (Ferries & Transport)</h3>
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
-              <div class="flex justify-between border-b border-slate-800 pb-2">
-                <span>Barcelona ➔ Civitavecchia Ferry (Grimaldi)</span>
-                <span class="font-mono text-amber-300 font-bold">€110 – €160</span>
-              </div>
-              <div class="flex justify-between border-b border-slate-800 pb-2">
-                <span>Strait of Messina Ferry (Villa San Giovanni)</span>
-                <span class="font-mono text-amber-300 font-bold">€15 – €20</span>
-              </div>
-              <div class="flex justify-between border-b border-slate-800 pb-2">
-                <span>Palermo ➔ Cagliari Ferry (Sardinia)</span>
-                <span class="font-mono text-amber-300 font-bold">€70 – €110</span>
-              </div>
-              <div class="flex justify-between">
-                <span>Porto Torres ➔ Barcelona Return Ferry</span>
-                <span class="font-mono text-amber-300 font-bold">€90 – €140</span>
-              </div>
-            </div>
-          </div>
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
+        <div>
+          <h2 class="font-bold text-xl text-white">💰 Calculadora dinámica de presupuesto (por persona)</h2>
+          <p class="text-xs text-slate-400 mt-1">Base realista para 2 motoristas: 4 travesías con moto y camarote, 10 noches compartiendo habitación, 2.240 km de ruta y 14 días de comida.</p>
+        </div>
 
-          <div class="space-y-3">
-            <h3 class="font-bold text-sm text-emerald-400 uppercase">Variable Costs (Hotels, Fuel, Food)</h3>
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
-              <div class="flex justify-between border-b border-slate-800 pb-2">
-                <span>Motorbike Fuel (~1,865 km @ 1.85€/L)</span>
-                <span class="font-mono text-emerald-300 font-bold">€180 – €240</span>
-              </div>
-              <div class="flex justify-between border-b border-slate-800 pb-2">
-                <span>Hotels & B&Bs (10 Nights shared room)</span>
-                <span class="font-mono text-emerald-300 font-bold">€350 – €550</span>
-              </div>
-              <div class="flex justify-between border-b border-slate-800 pb-2">
-                <span>Food, Meals & Espresso (14 Days)</span>
-                <span class="font-mono text-emerald-300 font-bold">€350 – €500</span>
-              </div>
-              <div class="flex justify-between">
-                <span>Tolls, Museum Tickets & Spa Entries</span>
-                <span class="font-mono text-emerald-300 font-bold">€50 – €80</span>
-              </div>
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-slate-400 block">Ferrys</span>
+            <strong class="text-amber-300 font-mono text-lg">€420</strong>
+            <p class="text-slate-400">4 travesías con moto y camarote</p>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-slate-400 block">Hoteles base</span>
+            <strong class="text-emerald-300 font-mono text-lg">€35/noche</strong>
+            <p class="text-slate-400">Habitación de €70 compartida</p>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-slate-400 block">Gasolina base</span>
+            <strong class="text-blue-300 font-mono text-lg">5,0 L/100 km</strong>
+            <p class="text-slate-400">€1,85/L sobre 2.240 km</p>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-slate-400 block">Comida & espresso</span>
+            <strong class="text-rose-300 font-mono text-lg">€35/día</strong>
+            <p class="text-slate-400">Pranzo, cena y cafés</p>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
+            <span class="text-slate-400 block">Peajes y entradas</span>
+            <strong class="text-cyan-300 font-mono text-lg">€80</strong>
+            <p class="text-slate-400">Museos, termas y peajes</p>
           </div>
         </div>
 
-        <div class="bg-gradient-to-r from-amber-500/20 to-emerald-500/20 border border-amber-500/40 p-4 rounded-xl flex justify-between items-center text-sm font-bold">
-          <span>GRAND TOTAL ESTIMATED COST PER PERSON:</span>
-          <span class="text-xl font-mono text-amber-300">€1,215 – €1,800</span>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
+            <div class="flex justify-between items-start gap-3">
+              <div>
+                <h3 class="font-bold text-sm text-blue-400 uppercase">Consumo de gasolina</h3>
+                <p class="text-xs text-slate-400">Ajusta litros cada 100 km.</p>
+              </div>
+              <span id="fuel-consumption-label" class="font-mono text-blue-300 font-bold text-sm">5,0 L/100 km</span>
+            </div>
+            <input id="fuel-consumption-slider" type="range" min="4" max="7" step="0.1" value="5" oninput="updateBudgetCalculator()" class="w-full accent-blue-500">
+            <div class="flex justify-between text-[11px] text-slate-500"><span>4,0</span><span>7,0</span></div>
+          </div>
+
+          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
+            <div class="flex justify-between items-start gap-3">
+              <div>
+                <h3 class="font-bold text-sm text-emerald-400 uppercase">Nivel de alojamiento</h3>
+                <p class="text-xs text-slate-400">Coste por noche y persona.</p>
+              </div>
+              <span id="hotel-night-label" class="font-mono text-emerald-300 font-bold text-sm">€35/noche</span>
+            </div>
+            <input id="hotel-night-slider" type="range" min="25" max="80" step="5" value="35" oninput="updateBudgetCalculator()" class="w-full accent-emerald-500">
+            <div class="flex justify-between text-[11px] text-slate-500"><span>€25</span><span>€80</span></div>
+          </div>
+
+          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
+            <div class="flex justify-between items-start gap-3">
+              <div>
+                <h3 class="font-bold text-sm text-rose-400 uppercase">Comida diaria</h3>
+                <p class="text-xs text-slate-400">Pranzo, cena, cafés y agua.</p>
+              </div>
+              <span id="food-day-label" class="font-mono text-rose-300 font-bold text-sm">€35/día</span>
+            </div>
+            <input id="food-day-slider" type="range" min="25" max="70" step="5" value="35" oninput="updateBudgetCalculator()" class="w-full accent-rose-500">
+            <div class="flex justify-between text-[11px] text-slate-500"><span>€25</span><span>€70</span></div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="lg:col-span-2 bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-2 text-xs">
+            <div class="flex justify-between border-b border-slate-800 pb-2">
+              <span>Ferrys baseline</span>
+              <span id="budget-ferries" class="font-mono text-amber-300 font-bold">€420</span>
+            </div>
+            <div class="flex justify-between border-b border-slate-800 pb-2">
+              <span>Hoteles (<span id="budget-hotel-nights">10</span> noches)</span>
+              <span id="budget-hotels" class="font-mono text-emerald-300 font-bold">€350</span>
+            </div>
+            <div class="flex justify-between border-b border-slate-800 pb-2">
+              <span>Gasolina (<span id="budget-fuel-km">2.240</span> km @ €1,85/L)</span>
+              <span id="budget-fuel" class="font-mono text-blue-300 font-bold">€207</span>
+            </div>
+            <div class="flex justify-between border-b border-slate-800 pb-2">
+              <span>Comida & espresso (<span id="budget-food-days">14</span> días)</span>
+              <span id="budget-food" class="font-mono text-rose-300 font-bold">€490</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Peajes y entradas</span>
+              <span id="budget-tolls" class="font-mono text-cyan-300 font-bold">€80</span>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-r from-amber-500/20 to-emerald-500/20 border border-amber-500/40 p-5 rounded-xl flex flex-col justify-between gap-3">
+            <span class="text-xs font-bold text-slate-300 uppercase">Coste total estimado por persona</span>
+            <span id="budget-grand-total" class="text-3xl font-black font-mono text-amber-300">€1.547</span>
+            <p id="budget-summary" class="text-xs text-slate-300 leading-relaxed">Base: ferrys €420, hoteles €350, gasolina €207, comida €490, peajes/entradas €80.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -347,8 +398,11 @@
     <!-- TAB 5: MOTORBIKE VS. FERRY BREAKDOWN -->
     <div id="view-transport-view" class="tab-content hidden space-y-6">
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-        <h2 class="font-bold text-xl text-white">🚢 Transport Mode Breakdown (Motorbike vs. Ferry)</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="transport-grid">
+        <div>
+          <h2 class="font-bold text-xl text-white">🚢 Motos vs. Ferrys</h2>
+          <p class="text-xs text-slate-400 mt-1">Tarjetas de ferry con horarios, duración, check-in de motos y consejos para asegurar las motos en la bodega.</p>
+        </div>
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6" id="transport-grid">
           <!-- Injected via JS -->
         </div>
       </div>
@@ -359,31 +413,31 @@
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4">
           <div>
-            <h2 class="font-bold text-xl text-white">♨️ Sightseeing, Thermal Spas & Motorbike Miradors</h2>
-            <p class="text-xs text-slate-400">Filter activities by type or region. Click any activity for detailed history & rider tips.</p>
+            <h2 class="font-bold text-xl text-white">♨️ Visitas, termas y miradores moteros</h2>
+            <p class="text-xs text-slate-400">Filtra actividades por tipo o región. Haz clic en cualquier actividad para ver historia y consejos para motoristas.</p>
           </div>
           <!-- Search Bar -->
           <div class="w-full md:w-72">
-            <input type="text" id="activity-search" onkeyup="filterActivities()" placeholder="🔍 Search by keyword..." class="w-full bg-slate-950 border border-slate-700 text-xs px-3.5 py-2.5 rounded-xl text-slate-200 focus:outline-none focus:border-amber-400">
+            <input type="text" id="activity-search" onkeyup="filterActivities()" placeholder="🔍 Buscar por palabra clave..." class="w-full bg-slate-950 border border-slate-700 text-xs px-3.5 py-2.5 rounded-xl text-slate-200 focus:outline-none focus:border-amber-400">
           </div>
         </div>
 
         <!-- Easy Category Filter Pills -->
         <div class="flex flex-wrap gap-2 text-xs font-semibold" id="activity-category-pills">
           <button onclick="setActivityCategory('ALL')" id="act-cat-ALL" class="act-cat-btn active bg-amber-500/20 text-amber-300 border border-amber-500/40 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
-            🌟 <span>All Activities</span>
+            🌟 <span>Todas las actividades</span>
           </button>
-          <button onclick="setActivityCategory('Thermal Spa')" id="act-cat-Thermal Spa" class="act-cat-btn bg-slate-950 text-emerald-400 border border-slate-700 hover:border-emerald-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
-            ♨️ <span>Thermal Spas (Termas)</span>
+          <button onclick="setActivityCategory('Termas')" id="act-cat-Termas" class="act-cat-btn bg-slate-950 text-emerald-400 border border-slate-700 hover:border-emerald-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            ♨️ <span>Termas</span>
           </button>
-          <button onclick="setActivityCategory('Archaeology & Ruins')" id="act-cat-Archaeology & Ruins" class="act-cat-btn bg-slate-950 text-amber-400 border border-slate-700 hover:border-amber-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
-            🏛️ <span>Ruins & Archaeology</span>
+          <button onclick="setActivityCategory('Arqueología y ruinas')" id="act-cat-Arqueología y ruinas" class="act-cat-btn bg-slate-950 text-amber-400 border border-slate-700 hover:border-amber-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            🏛️ <span>Ruinas y arqueología</span>
           </button>
-          <button onclick="setActivityCategory('Motorcycle Route')" id="act-cat-Motorcycle Route" class="act-cat-btn bg-slate-950 text-sky-400 border border-slate-700 hover:border-sky-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
-            🏍️ <span>Motorbike Passes & Miradors</span>
+          <button onclick="setActivityCategory('Ruta en moto')" id="act-cat-Ruta en moto" class="act-cat-btn bg-slate-950 text-sky-400 border border-slate-700 hover:border-sky-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            🏍️ <span>Puertos y miradores moteros</span>
           </button>
-          <button onclick="setActivityCategory('Sightseeing & Nature')" id="act-cat-Sightseeing & Nature" class="act-cat-btn bg-slate-950 text-purple-400 border border-slate-700 hover:border-purple-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
-            🌅 <span>Nature & Overlooks</span>
+          <button onclick="setActivityCategory('Paisaje y naturaleza')" id="act-cat-Paisaje y naturaleza" class="act-cat-btn bg-slate-950 text-purple-400 border border-slate-700 hover:border-purple-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            🌅 <span>Naturaleza y miradores</span>
           </button>
         </div>
 
@@ -394,12 +448,63 @@
       </div>
     </div>
 
+    <!-- TAB 8: ACCOMMODATIONS & SECURE PARKING -->
+    <div id="view-hotels-view" class="tab-content hidden space-y-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
+        <div>
+          <h2 class="font-bold text-xl text-white">🏨 Alojamientos y Parking Seguro</h2>
+          <p class="text-xs text-slate-400 mt-1">10 noches recomendadas con rangos realistas por persona compartiendo habitación doble y prioridad absoluta a parking seguro para motos.</p>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-slate-800/80">
+          <table class="w-full text-xs text-left text-slate-300 border-collapse min-w-[820px]">
+            <thead class="bg-slate-950 text-amber-400 uppercase text-[11px] border-b border-slate-800">
+              <tr>
+                <th class="p-3">Noche</th>
+                <th class="p-3">Ciudad base</th>
+                <th class="p-3">Rango €/persona</th>
+                <th class="p-3">Parking seguro</th>
+                <th class="p-3">Consejo práctico</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60">
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">1</td><td class="p-3 text-white font-medium">Santa Severa / Civitavecchia</td><td class="p-3 font-mono text-emerald-300">€30 – €45</td><td class="p-3">Parking privado o patio interior</td><td class="p-3 text-slate-400">Evitar entrar a Roma con motos cargadas; dormir cerca del puerto.</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">2</td><td class="p-3 text-white font-medium">Cilento / Paestum</td><td class="p-3 font-mono text-emerald-300">€35 – €55</td><td class="p-3">Agriturismo con patio cerrado</td><td class="p-3 text-slate-400">Mejor fuera del centro histórico para entrar y salir rápido.</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">3</td><td class="p-3 text-white font-medium">Scilla</td><td class="p-3 font-mono text-emerald-300">€35 – €60</td><td class="p-3">Garaje del hotel o parking vigilado</td><td class="p-3 text-slate-400">Confirmar acceso por calles estrechas antes de reservar.</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">4</td><td class="p-3 text-white font-medium">Taormina / Giardini Naxos</td><td class="p-3 font-mono text-emerald-300">€40 – €70</td><td class="p-3">Parking privado fuera de ZTL</td><td class="p-3 text-slate-400">Dormir en Giardini Naxos suele simplificar parking y evitar multas ZTL.</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">5</td><td class="p-3 text-white font-medium">Agrigento</td><td class="p-3 font-mono text-emerald-300">€35 – €55</td><td class="p-3">Parking cerrado o hotel con garaje</td><td class="p-3 text-slate-400">Buscar alojamiento entre el casco y el Valle de los Templos.</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">6</td><td class="p-3 text-white font-medium">Palermo / zona puerto</td><td class="p-3 font-mono text-emerald-300">€35 – €60</td><td class="p-3">Garaje privado concertado</td><td class="p-3 text-slate-400">Reservar cerca del puerto y revisar ZTL antes de entrar al centro.</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">7</td><td class="p-3 text-white font-medium">Baunei / Arbatax</td><td class="p-3 font-mono text-emerald-300">€35 – €55</td><td class="p-3">Patio cerrado o parking de hotel</td><td class="p-3 text-slate-400">Priorizar hoteles moteros o B&B con espacio para equipaje mojado.</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">8</td><td class="p-3 text-white font-medium">Alghero</td><td class="p-3 font-mono text-emerald-300">€40 – €65</td><td class="p-3">Garaje o parking privado fuera de murallas</td><td class="p-3 text-slate-400">Dormir fuera del casco amurallado evita calles estrechas y restricciones.</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">9</td><td class="p-3 text-white font-medium">Porto Torres / Sassari</td><td class="p-3 font-mono text-emerald-300">€30 – €50</td><td class="p-3">Parking privado o puerto vigilado</td><td class="p-3 text-slate-400">Ideal si el ferry sale temprano o se retrasa el embarque.</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">10</td><td class="p-3 text-white font-medium">Barcelona / Lloret de Mar</td><td class="p-3 font-mono text-emerald-300">€35 – €60</td><td class="p-3">Garaje privado o parking cerrado</td><td class="p-3 text-slate-400">Útil si la llegada del ferry exige descanso antes del tramo final.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+            <h3 class="font-bold text-emerald-400 uppercase">Booking.com</h3>
+            <p class="text-slate-300"><strong>Filtro: Parking gratis o privado</strong>. Después, escribir al alojamiento para confirmar que aceptan 2 motos y que el parking queda cerrado por la noche.</p>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+            <h3 class="font-bold text-amber-400 uppercase">Evitar ZTL</h3>
+            <p class="text-slate-300">Cuidado con centros históricos de Roma, Nápoles, Palermo, Taormina y Siracusa. Mejor dormir fuera de la ZTL y entrar andando.</p>
+          </div>
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+            <h3 class="font-bold text-sky-400 uppercase">Antes de reservar</h3>
+            <p class="text-slate-300">Pedir fotos o descripción del parking: garaje, patio cerrado, recepción 24h o parking privado concertado. Evitar “parking público cercano” si las motos van cargadas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- TAB 7: MOTORBIKE PACKING & GEAR LIST -->
     <div id="view-packing-view" class="tab-content hidden space-y-6">
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
         <div>
-          <h2 class="font-bold text-xl text-white">🧰 Essential Motorbike Trip Packing List (November Edition)</h2>
-          <p class="text-xs text-slate-400">Interactive checklist for father & son. Check off items as you pack your panniers!</p>
+          <h2 class="font-bold text-xl text-white">🧰 Lista esencial de equipaje para viaje en moto (edición noviembre)</h2>
+          <p class="text-xs text-slate-400">Checklist interactiva para padre e hijo. Marca cada cosa al preparar las maletas laterales.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-xs">
@@ -407,81 +512,81 @@
           <!-- Category 1: Documents & Ferry Essentials -->
           <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
             <h3 class="font-bold text-sm text-amber-400 flex items-center gap-1.5">
-              📄 Documents & Ferry Tickets
+              📄 Documentación y billetes de ferry
             </h3>
             <ul class="space-y-2 text-slate-300">
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Passports / DNI & Driving Licenses</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Motorcycle Registrations & Insurance (Green Card)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Printed Ferry Tickets (Grimaldi & GNV)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Spare Ignition / Pannier Keys (Kept separate)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>European Health Insurance Cards (EHIC/TSE)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Pasaportes / DNI y carnés de conducir</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Documentación de las motos y seguro (Carta Verde)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Billetes de ferry impresos (Grimaldi y GNV)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Llaves de repuesto de contacto / maletas (guardadas por separado)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Tarjetas Sanitarias Europeas (TSE)</span></li>
             </ul>
           </div>
 
           <!-- Category 2: November Riding Gear -->
           <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
             <h3 class="font-bold text-sm text-blue-400 flex items-center gap-1.5">
-              🧥 Riding Gear (November Cold & Rain)
+              🧥 Equipación de moto (frío y lluvia de noviembre)
             </h3>
             <ul class="space-y-2 text-slate-300">
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Gore-Tex / Waterproof Jacket & Pants</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Thermal Base Layer Shirt & Tights (for Mt. Etna)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Waterproof Winter Gloves + Mild Weather Gloves</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Windproof Neck Gaiter / Balaclava</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Waterproof Riding Boots & Pinlock Visor</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Chaqueta y pantalón Gore-Tex / impermeables</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Camiseta y malla térmica de primera capa (para el Etna)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Guantes de invierno impermeables + guantes de entretiempo</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Braga de cuello cortaviento / sotocasco</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Botas impermeables de moto y visor Pinlock</span></li>
             </ul>
           </div>
 
           <!-- Category 3: Tools & Tire Repair -->
           <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
             <h3 class="font-bold text-sm text-emerald-400 flex items-center gap-1.5">
-              🛠️ Tools & Bike Repair Kit
+              🛠️ Herramientas y kit de reparación de la moto
             </h3>
             <ul class="space-y-2 text-slate-300">
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Tire Tubeless Plug Kit & CO2 Cartridges / Mini Pump</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Compact Multi-Tool / Allen Wrenches / Torx</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Chain Lube & Small Cleaning Rag</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Zip Ties, Duct Tape & Electric Tape</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Ferry Tie-Down Straps / Rags (Protect seat on ferry)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Kit de mechas para neumáticos tubeless y cartuchos CO2 / mini bomba</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Multiherramienta compacta / llaves Allen / Torx</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Grasa de cadena y trapo pequeño</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Bridas, cinta americana y cinta aislante</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Cinchas para el ferry / trapos (proteger el asiento en el ferry)</span></li>
             </ul>
           </div>
 
           <!-- Category 4: Electronics & Navigation -->
           <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
             <h3 class="font-bold text-sm text-purple-400 flex items-center gap-1.5">
-              📱 Electronics & GPS Navigation
+              📱 Electrónica y navegación GPS
             </h3>
             <ul class="space-y-2 text-slate-300">
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Handlebar Phone Mounts & Waterproof Charging Cables</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Intercom / Helmet Bluetooth (Father-Son Comms)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>High-Capacity Power Bank (20,000mAh)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Offline Maps Downloaded (Google Maps / Maps.me)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Soportes de móvil para manillar y cables de carga impermeables</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Intercomunicador / Bluetooth de casco (comunicación padre-hijo)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Batería externa de alta capacidad (20.000 mAh)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Mapas sin conexión descargados (Google Maps / Maps.me)</span></li>
             </ul>
           </div>
 
           <!-- Category 5: Hot Springs & Casual Clothing -->
           <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
             <h3 class="font-bold text-sm text-rose-400 flex items-center gap-1.5">
-              ♨️ Hot Springs & Casual Wear
+              ♨️ Termas y ropa cómoda
             </h3>
             <ul class="space-y-2 text-slate-300">
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Swimsuits (for Terme Segestane & Caronte)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Quick-Dry Towel & Water Shoes (for rocky hot rivers)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Compact Casual Evening Clothes & Walking Shoes</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Toiletry Kit & Microfiber Towel</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Bañadores (para Terme Segestane y Caronte)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Toalla de secado rápido y escarpines (para ríos termales rocosos)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Ropa cómoda compacta para la tarde/noche y zapatillas para caminar</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Neceser y toalla de microfibra</span></li>
             </ul>
           </div>
 
           <!-- Category 6: Safety & Emergency -->
           <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
             <h3 class="font-bold text-sm text-cyan-400 flex items-center gap-1.5">
-              🩹 First Aid & Roadside Safety
+              🩹 Primeros auxilios y seguridad en carretera
             </h3>
             <ul class="space-y-2 text-slate-300">
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Compact Motorcycle First Aid Kit</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>High-Visibility Reflective Vests (Required in Italy)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Small LED Torch / Headlamp</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Personal Medications & Ibuprofen</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Botiquín compacto para moto</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Chalecos reflectantes de alta visibilidad (obligatorios en Italia)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Linterna LED pequeña / frontal</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" class="rounded accent-amber-500"> <span>Medicación personal e ibuprofeno</span></li>
             </ul>
           </div>
 
@@ -496,8 +601,8 @@
     <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 shadow-2xl space-y-4">
       <div class="flex justify-between items-start">
         <div>
-          <span id="modal-day-badge" class="text-xs font-bold text-amber-400 uppercase tracking-wider">Day 1</span>
-          <h3 id="modal-title" class="text-xl font-bold text-white mt-1">Title</h3>
+          <span id="modal-day-badge" class="text-xs font-bold text-amber-400 uppercase tracking-wider">Día 1</span>
+          <h3 id="modal-title" class="text-xl font-bold text-white mt-1">Título</h3>
         </div>
         <button onclick="closeModal('hourly-modal')" class="text-slate-400 hover:text-white text-xl font-bold p-1">✕</button>
       </div>
@@ -513,33 +618,33 @@
     <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 shadow-2xl space-y-4">
       <div class="flex justify-between items-start">
         <div>
-          <span id="act-type-badge" class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Thermal Spa</span>
-          <h3 id="act-title" class="text-xl font-bold text-white mt-1">Activity Title</h3>
-          <p id="act-location" class="text-xs text-slate-400">Location</p>
+          <span id="act-type-badge" class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Termas</span>
+          <h3 id="act-title" class="text-xl font-bold text-white mt-1">Título de la actividad</h3>
+          <p id="act-location" class="text-xs text-slate-400">Ubicación</p>
         </div>
         <button onclick="closeModal('activity-modal')" class="text-slate-400 hover:text-white text-xl font-bold p-1">✕</button>
       </div>
 
       <div class="space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-3">
         <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-1">
-          <strong class="text-amber-400 block text-xs">Historical Background & Significance:</strong>
-          <p id="act-history" class="text-slate-300 leading-relaxed">History content...</p>
+          <strong class="text-amber-400 block text-xs">Contexto histórico e importancia:</strong>
+          <p id="act-history" class="text-slate-300 leading-relaxed">Contenido histórico...</p>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-            <span class="text-slate-400 block text-[11px]">Recommended Duration</span>
-            <span id="act-duration" class="font-bold text-white">1.5 - 2 Hours</span>
+            <span class="text-slate-400 block text-[11px]">Duración recomendada</span>
+            <span id="act-duration" class="font-bold text-white">1.5 - 2 horas</span>
           </div>
           <div class="bg-slate-950 p-3 rounded-xl border border-slate-800">
-            <span class="text-slate-400 block text-[11px]">Approximate Cost</span>
-            <span id="act-price" class="font-bold text-emerald-400">Free / Natural</span>
+            <span class="text-slate-400 block text-[11px]">Coste aproximado</span>
+            <span id="act-price" class="font-bold text-emerald-400">Gratis / natural</span>
           </div>
         </div>
 
         <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 space-y-1">
-          <strong class="text-amber-400 block text-xs">Motorbike & Rider Tips:</strong>
-          <p id="act-tips" class="text-slate-300 leading-relaxed">Rider tips content...</p>
+          <strong class="text-amber-400 block text-xs">Consejos para motoristas:</strong>
+          <p id="act-tips" class="text-slate-300 leading-relaxed">Consejos para motoristas...</p>
         </div>
       </div>
     </div>
@@ -563,142 +668,207 @@
       document.getElementById(modalId).classList.add('hidden');
     }
 
-    // Comprehensive Data Objects with Region Categorization & Color Coding
+    // Datos completos con categorización por región y colores
     const daysData = [
       {
-        day: 1, title: "Lloret de Mar ➔ Port of Barcelona (Ferry)", km: "75 km", highwayKm: "50 km", secondaryKm: "25 km", time: "1.0 hr", mode: "Motorbike + Ferry",
-        region: "Spain", regionColor: "bg-red-500/20 text-red-300 border-red-500/40",
+        day: 1, title: "Lloret de Mar ➔ Puerto de Barcelona (Ferry nocturno)", km: "75 km", highwayKm: "50 km", secondaryKm: "25 km", time: "1,0 h", mode: "Moto + ferry",
+        region: "España", regionColor: "bg-red-500/20 text-red-300 border-red-500/40",
         cities: ["Lloret de Mar", "Blanes", "Mataró", "Barcelona"],
-        summary: "Ride coastal roads down to Barcelona Port. Check-in for Grimaldi overnight ferry.",
-        gmaps: "https://www.google.com/maps/dir/Lloret+de+Mar,+Spain/Port+de+Barcelona,+Barcelona,+Spain",
+        summary: "Día de preparación en casa y salida vespertina hacia el Puerto de Barcelona para embarcar en el ferry nocturno de Grimaldi.",
+        gmaps: "https://www.google.com/maps/dir/Lloret+de+Mar,+España/Port+de+Barcelona,+Barcelona,+España",
         timeline: [
-          { time: "18:00 - 19:00", act: "Depart Lloret de Mar, ride scenic coastal highway down to Barcelona Port (75 km)." },
-          { time: "19:30 - 20:30", act: "Arrive Port of Barcelona. Port check-in with motorbikes (security & vehicle registration check)." },
-          { time: "20:30 - 21:30", act: "Board Grimaldi Lines vessel. Secure bikes in ship garage, check into 2-bed cabin." },
-          { time: "22:00", act: "Ferry departs Barcelona heading across the Mediterranean to Civitavecchia (20 hrs crossing)." }
+          { time: "07:30 - 08:30", act: "Desayuno y puesta a punto de motos en Lloret de Mar: espresso, cornetto, revisión de presiones, cadena y equipaje." },
+          { time: "08:30 - 10:30", act: "Tramo corto de prueba por carreteras despejadas de la Costa Brava para comprobar carga, intercoms y navegación." },
+          { time: "10:30 - 11:00", act: "Pausa café / espresso de media mañana en bar de carretera y ajuste final de capas para la salida." },
+          { time: "11:00 - 13:00", act: "Preparación cultural y logística: documentación, billetes de ferry, camarote, cinchas y ruta GPS Barcelona ➔ Civitavecchia." },
+          { time: "13:00 - 15:00", act: "Pausa Sagrada de Comida (Pranzo - 2 Horas) en Lloret: pasta fresca, antipasti y descanso antes del ferry nocturno." },
+          { time: "15:00 - 16:45", act: "Carga definitiva de maletas, repostaje y salida con luz dorada hacia Barcelona por Autopista y carretera costera." },
+          { time: "16:45 - 17:15", act: "Llegada temprana al entorno del puerto; motos aparcadas y espera organizada antes del anochecer." },
+          { time: "17:30 - 19:30", act: "Check-in portuario, control de documentación y paseo corto por la zona del puerto antes de embarcar." },
+          { time: "20:00 - 22:00", act: "Cena relajada (Cena) a bordo o cerca del puerto; embarque, motos sujetas en el garaje y camarote doble listo." },
+          { time: "22:00", act: "Salida del ferry nocturno desde Barcelona para cruzar el Mediterráneo hasta Civitavecchia (20 h de travesía)." }
         ]
       },
       {
-        day: 2, title: "At Sea ➔ Arrive Civitavecchia (Rome)", km: "15 km", highwayKm: "0 km", secondaryKm: "15 km", time: "0.3 hrs", mode: "Ferry + Motorbike",
-        region: "Mainland Italy", regionColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
-        cities: ["At Sea", "Civitavecchia", "Santa Severa"],
-        summary: "Relax on board crossing the Mediterranean. Disembark in Civitavecchia Port.",
+        day: 2, title: "En el mar ➔ Llegada a Civitavecchia (Roma)", km: "15 km", highwayKm: "0 km", secondaryKm: "15 km", time: "0,3 h", mode: "Ferry + moto",
+        region: "Italia continental", regionColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+        cities: ["En el mar", "Civitavecchia", "Santa Severa"],
+        summary: "Día de navegación con llegada vespertina a Civitavecchia y traslado corto al hotel antes de cenar junto al mar.",
         gmaps: "https://www.google.com/maps/dir/Porto+di+Civitavecchia,+Italy/Santa+Severa,+Lazio,+Italy",
         timeline: [
-          { time: "08:00 - 17:00", act: "Day at sea. Breakfast on deck, rest, prepare route maps for mainland Italy." },
-          { time: "18:30 - 19:30", act: "Ferry docks in Civitavecchia. Disembark with motorbikes." },
-          { time: "19:45 - 20:15", act: "Short 15 km ride to hotel near Santa Severa / Civitavecchia coast." },
-          { time: "20:30", act: "Dinner in seaside trattoria (fresh seafood & pasta)." }
+          { time: "07:30 - 08:30", act: "Desayuno y puesta a punto de motos a bordo: espresso, cornetto, revisión del plan de desembarque, documentación y equipaje." },
+          { time: "08:30 - 10:30", act: "Tramo de navegación matutina por el Mediterráneo; descanso, mapas offline y control de documentación de las motos." },
+          { time: "10:30 - 11:00", act: "Pausa café / espresso de media mañana en la cubierta o cafetería del ferry." },
+          { time: "11:00 - 13:00", act: "Planificación cultural para Italia continental: Roma exterior, Costa Amalfitana, Cilento y horarios de restaurantes." },
+          { time: "13:00 - 15:00", act: "Pausa Sagrada de Comida (Pranzo - 2 Horas) a bordo: comida caliente, hidratación y descanso." },
+          { time: "15:00 - 16:45", act: "Tarde tranquila en ferry con la luz dorada; preparar guantes, casco y orden de salida del garaje." },
+          { time: "16:45 - 17:15", act: "Preparación para llegada a puerto: equipaje cerrado, motos localizadas y documentación a mano antes del anochecer." },
+          { time: "17:30 - 19:30", act: "Llegada a Civitavecchia y desembarque con las motos; trayecto corto al hotel cerca de Santa Severa / costa de Civitavecchia." },
+          { time: "20:00 - 22:00", act: "Cena relajada (Cena) en trattoria junto al mar con pasta, pescado fresco y revisión del día 3." }
         ]
       },
       {
-        day: 3, title: "Civitavecchia ➔ Amalfi Coast (SS163) ➔ Cilento", km: "340 km", highwayKm: "220 km", secondaryKm: "120 km", time: "4.5 hrs", mode: "Motorbike",
-        region: "Mainland Italy", regionColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
-        cities: ["Civitavecchia", "Rome Outer Ring", "Naples Bypass", "Sorrento", "Positano", "Amalfi", "Salerno", "Cilento"],
-        summary: "Ride past Naples down the world-famous Amalfi Coast road (SS163) into Cilento.",
+        day: 3, title: "Civitavecchia ➔ Costa Amalfitana (SS163) ➔ Cilento", km: "340 km", highwayKm: "220 km", secondaryKm: "120 km", time: "4,5 h", mode: "Moto",
+        region: "Italia continental", regionColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+        cities: ["Civitavecchia", "Circunvalación de Roma", "Circunvalación de Nápoles", "Sorrento", "Positano", "Amalfi", "Salerno", "Cilento"],
+        summary: "Autopista temprana hacia el sur, café antes de Nápoles, curvas de la Costa Amalfitana y llegada a Cilento antes del anochecer.",
         gmaps: "https://www.google.com/maps/dir/Civitavecchia,+Italy/Sorrento,+Italy/Positano,+Italy/Amalfi,+Italy/Salerno,+Italy/Cilento,+Italy",
         timeline: [
-          { time: "08:00 - 11:30", act: "Depart Civitavecchia, ride south along highway past Rome towards Naples (230 km)." },
-          { time: "11:30 - 14:00", act: "Enter Sorrento Peninsula & ride iconic SS163 Amalfi Coast twisties (Positano, Amalfi). Lunch stop." },
-          { time: "14:00 - 16:30", act: "Continue past Salerno into peaceful Cilento National Park (SS269). Check into hotel." }
+          { time: "07:30 - 08:30", act: "Desayuno y puesta a punto de motos: espresso, cornetto, revisión de presiones, cadena y equipaje." },
+          { time: "08:30 - 10:30", act: "Tramo de conducción matutina por Autopista hacia el sur, pasando Roma con carreteras despejadas y aire fresco." },
+          { time: "10:30 - 11:00", act: "Pausa café / espresso de media mañana en área de servicio antes de Nápoles." },
+          { time: "11:00 - 13:00", act: "Curvas de montaña y costa: entrada en la Península de Sorrento y primeros miradores de la SS163." },
+          { time: "13:00 - 15:00", act: "Pausa Sagrada de Comida (Pranzo - 2 Horas) en trattoria local cerca de Positano/Amalfi: pasta fresca, antipasti y descanso para entrar en calor." },
+          { time: "15:00 - 16:45", act: "Tramo panorámico de tarde por la Costa Amalfitana y continuación hacia Salerno y Cilento con luz dorada." },
+          { time: "16:45 - 17:15", act: "Llegada al hotel en Cilento y motos guardadas en garaje seguro antes del anochecer." },
+          { time: "17:30 - 19:30", act: "Ducha, ropa casual y paseo a pie por el casco histórico o paseo marítimo local (la passeggiata)." },
+          { time: "20:00 - 22:00", act: "Cena relajada (Cena) en trattoria/pizzeria local y revisión de la ruta costera SS18 del día siguiente." }
         ]
       },
       {
-        day: 4, title: "Cilento ➔ Terme di Caronte ➔ Scilla (Calabria)", km: "310 km", highwayKm: "110 km", secondaryKm: "200 km", time: "4.5 hrs", mode: "Motorbike",
-        region: "Mainland Italy", regionColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+        day: 4, title: "Cilento ➔ Terme di Caronte ➔ Scilla (Calabria)", km: "310 km", highwayKm: "110 km", secondaryKm: "200 km", time: "4,5 h", mode: "Moto",
+        region: "Italia continental", regionColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
         cities: ["Cilento", "Sapri", "Maratea", "Acquappesa", "Lamezia Terme", "Scilla"],
-        summary: "Coastal SS18 ride down Calabria. Soak at Terme di Caronte natural sulfur hot springs.",
+        summary: "Ritmo de touring por la SS18 calabresa, comida larga en Lamezia y baño termal de tarde antes de Scilla.",
         gmaps: "https://www.google.com/maps/dir/Cilento,+Italy/Maratea,+Italy/Terme+di+Caronte,+Lamezia+Terme,+Italy/Scilla,+Italy",
         timeline: [
-          { time: "08:30 - 12:00", act: "Ride Tyrrhenian coastal road SS18 down Calabria through Maratea cliffs (180 km)." },
-          { time: "12:30 - 14:30", act: "Stop at Terme di Caronte near Lamezia Terme. Soak in 39°C natural sulfur hot spring pools." },
-          { time: "14:30 - 17:00", act: "Ride final coastal stretch down to Scilla fishing village overlooking the Messina Strait." }
+          { time: "07:30 - 08:30", act: "Desayuno y puesta a punto de motos: espresso, cornetto, revisión de presiones, cadena y equipaje." },
+          { time: "08:30 - 10:30", act: "Tramo de conducción matutina por la SS18 costera del Tirreno, con carreteras despejadas y aire fresco." },
+          { time: "10:30 - 11:00", act: "Pausa café / espresso de media mañana en bar de carretera cerca de Maratea." },
+          { time: "11:00 - 13:00", act: "Curvas de montaña y costa entre Maratea y Calabria, con miradores sobre acantilados y el mar Tirreno." },
+          { time: "13:00 - 15:00", act: "Pausa Sagrada de Comida (Pranzo - 2 Horas) en trattoria local cerca de Lamezia Terme: pasta fresca, antipasti y descanso para entrar en calor." },
+          { time: "15:00 - 16:45", act: "Baño termal con luz dorada en Terme di Caronte y último tramo panorámico hacia Scilla." },
+          { time: "16:45 - 17:15", act: "Llegada al hotel en Scilla y motos guardadas en garaje seguro antes del anochecer." },
+          { time: "17:30 - 19:30", act: "Ducha, ropa casual y paseo a pie por Chianalea y el casco marinero de Scilla (la passeggiata)." },
+          { time: "20:00 - 22:00", act: "Cena relajada (Cena) en trattoria/pizzeria local con vistas al Estrecho de Messina." }
         ]
       },
       {
-        day: 5, title: "Riace Bronzes ➔ Messina Ferry ➔ Mt. Etna Loop ➔ Taormina", km: "180 km", highwayKm: "30 km", secondaryKm: "150 km", time: "3.5 hrs", mode: "Motorbike + Ferry",
-        region: "Sicily", regionColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+        day: 5, title: "Bronces de Riace ➔ Ferry de Messina ➔ Vuelta al Etna ➔ Taormina", km: "180 km", highwayKm: "30 km", secondaryKm: "150 km", time: "3,5 h", mode: "Moto + ferry",
+        region: "Sicilia", regionColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
         cities: ["Scilla", "Reggio Calabria", "Messina", "Nicolosi", "Rifugio Sapienza (Etna)", "Taormina"],
-        summary: "Visit Riace Bronzes in Reggio Calabria. 20-min ferry to Sicily ➔ Mt. Etna volcano loop (1,900m).",
+        summary: "Museo de Reggio, ferry corto a Sicilia, comida larga en Nicolosi y subida al Etna con luz de tarde.",
         gmaps: "https://www.google.com/maps/dir/Scilla,+Italy/Museo+Nazionale+Reggio+Calabria,+Italy/Villa+San+Giovanni,+Italy/Rifugio+Sapienza,+Nicolosi,+Italy/Taormina,+Italy",
         timeline: [
-          { time: "08:30 - 10:30", act: "Visit Reggio Calabria National Museum to view original 5th Century BC Riace Bronzes." },
-          { time: "10:45 - 11:15", act: "Ride to Villa San Giovanni & board 20-min car ferry across Messina Strait to Sicily." },
-          { time: "11:30 - 15:30", act: "Climb Mt. Etna SP92 volcano circuit through lava fields up to Rifugio Sapienza (1,900m)." },
-          { time: "16:00 - 17:30", act: "Descend to coastal Taormina. Visit ancient Greek Theater with Etna views." }
+          { time: "07:30 - 08:30", act: "Desayuno y puesta a punto de motos: espresso, cornetto, revisión de presiones, cadena y equipaje." },
+          { time: "08:30 - 10:30", act: "Tramo de conducción matutina a Reggio Calabria y visita cultural a los Bronces de Riace en el Museo Nacional." },
+          { time: "10:30 - 11:00", act: "Pausa café / espresso de media mañana antes de bajar al ferry de Villa San Giovanni." },
+          { time: "11:00 - 13:00", act: "Ferry de coches por el Estrecho de Messina y enlace siciliano hacia Nicolosi, base de subida al Etna." },
+          { time: "13:00 - 15:00", act: "Pausa Sagrada de Comida (Pranzo - 2 Horas) en trattoria local de Nicolosi: pasta fresca, antipasti y descanso para entrar en calor." },
+          { time: "15:00 - 16:45", act: "Tramo panorámico de tarde por la SP92 del Etna hasta Rifugio Sapienza, campos de lava y luz dorada." },
+          { time: "16:45 - 17:15", act: "Llegada al hotel en Taormina y motos guardadas en garaje seguro antes del anochecer." },
+          { time: "17:30 - 19:30", act: "Ducha, ropa casual y paseo a pie por el casco histórico de Taormina y sus miradores (la passeggiata)." },
+          { time: "20:00 - 22:00", act: "Cena relajada (Cena) en trattoria/pizzeria local con Etna y mar como telón de fondo." }
         ]
       },
       {
-        day: 6, title: "Taormina ➔ Villa Romana Mosaics ➔ Agrigento (Valley of Temples)", km: "250 km", highwayKm: "100 km", secondaryKm: "150 km", time: "4.0 hrs", mode: "Motorbike",
-        region: "Sicily", regionColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+        day: 6, title: "Taormina ➔ Mosaicos de Villa Romana ➔ Agrigento (Valle de los Templos)", km: "250 km", highwayKm: "100 km", secondaryKm: "150 km", time: "4,0 h", mode: "Moto",
+        region: "Sicilia", regionColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
         cities: ["Taormina", "Catania", "Piazza Armerina", "Caltanissetta", "Agrigento"],
-        summary: "Inland ride to UNESCO Roman mosaics at Villa Romana del Casale & Agrigento Valley of Temples.",
+        summary: "Interior siciliano, mosaicos romanos, comida de dos horas y Valle de los Templos en la luz dorada.",
         gmaps: "https://www.google.com/maps/dir/Taormina,+Italy/Villa+Romana+del+Casale,+Piazza+Armerina,+Italy/Valle+dei+Templi,+Agrigento,+Italy",
         timeline: [
-          { time: "08:30 - 11:30", act: "Ride inland through Sicilian countryside to Piazza Armerina (150 km)." },
-          { time: "11:30 - 13:30", act: "Tour UNESCO Villa Romana del Casale (world's best preserved Roman floor mosaics)." },
-          { time: "14:00 - 16:00", act: "Ride to Agrigento. Sunset walk at Valley of the Temples & fallen Icarus bronze statue." }
+          { time: "07:30 - 08:30", act: "Desayuno y puesta a punto de motos: espresso, cornetto, revisión de presiones, cadena y equipaje." },
+          { time: "08:30 - 10:30", act: "Tramo de conducción matutina por el interior siciliano hacia Piazza Armerina, con carreteras despejadas y aire fresco." },
+          { time: "10:30 - 11:00", act: "Pausa café / espresso de media mañana en plaza de pueblo antes de la visita." },
+          { time: "11:00 - 13:00", act: "Visita cultural a Villa Romana del Casale y sus mosaicos romanos Patrimonio UNESCO." },
+          { time: "13:00 - 15:00", act: "Pausa Sagrada de Comida (Pranzo - 2 Horas) en trattoria local de Piazza Armerina: pasta fresca, antipasti y descanso para entrar en calor." },
+          { time: "15:00 - 16:45", act: "Tramo panorámico de tarde hacia Agrigento y paseo por el Valle de los Templos con la luz dorada." },
+          { time: "16:45 - 17:15", act: "Llegada al hotel en Agrigento y motos guardadas en garaje seguro antes del anochecer." },
+          { time: "17:30 - 19:30", act: "Ducha, ropa casual y paseo a pie por el casco histórico de Agrigento (la passeggiata)." },
+          { time: "20:00 - 22:00", act: "Cena relajada (Cena) en trattoria/pizzeria local y descanso tras la etapa interior." }
         ]
       },
       {
-        day: 7, title: "Agrigento ➔ Selinunte ➔ Terme Segestane ➔ Palermo Port", km: "190 km", highwayKm: "40 km", secondaryKm: "150 km", time: "3.5 hrs", mode: "Motorbike + Ferry",
-        region: "Sicily", regionColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+        day: 7, title: "Agrigento ➔ Selinunte ➔ Terme Segestane ➔ Puerto de Palermo", km: "190 km", highwayKm: "40 km", secondaryKm: "150 km", time: "3,5 h", mode: "Moto + ferry",
+        region: "Sicilia", regionColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
         cities: ["Agrigento", "Sciacca", "Selinunte", "Segesta", "Palermo"],
-        summary: "Visit Selinunte seaside temple ruins, soak in 47°C Terme Segestane hot river, board ferry to Sardinia.",
+        summary: "Selinunte por la mañana, comida larga cerca de Segesta, baño termal de tarde y ferry nocturno Palermo ➔ Cagliari.",
         gmaps: "https://www.google.com/maps/dir/Agrigento,+Italy/Parco+Archeologico+di+Selinunte,+Italy/Terme+Segestane,+Calatafimi-Segesta,+Italy/Porto+di+Palermo,+Italy",
         timeline: [
-          { time: "08:30 - 11:00", act: "Ride coastal route to Selinunte Archaeological Park (massive Greek seaside temples)." },
-          { time: "11:30 - 14:00", act: "Ride to Segesta. Dip in natural 47°C hot spring river (Terme Segestane / Fiume Caldo)." },
-          { time: "14:30 - 16:30", act: "Ride to Port of Palermo. Board Grimaldi overnight ferry to Cagliari, Sardinia (Departs ~17:00, 12 hrs)." }
+          { time: "07:30 - 08:30", act: "Desayuno y puesta a punto de motos: espresso, cornetto, revisión de presiones, cadena y equipaje." },
+          { time: "08:30 - 10:30", act: "Tramo de conducción matutina por carretera secundaria costera hacia Selinunte, con carreteras despejadas y aire fresco." },
+          { time: "10:30 - 11:00", act: "Pausa café / espresso de media mañana cerca de Sciacca o Marinella di Selinunte." },
+          { time: "11:00 - 13:00", act: "Visita cultural al Parque Arqueológico de Selinunte y sus grandes templos griegos junto al mar." },
+          { time: "13:00 - 15:00", act: "Pausa Sagrada de Comida (Pranzo - 2 Horas) en trattoria local cerca de Segesta: pasta fresca, antipasti y descanso para entrar en calor." },
+          { time: "15:00 - 16:45", act: "Baño termal con luz dorada en Terme Segestane / Fiume Caldo y tramo final hacia Palermo." },
+          { time: "16:45 - 17:15", act: "Llegada al Puerto de Palermo, motos colocadas en la zona de embarque antes del anochecer." },
+          { time: "17:30 - 19:30", act: "Check-in del ferry nocturno Palermo ➔ Cagliari, documentación lista y paseo corto por el puerto." },
+          { time: "20:00 - 22:00", act: "Cena relajada (Cena) a bordo o cerca del puerto; embarque y motos sujetas en el garaje del ferry." }
         ]
       },
       {
-        day: 8, title: "Arrive Cagliari ➔ SS125 Orientale Sarda ➔ Baunei", km: "180 km", highwayKm: "20 km", secondaryKm: "160 km", time: "3.0 hrs", mode: "Ferry + Motorbike",
-        region: "Sardinia", regionColor: "bg-sky-500/20 text-sky-300 border-sky-500/40",
-        cities: ["Palermo Port", "Cagliari", "Villasimius", "Muravera", "Baunei / Arbatax"],
-        summary: "Arrive Cagliari Port (~05:00). Morning espresso ➔ Ride legendary SS125 Orientale Sarda mountain pass.",
+        day: 8, title: "Llegada a Cagliari ➔ SS125 Orientale Sarda ➔ Baunei", km: "180 km", highwayKm: "20 km", secondaryKm: "160 km", time: "3,0 h", mode: "Ferry + moto",
+        region: "Cerdeña", regionColor: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+        cities: ["Puerto de Palermo", "Cagliari", "Villasimius", "Muravera", "Baunei / Arbatax"],
+        summary: "Desembarque temprano en Cagliari, desayuno real en puerto, SS125 por la mañana y llegada a Baunei antes del anochecer.",
         gmaps: "https://www.google.com/maps/dir/Porto+di+Cagliari,+Italy/Villasimius,+Italy/Muravera,+Italy/Baunei,+Italy",
         timeline: [
-          { time: "05:00 - 06:00", act: "Disembark ferry in Cagliari, Sardinia. Morning coffee along harbor." },
-          { time: "07:00 - 12:00", act: "Hit southern SS125 Orientale Sarda—sweeping mountain bends & canyon views up to Baunei." },
-          { time: "13:00 - 16:00", act: "Check into mountain hotel, relax, explore Ogliastra coastline." }
+          { time: "05:00 - 07:15", act: "Llegada del ferry a Cagliari y desembarque con las motos; espera tranquila hasta que abran los bares del puerto." },
+          { time: "07:30 - 08:30", act: "Desayuno y puesta a punto de motos: espresso, cornetto, revisión de presiones, cadena y equipaje." },
+          { time: "08:30 - 10:30", act: "Tramo de conducción matutina por la salida sur de Cagliari y enlace hacia la SS125 Orientale Sarda." },
+          { time: "10:30 - 11:00", act: "Pausa café / espresso de media mañana en bar de carretera cerca de Villasimius o Muravera." },
+          { time: "11:00 - 13:00", act: "Curvas de montaña de la SS125: cañones, asfalto con agarre y miradores hacia Ogliastra." },
+          { time: "13:00 - 15:00", act: "Pausa Sagrada de Comida (Pranzo - 2 Horas) en trattoria local de montaña: pasta fresca, antipasti y descanso para entrar en calor." },
+          { time: "15:00 - 16:45", act: "Tramo panorámico de tarde por la SS125 hacia Baunei / Arbatax con la luz dorada." },
+          { time: "16:45 - 17:15", act: "Llegada al hotel en Baunei y motos guardadas en garaje seguro antes del anochecer." },
+          { time: "17:30 - 19:30", act: "Ducha, ropa casual y paseo a pie por el pueblo y miradores de Baunei (la passeggiata)." },
+          { time: "20:00 - 22:00", act: "Cena relajada (Cena) en trattoria/pizzeria local con especialidades sardas." }
         ]
       },
       {
-        day: 9, title: "Baunei ➔ Gorropu Canyon ➔ Alghero", km: "220 km", highwayKm: "0 km", secondaryKm: "220 km", time: "4.0 hrs", mode: "Motorbike",
-        region: "Sardinia", regionColor: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+        day: 9, title: "Baunei ➔ Gorropu Canyon ➔ Alghero", km: "220 km", highwayKm: "0 km", secondaryKm: "220 km", time: "4,0 h", mode: "Moto",
+        region: "Cerdeña", regionColor: "bg-sky-500/20 text-sky-300 border-sky-500/40",
         cities: ["Baunei", "Dorgali", "Gorropu Canyon", "Nuoro", "Bosa", "Alghero"],
-        summary: "Ride heart of SS125 through Gorropu Canyon & Gennargentu mountains to medieval coastal Alghero.",
+        summary: "Jornada de curvas sardas: Gorropu y Gennargentu por la mañana, pranzo largo y costa Bosa-Alghero por la tarde.",
         gmaps: "https://www.google.com/maps/dir/Baunei,+Italy/Dorgali,+Italy/Gola+di+Gorropu,+Italy/Bosa,+Italy/Alghero,+Italy",
         timeline: [
-          { time: "08:30 - 12:00", act: "Ride northern SS125 pass through Gorropu Canyon & Gennargentu mountain twisties." },
-          { time: "12:30 - 14:00", act: "Ride Bosa-to-Alghero coastal cliff road (one of Europe's top motorcycle roads)." },
-          { time: "14:30 - 17:00", act: "Explore medieval walled city of Alghero. Hotel check-in." }
+          { time: "07:30 - 08:30", act: "Desayuno y puesta a punto de motos: espresso, cornetto, revisión de presiones, cadena y equipaje." },
+          { time: "08:30 - 10:30", act: "Tramo de conducción matutina por la SS125 norte, cañón de Gorropu y curvas del Gennargentu con aire fresco." },
+          { time: "10:30 - 11:00", act: "Pausa café / espresso de media mañana en Dorgali o pueblo de montaña." },
+          { time: "11:00 - 13:00", act: "Curvas de montaña y miradores interiores hacia Nuoro, con ritmo tranquilo para disfrutar del asfalto sardo." },
+          { time: "13:00 - 15:00", act: "Pausa Sagrada de Comida (Pranzo - 2 Horas) en trattoria local: pasta fresca, antipasti y descanso para entrar en calor." },
+          { time: "15:00 - 16:45", act: "Tramo panorámico de tarde por la carretera costera Bosa-Alghero, acantilados y luz dorada sobre el Mediterráneo." },
+          { time: "16:45 - 17:15", act: "Llegada al hotel en Alghero y motos guardadas en garaje seguro antes del anochecer." },
+          { time: "17:30 - 19:30", act: "Ducha, ropa casual y paseo a pie por la ciudad amurallada de Alghero (la passeggiata)." },
+          { time: "20:00 - 22:00", act: "Cena relajada (Cena) en trattoria/pizzeria local dentro del casco histórico." }
         ]
       },
       {
-        day: 10, title: "Alghero Cliff Road ➔ Porto Torres (Ferry to Spain)", km: "90 km", highwayKm: "0 km", secondaryKm: "90 km", time: "1.5 hrs", mode: "Motorbike + Ferry",
-        region: "Sardinia", regionColor: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+        day: 10, title: "Carretera de acantilados de Alghero ➔ Porto Torres (Ferry nocturno a España)", km: "90 km", highwayKm: "0 km", secondaryKm: "90 km", time: "1,5 h", mode: "Moto + ferry",
+        region: "Cerdeña", regionColor: "bg-sky-500/20 text-sky-300 border-sky-500/40",
         cities: ["Alghero", "Capo Caccia", "Stintino", "Porto Torres"],
-        summary: "Capo Caccia coastal cliff ride & Stintino beaches. Board overnight ferry back to Barcelona.",
+        summary: "Día corto para Capo Caccia y Stintino, comida sin prisas y llegada temprana al ferry nocturno Porto Torres ➔ Barcelona.",
         gmaps: "https://www.google.com/maps/dir/Alghero,+Italy/Capo+Caccia,+Italy/Stintino,+Italy/Porto+Torres+Ferry+Terminal,+Italy",
         timeline: [
-          { time: "09:00 - 12:00", act: "Ride out to Capo Caccia limestone cliffs & Neptune's Grotto overlook." },
-          { time: "13:00 - 15:00", act: "Ride north to Stintino beaches & arrive Porto Torres ferry port." },
-          { time: "16:00 - 17:00", act: "Check-in at Porto Torres port." },
-          { time: "17:00", act: "Board Grimaldi Lines ferry. Overnight crossing (~13.5 hours)." }
+          { time: "07:30 - 08:30", act: "Desayuno y puesta a punto de motos: espresso, cornetto, revisión de presiones, cadena y equipaje." },
+          { time: "08:30 - 10:30", act: "Tramo de conducción matutina hacia Capo Caccia, acantilados calizos y mirador de la Gruta de Neptuno." },
+          { time: "10:30 - 11:00", act: "Pausa café / espresso de media mañana cerca de Alghero o Capo Caccia." },
+          { time: "11:00 - 13:00", act: "Visita panorámica y carretera secundaria hacia Stintino, con playas y miradores del noroeste sardo." },
+          { time: "13:00 - 15:00", act: "Pausa Sagrada de Comida (Pranzo - 2 Horas) en trattoria local: pasta fresca, antipasti y descanso antes del ferry nocturno." },
+          { time: "15:00 - 16:45", act: "Tramo panorámico de tarde hacia Porto Torres y repostaje final con luz dorada." },
+          { time: "16:45 - 17:15", act: "Llegada al puerto de Porto Torres y motos colocadas en zona de embarque antes del anochecer." },
+          { time: "17:30 - 19:30", act: "Check-in del ferry nocturno a Barcelona, documentación lista, cinchas preparadas y paseo corto por el puerto." },
+          { time: "20:00 - 22:00", act: "Cena relajada (Cena) a bordo o cerca del puerto; embarque, motos sujetas en garaje y camarote listo." }
         ]
       },
       {
-        day: 11, title: "Arrive Barcelona Port ➔ Home to Lloret de Mar", km: "75 km", highwayKm: "50 km", secondaryKm: "25 km", time: "1.0 hr", mode: "Ferry + Motorbike",
-        region: "Spain", regionColor: "bg-red-500/20 text-red-300 border-red-500/40",
-        cities: ["At Sea", "Port of Barcelona", "Mataró", "Blanes", "Lloret de Mar"],
-        summary: "Arrive Port of Barcelona in the morning (~06:30). Final scenic coastal ride along Costa Brava back home to Lloret.",
-        gmaps: "https://www.google.com/maps/dir/Port+de+Barcelona,+Barcelona,+Spain/Lloret+de+Mar,+Spain",
+        day: 11, title: "Llegada al Puerto de Barcelona ➔ Regreso a Lloret de Mar", km: "75 km", highwayKm: "50 km", secondaryKm: "25 km", time: "1,0 h", mode: "Ferry + moto",
+        region: "España", regionColor: "bg-red-500/20 text-red-300 border-red-500/40",
+        cities: ["En el mar", "Puerto de Barcelona", "Mataró", "Blanes", "Lloret de Mar"],
+        summary: "Llegada a Barcelona al amanecer, desayuno real tras desembarcar y regreso corto a Lloret con cierre tranquilo del viaje.",
+        gmaps: "https://www.google.com/maps/dir/Port+de+Barcelona,+Barcelona,+España/Lloret+de+Mar,+España",
         timeline: [
-          { time: "06:30", act: "Ferry docks at Port of Barcelona in the morning. Disembark with motorbikes." },
-          { time: "07:30 - 08:30", act: "Morning ride up Costa Brava highway back home to Lloret de Mar!" },
-          { time: "09:00", act: "Arrive home in Lloret de Mar! Trip complete." }
+          { time: "06:30 - 07:15", act: "El ferry atraca en el Puerto de Barcelona. Desembarque con las motos y salida ordenada del puerto." },
+          { time: "07:30 - 08:30", act: "Desayuno y puesta a punto de motos: espresso, cornetto, revisión de presiones, cadena y equipaje antes del tramo final." },
+          { time: "08:30 - 10:30", act: "Tramo de conducción matutina por Costa Brava hacia Lloret de Mar, con carreteras despejadas y aire fresco." },
+          { time: "10:30 - 11:00", act: "Pausa café / espresso de media mañana cerca de Blanes o Lloret para cerrar la ruta sin prisas." },
+          { time: "11:00 - 13:00", act: "Llegada a casa, descarga de motos, limpieza ligera de equipaje y revisión final de presiones, cadena y documentación." },
+          { time: "13:00 - 15:00", act: "Pausa Sagrada de Comida (Pranzo - 2 Horas) de celebración: pasta fresca, antipasti y descanso tras el viaje." },
+          { time: "15:00 - 16:45", act: "Tramo panorámico local opcional con la luz dorada o paseo suave por Lloret si el cuerpo pide descanso." },
+          { time: "16:45 - 17:15", act: "Motos guardadas en garaje seguro antes del anochecer y cierre oficial del mototrip." },
+          { time: "17:30 - 19:30", act: "Ducha, ropa casual y paseo a pie por Lloret de Mar (la passeggiata final)." },
+          { time: "20:00 - 22:00", act: "Cena relajada (Cena) de fin de viaje en trattoria/pizzeria local." }
         ]
       }
     ];
@@ -706,223 +876,223 @@
     const activitiesData = [
       {
         name: "Terme Segestane (Fiume Caldo)",
-        type: "Thermal Spa",
-        region: "Sicily",
-        location: "Segesta, Western Sicily",
-        bestTime: "Late afternoon / Sunset",
-        price: "Free (Natural River)",
-        duration: "2 Hours",
+        type: "Termas",
+        region: "Sicilia",
+        location: "Segesta, Sicilia occidental",
+        bestTime: "Última hora de la tarde / atardecer",
+        price: "Gratis (río natural)",
+        duration: "2 horas",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Terme+Segestane+Fiume+Caldo+Calatafimi+Segesta",
-        history: "Naturally heated thermal sulfur water (~47°C) flowing through a green river canyon near ancient Segesta. Known since ancient Greek times for therapeutic mineral healing.",
-        tips: "Bring water shoes and a towel. The natural pools behind the main spa complex are open air and free of charge."
+        history: "Agua termal sulfurosa calentada de forma natural (~47 °C) que fluye por un cañón verde cerca de la antigua Segesta. Conocida desde época griega por sus minerales terapéuticos.",
+        tips: "Lleva escarpines y toalla. Las pozas naturales detrás del complejo termal principal están al aire libre y son gratuitas."
       },
       {
         name: "Terme di Caronte",
-        type: "Thermal Spa",
-        region: "Mainland Italy",
+        type: "Termas",
+        region: "Italia continental",
         location: "Lamezia Terme, Calabria",
-        bestTime: "Mid-day stopover",
-        price: "Free (Public Spring)",
-        duration: "1.5 Hours",
+        bestTime: "Parada de mediodía",
+        price: "Gratis (manantial público)",
+        duration: "1,5 horas",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Terme+di+Caronte+Lamezia+Terme",
-        history: "Sulfur thermal springs naturally bubbling at 39°C at the base of Mount Reventino. Used by Romans as a rest stop along the Via Popilia highway.",
-        tips: "Located right off the SS18 coastal route down Calabria—perfect riding break."
+        history: "Manantiales termales sulfurosos que brotan de forma natural a 39 °C al pie del Monte Reventino. Los romanos los usaban como parada de descanso en la Via Popilia.",
+        tips: "Está justo junto a la ruta costera SS18 bajando Calabria: parada perfecta para motoristas."
       },
       {
         name: "Terme di Fordongianus (Forum Traiani)",
-        type: "Thermal Spa",
-        region: "Sardinia",
-        location: "Fordongianus, Central Sardinia",
-        bestTime: "Late afternoon",
-        price: "Free (River Pools) / €5 Ruins",
-        duration: "1.5 Hours",
-        gmaps: "https://www.google.com/maps/search/?api=1&query=Terme+ di+Fordongianus+Sardinia",
-        history: "Ancient Roman thermal bath complex built by Emperor Trajan (1st Century AD). Thermal water gushes out at 54°C directly into the Tirso River bank, where stone pools let you mix hot thermal water with cold river water.",
-        tips: "Stop on the ride between Cagliari and Baunei/Alghero for a relaxing outdoor hot spring soak."
+        type: "Termas",
+        region: "Cerdeña",
+        location: "Fordongianus, Cerdeña central",
+        bestTime: "Última hora de la tarde",
+        price: "Gratis (pozas del río) / €5 ruinas",
+        duration: "1,5 horas",
+        gmaps: "https://www.google.com/maps/search/?api=1&query=Terme+ di+Fordongianus+Cerdeña",
+        history: "Antiguo complejo termal romano construido por el emperador Trajano (siglo I d. C.). El agua termal sale a 54 °C junto al río Tirso, donde las pozas de piedra permiten mezclar agua caliente con agua fría del río.",
+        tips: "Buena parada entre Cagliari y Baunei/Alghero para un baño termal al aire libre."
       },
       {
         name: "Nuraghe Su Nuraxi di Barumini",
-        type: "Archaeology & Ruins",
-        region: "Sardinia",
-        location: "Barumini, South-Central Sardinia",
-        bestTime: "Morning",
-        price: "€15 per person",
-        duration: "1.5 Hours",
+        type: "Arqueología y ruinas",
+        region: "Cerdeña",
+        location: "Barumini, South-Cerdeña central",
+        bestTime: "Mañana",
+        price: "€15 por persona",
+        duration: "1,5 horas",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Su+Nuraxi+di+Barumini",
-        history: "UNESCO World Heritage mega-nuraghe complex dating back to 1500 BC (Bronze Age). Features a central 3-story megalithic stone tower surrounded by a prehistoric fortified village.",
-        tips: "Easily accessed right off the SS198 mountain route through interior Sardinia."
+        history: "Conjunto meganurágico Patrimonio Mundial de la UNESCO, datado hacia 1500 a. C. (Edad del Bronce). Tiene una torre central megalítica de tres niveles rodeada por un poblado fortificado prehistórico.",
+        tips: "Acceso fácil desde la ruta de montaña SS198 por el interior de Cerdeña."
       },
       {
         name: "Riace Bronzes (Bronzi di Riace)",
-        type: "Archaeology & Ruins",
-        region: "Mainland Italy",
-        location: "Reggio Calabria National Museum",
-        bestTime: "Morning (09:00)",
-        price: "€8 per person",
-        duration: "1.5 Hours",
+        type: "Arqueología y ruinas",
+        region: "Italia continental",
+        location: "Museo Nacional de Reggio Calabria",
+        bestTime: "Mañana (09:00)",
+        price: "€8 por persona",
+        duration: "1,5 horas",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Museo+Nazionale+Reggio+Calabria+Bronzi+di+Riace",
-        history: "Two original 5th-century BC Greek bronze statues of warrior heroes discovered underwater near Riace in 1972. Widely considered among the greatest surviving ancient Greek sculptures on Earth.",
-        tips: "Museum has secure parking nearby for motorbikes right before taking the Messina ferry."
+        history: "Dos estatuas griegas originales de bronce del siglo V a. C., héroes guerreros descubiertos bajo el agua cerca de Riace en 1972. Se consideran entre las mejores esculturas griegas antiguas conservadas.",
+        tips: "El museo tiene parking seguro cerca para motos, perfecto antes de tomar el ferry de Messina."
       },
       {
         name: "Valley of the Temples & Fallen Icarus",
-        type: "Archaeology & Ruins",
-        region: "Sicily",
-        location: "Agrigento, Southern Sicily",
-        bestTime: "Sunset (16:00 - 18:00)",
-        price: "€12 per person",
-        duration: "2.5 Hours",
+        type: "Arqueología y ruinas",
+        region: "Sicilia",
+        location: "Agrigento, Sur de Sicilia",
+        bestTime: "Atardecer (16:00 - 18:00)",
+        price: "€12 por persona",
+        duration: "2,5 horas",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Valle+dei+Templi+Agrigento",
-        history: "World UNESCO site featuring 7 magnificent 5th-century BC Doric Greek temples perched on a ridge facing the Mediterranean. Features Igor Mitoraj's famous fallen bronze sculpture of Icarus framed in front of Concordia Temple.",
-        tips: "Visit during golden hour when the temple stone glows gold against the sunset."
+        history: "Sitio UNESCO con siete magníficos templos dóricos griegos del siglo V a. C. sobre una cresta frente al Mediterráneo. Incluye la famosa escultura de bronce de Ícaro caído, de Igor Mitoraj, frente al Templo de la Concordia.",
+        tips: "Visita al final de la tarde, cuando la piedra de los templos se vuelve dorada con el atardecer."
       },
       {
         name: "Tharros Phoenician Ruins & Capo San Marco",
-        type: "Archaeology & Ruins",
-        region: "Sardinia",
-        location: "Sinis Peninsula, Western Sardinia",
-        bestTime: "Late morning",
-        price: "€9 per person",
-        duration: "2 Hours",
+        type: "Arqueología y ruinas",
+        region: "Cerdeña",
+        location: "Península del Sinis, Oeste de Cerdeña",
+        bestTime: "Media mañana",
+        price: "€9 por persona",
+        duration: "2 horas",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Area+Archeologica+di+Tharros",
-        history: "Ancient seaside city founded by Phoenicians in the 8th Century BC, later expanded by Carthaginians and Romans. Features columns standing directly over the turquoise sea.",
-        tips: "The motorcycle ride along the Sinis peninsula leads directly to the sea-cliff parking area."
+        history: "Antigua ciudad costera fundada por fenicios en el siglo VIII a. C., ampliada después por cartagineses y romanos. Sus columnas se alzan directamente sobre el mar turquesa.",
+        tips: "La ruta en moto por la península del Sinis lleva directamente al parking junto al acantilado."
       },
       {
         name: "SS125 Orientale Sarda Pass",
-        type: "Motorcycle Route",
-        region: "Sardinia",
-        location: "Ogliastra, Eastern Sardinia",
-        bestTime: "Morning / Mid-day",
-        price: "Free (Public Highway)",
-        duration: "Full Day Ride",
+        type: "Ruta en moto",
+        region: "Cerdeña",
+        location: "Ogliastra, Este de Cerdeña",
+        bestTime: "Mañana / Mid-day",
+        price: "Gratis (carretera pública)",
+        duration: "Ruta de día completo",
         gmaps: "https://www.google.com/maps/search/?api=1&query=SS125+Orientale+Sarda+Baunei",
-        history: "Built through rugged granite mountains and deep canyons, this road is legendary among European bikers for its flawless, coarse, grippy asphalt and sweeping open turns.",
-        tips: "Maintain steady line speed; roads are virtually empty in November."
+        history: "Trazada entre montañas graníticas y cañones profundos, esta carretera es legendaria entre motoristas europeos por su asfalto rugoso, con mucho agarre, y sus curvas amplias.",
+        tips: "Mantén una trazada fluida; en noviembre las carreteras están prácticamente vacías."
       },
       {
-        name: "SP105 Bosa to Alghero Coastal Cliff Road",
-        type: "Motorcycle Route",
-        region: "Sardinia",
-        location: "Western Coast, Sardinia",
-        bestTime: "Sunset",
-        price: "Free",
-        duration: "1.5 Hours",
+        name: "SP105 carretera costera de acantilados Bosa-Alghero",
+        type: "Ruta en moto",
+        region: "Cerdeña",
+        location: "Costa oeste, Cerdeña",
+        bestTime: "Atardecer",
+        price: "Gratis",
+        duration: "1,5 horas",
         gmaps: "https://www.google.com/maps/search/?api=1&query=SP105+Bosa+Alghero",
-        history: "45 kilometers of unbroken coastal twists carved high into volcanic cliffs above the Mediterranean with zero traffic lights or junctions.",
-        tips: "Consistently ranked in top 5 coastal motorcycle roads in Southern Europe."
+        history: "45 kilómetros continuos de curvas costeras talladas en acantilados volcánicos sobre el Mediterráneo, sin semáforos ni cruces.",
+        tips: "Suele aparecer entre las cinco mejores carreteras costeras para moto del sur de Europa."
       },
       {
-        name: "Mt. Etna SP92 Volcano Circuit",
-        type: "Motorcycle Route",
-        region: "Sicily",
-        location: "Nicolosi to Rifugio Sapienza, Sicily",
-        bestTime: "Mid-day (Warmest)",
-        price: "Free",
-        duration: "3 Hours",
+        name: "Circuito volcánico SP92 del Etna",
+        type: "Ruta en moto",
+        region: "Sicilia",
+        location: "Nicolosi a Rifugio Sapienza, Sicilia",
+        bestTime: "Mediodía (más cálido)",
+        price: "Gratis",
+        duration: "3 horas",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Rifugio+Sapienza+Etna+SP92",
-        history: "Climbs up Europe's highest active volcano to 1,900m elevation through black lava flows from recent eruptions.",
-        tips: "Temperatures drop significantly at 1,900m—wear your thermal jacket layer under your gear!"
+        history: "Sube hasta 1.900 m por el volcán activo más alto de Europa, atravesando coladas negras de lava de erupciones recientes.",
+        tips: "La temperatura baja mucho a 1.900 m: lleva la capa térmica bajo la equipación."
       },
       {
-        name: "Capo Caccia & Escala del Cabirol Mirador",
-        type: "Sightseeing & Nature",
-        region: "Sardinia",
-        location: "Alghero, Northwestern Sardinia",
-        bestTime: "Sunset",
-        price: "Free Overlook / €14 Cave",
-        duration: "1.5 Hours",
+        name: "Capo Caccia y mirador Escala del Cabirol",
+        type: "Paisaje y naturaleza",
+        region: "Cerdeña",
+        location: "Alghero, Noroeste de Cerdeña",
+        bestTime: "Atardecer",
+        price: "Mirador gratis / cueva €14",
+        duration: "1,5 horas",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Capo+Caccia+Escala+del+Cabirol",
-        history: "Vertical 110-meter limestone sea cliff headland marking the westernmost tip of Alghero. Features the 654-step stairs zigzagging down to Neptune's Grotto.",
-        tips: "Park motorbikes right at the cliff edge lighthouse for iconic sunset photos."
+        history: "Promontorio de acantilados calizos de 110 m que marca el extremo occidental de Alghero. Incluye la escalera de 654 peldaños que baja en zigzag a la Gruta de Neptuno.",
+        tips: "Aparca las motos junto al faro del acantilado para fotos espectaculares al atardecer."
       },
       {
-        name: "Castelsardo Citadel & Elephant Rock (Roccia dell'Elefante)",
-        type: "Sightseeing & Culture",
-        region: "Sardinia",
-        location: "Northern Sardinia",
-        bestTime: "Afternoon",
-        price: "Free",
-        duration: "1 Hour",
+        name: "Ciudadela de Castelsardo y Roccia dell'Elefante",
+        type: "Paisaje y cultura",
+        region: "Cerdeña",
+        location: "Norte de Cerdeña",
+        bestTime: "Tarde",
+        price: "Gratis",
+        duration: "1 hora",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Roccia+dell+Elefante+Castelsardo",
-        history: "A natural 4-meter trachyte rock weathered into the exact shape of an elephant, containing prehistoric Domus de Janas (chamber tombs) inside.",
-        tips: "Located right alongside the SS134 road near Castelsardo, perfect quick roadside moto photo stop."
+        history: "Roca natural de traquita de 4 m erosionada con forma de elefante, con Domus de Janas prehistóricas (tumbas excavadas) en su interior.",
+        tips: "Está junto a la SS134, cerca de Castelsardo: parada rápida perfecta para una foto motera."
       },
       {
-        name: "Neptune's Grotto Sea Caves",
-        type: "Sightseeing & Nature",
-        region: "Sardinia",
-        location: "Alghero, Northwestern Sardinia",
-        bestTime: "Morning (09:30)",
-        price: "€14 per person",
-        duration: "2 Hours",
+        name: "Gruta de Neptuno",
+        type: "Paisaje y naturaleza",
+        region: "Cerdeña",
+        location: "Alghero, Noroeste de Cerdeña",
+        bestTime: "Mañana (09:30)",
+        price: "€14 por persona",
+        duration: "2 horas",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Grotte+di+Nettuno+Capo+Caccia+Alghero",
-        history: "Dramatically carved sea caves beneath 110m limestone sea cliffs. Accessible via Escala del Cabirol (654 carved cliff stairs).",
-        tips: "The motorcycle ride out along the Capo Caccia headland offers sweeping Mediterranean cliff views."
+        history: "Cuevas marinas excavadas bajo acantilados calizos de 110 m. Se accede por la Escala del Cabirol, con 654 escalones tallados en el acantilado.",
+        tips: "La ruta en moto por el cabo de Capo Caccia ofrece vistas abiertas de acantilados mediterráneos."
       },
       {
-        name: "Ortygia Island & Syracuse Greek Theater",
-        type: "Archaeology & Ruins",
-        region: "Sicily",
-        location: "Syracuse, Eastern Sicily",
-        bestTime: "Afternoon",
-        price: "€13 per person",
-        duration: "2 Hours",
+        name: "Isla de Ortigia y teatro griego de Siracusa",
+        type: "Arqueología y ruinas",
+        region: "Sicilia",
+        location: "Siracusa, Este de Sicilia",
+        bestTime: "Tarde",
+        price: "€13 por persona",
+        duration: "2 horas",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Parco+Archeologico+ della+Neapolis+Siracusa",
-        history: "Ancient Syracuse was the superpower of Magna Graecia (home to Archimedes). Features the massive 5th-century BC Greek Theater carved into limestone rock and the Ear of Dionysius cave.",
-        tips: "Park motorbikes near Ortygia bridge for an easy walk through Baroque marble plazas."
+        history: "La antigua Siracusa fue una potencia de la Magna Grecia y hogar de Arquímedes. Incluye el gran teatro griego del siglo V a. C., tallado en roca caliza, y la cueva Oreja de Dionisio.",
+        tips: "Aparca las motos cerca del puente de Ortigia para pasear fácilmente por sus plazas barrocas de mármol."
       },
       {
-        name: "Christ of Maratea Coastal Overlook",
-        type: "Sightseeing & Nature",
-        region: "Mainland Italy",
-        location: "Maratea, Calabria / Basilicata Coast",
-        bestTime: "Late morning",
-        price: "Free",
-        duration: "1 Hour",
+        name: "Mirador costero del Cristo de Maratea",
+        type: "Paisaje y naturaleza",
+        region: "Italia continental",
+        location: "Maratea, Costa de Calabria / Basilicata",
+        bestTime: "Media mañana",
+        price: "Gratis",
+        duration: "1 hora",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Cristo+Redentore+di+Maratea",
-        history: "A 21m white marble Redeemer statue standing atop Mount San Biagio overlooking 50 km of Tyrrhenian coastline.",
-        tips: "The mountain switchback road leading up to the statue is a thrilling short motorcycle climb."
+        history: "Estatua del Redentor de mármol blanco de 21 m situada sobre el Monte San Biagio, con vistas a 50 km de costa tirrena.",
+        tips: "La carretera de curvas que sube a la estatua es una subida corta y muy divertida en moto."
       },
       {
-        name: "Selinunte Greek Seaside Ruins",
-        type: "Archaeology & Ruins",
-        region: "Sicily",
-        location: "Marinella di Selinunte, Western Sicily",
-        bestTime: "Morning",
-        price: "€9 per person",
-        duration: "2 Hours",
+        name: "Ruinas griegas costeras de Selinunte",
+        type: "Arqueología y ruinas",
+        region: "Sicilia",
+        location: "Marinella di Selinunte, Sicilia occidental",
+        bestTime: "Mañana",
+        price: "€9 por persona",
+        duration: "2 horas",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Parco+Archeologico+di+Selinunte",
-        history: "Largest archaeological park in Europe featuring massive fallen Doric temples overlooking sandy Mediterranean beaches.",
-        tips: "You can park right at the main entrance; very quiet in November."
+        history: "El mayor parque arqueológico de Europa, con enormes templos dóricos caídos sobre playas mediterráneas de arena.",
+        tips: "Puedes aparcar justo en la entrada principal; en noviembre está muy tranquilo."
       },
       {
-        name: "Cefalù Cathedral & Coastal Old Town",
-        type: "Sightseeing & Culture",
-        region: "Sicily",
-        location: "Cefalù, Northern Sicily Coast",
-        bestTime: "Afternoon",
-        price: "Free",
-        duration: "1.5 Hours",
+        name: "Catedral de Cefalù y casco antiguo costero",
+        type: "Paisaje y cultura",
+        region: "Sicilia",
+        location: "Cefalù, Costa norte de Sicilia",
+        bestTime: "Tarde",
+        price: "Gratis",
+        duration: "1,5 horas",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Duomo+di+Cefalu",
-        history: "Norman fortress cathedral built in 1131 featuring Byzantine gold mosaics nestled under La Rocca mountain cliff.",
-        tips: "Great espresso stop along the northern Sicilian coastal road (SS113)."
+        history: "Catedral fortaleza normanda construida en 1131, con mosaicos bizantinos dorados bajo el acantilado de La Rocca.",
+        tips: "Gran parada para espresso en la carretera costera norte de Sicilia (SS113)."
       },
       {
-        name: "Cilento National Park & Cape Palinuro",
-        type: "Motorcycle Route",
-        region: "Mainland Italy",
-        location: "Cilento Coast, Southern Campania",
-        bestTime: "Morning",
-        price: "Free",
-        duration: "2.5 Hours",
+        name: "Parque Nacional del Cilento y Cabo Palinuro",
+        type: "Ruta en moto",
+        region: "Italia continental",
+        location: "Costa del Cilento, Sur de Campania",
+        bestTime: "Mañana",
+        price: "Gratis",
+        duration: "2,5 horas",
         gmaps: "https://www.google.com/maps/search/?api=1&query=Capo+Palinuro+Cilento",
-        history: "Wild coastal nature reserve named after Palinurus, Aeneas' mythical pilot in Virgil's Aeneid.",
-        tips: "SS269 switchbacks feature dense pine forests and rocky sea cove overlooks."
+        history: "Reserva natural costera salvaje llamada así por Palinuro, el piloto mítico de Eneas en la Eneida de Virgilio.",
+        tips: "Las curvas de la SS269 atraviesan pinares densos y miradores sobre calas rocosas."
       }
     ];
 
-    // Render Itinerary Cards (Tab 2)
+    // Renderizar tarjetas de itinerario (Tab 2)
     function renderItineraryCards() {
       const container = document.getElementById('itinerary-cards-container');
       container.innerHTML = '';
@@ -934,7 +1104,7 @@
           <div class="space-y-3">
             <div class="flex flex-wrap items-center justify-between gap-2 text-xs font-semibold">
               <div class="flex flex-wrap items-center gap-2">
-                <span class="text-amber-400 font-black text-sm whitespace-nowrap">DAY ${d.day}</span>
+                <span class="text-amber-400 font-black text-sm whitespace-nowrap">DÍA ${d.day}</span>
                 <span class="badge-pill text-[10px] px-2.5 py-1 rounded-full border font-bold uppercase whitespace-nowrap ${d.regionColor}">${d.region}</span>
               </div>
               <div class="flex flex-wrap items-center gap-1.5">
@@ -945,8 +1115,8 @@
 
             <!-- Road Desglose Badges -->
             <div class="flex flex-wrap gap-1.5 text-[11px]">
-              <span class="badge-pill bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-md font-mono whitespace-nowrap">🛣️ Hwy: ${d.highwayKm}</span>
-              <span class="badge-pill bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-md font-mono whitespace-nowrap">🏍️ Sec: ${d.secondaryKm}</span>
+              <span class="badge-pill bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-md font-mono whitespace-nowrap">🛣️ Autopista: ${d.highwayKm}</span>
+              <span class="badge-pill bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-md font-mono whitespace-nowrap">🏍️ Secundaria: ${d.secondaryKm}</span>
             </div>
 
             <h4 class="font-bold text-sm text-white leading-snug">${d.title}</h4>
@@ -956,14 +1126,14 @@
             <a href="${d.gmaps}" target="_blank" onclick="event.stopPropagation();" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 px-3 py-1.5 rounded-lg flex items-center gap-1 font-bold transition-all">
               🗺️ Google Maps GPS
             </a>
-            <span class="text-amber-400 font-bold hover:underline">Hourly schedule ➔</span>
+            <span class="text-amber-400 font-bold hover:underline">Horario por horas ➔</span>
           </div>
         `;
         container.appendChild(card);
       });
     }
 
-    // Render Cities Table (Tab 3)
+    // Renderizar tabla de ciudades (Tab 3)
     function renderCitiesTable() {
       const body = document.getElementById('cities-table-body');
       body.innerHTML = '';
@@ -971,7 +1141,7 @@
         const row = document.createElement('tr');
         row.className = "hover:bg-slate-900/60 transition-all border-b border-slate-800/40";
         row.innerHTML = `
-          <td class="p-3 font-bold text-amber-400 whitespace-nowrap">Day ${d.day}</td>
+          <td class="p-3 font-bold text-amber-400 whitespace-nowrap">Día ${d.day}</td>
           <td class="p-3 whitespace-nowrap">
             <span class="badge-pill text-[10px] px-2.5 py-1 rounded-full border font-bold uppercase whitespace-nowrap ${d.regionColor}">${d.region}</span>
           </td>
@@ -982,18 +1152,51 @@
           <td class="p-3 text-right font-mono text-blue-400 whitespace-nowrap">${d.highwayKm}</td>
           <td class="p-3 text-right font-mono text-emerald-400 whitespace-nowrap">${d.secondaryKm}</td>
           <td class="p-3 text-right font-mono text-slate-300 whitespace-nowrap">
-            <a href="${d.gmaps}" target="_blank" class="text-amber-400 underline font-semibold">Start GPS ➔</a>
+            <a href="${d.gmaps}" target="_blank" class="text-amber-400 underline font-semibold">Abrir GPS ➔</a>
           </td>
         `;
         body.appendChild(row);
       });
     }
 
-    // Render Transport Breakdown (Tab 5) - Grouped by Region
+    const ferriesData = [
+      { route: "Barcelona ➔ Civitavecchia (Roma)", company: "Grimaldi Lines", badge: "GRIMALDI", vessel: "Cruise Roma / Cruise Barcelona", departure: "Salida: 22:00", arrival: "Llegada: 18:30", duration: "20h 30m", deck: "Bodega cerrada para vehículos", color: "border-emerald-500/40 text-emerald-300 bg-emerald-500/20" },
+      { route: "Villa San Giovanni ➔ Messina", company: "Caronte & Tourist", badge: "CARONTE", vessel: "Elio", departure: "Salida: 11:00", arrival: "Llegada: 11:20", duration: "20 min", deck: "Ferry lanzadera del Estrecho", color: "border-amber-500/40 text-amber-300 bg-amber-500/20" },
+      { route: "Palermo ➔ Cagliari", company: "Grimaldi Lines", badge: "GRIMALDI", vessel: "Venezia", departure: "Salida: 20:00", arrival: "Llegada: 08:00", duration: "12h", deck: "Ferry nocturno a Cerdeña", color: "border-sky-500/40 text-sky-300 bg-sky-500/20" },
+      { route: "Porto Torres ➔ Barcelona", company: "Grimaldi Lines", badge: "GRIMALDI", vessel: "Cruise Roma / Cruise Barcelona", departure: "Salida: 20:30", arrival: "Llegada: 10:30", duration: "14h", deck: "Ferry nocturno de regreso", color: "border-red-500/40 text-red-300 bg-red-500/20" }
+    ];
+
+    function renderFerryCard(ferry, index) {
+      return '<div class="card-box bg-slate-950 border border-slate-800 p-5 rounded-2xl space-y-4 shadow-sm">' +
+          '<div class="flex flex-wrap justify-between items-start gap-3">' +
+            '<div class="space-y-1">' +
+              '<span class="text-[10px] px-2.5 py-1 rounded-full border font-black tracking-wider ' + ferry.color + '">' + ferry.badge + '</span>' +
+              '<h3 class="font-bold text-white text-base mt-2">' + (index + 1) + '. ' + ferry.route + '</h3>' +
+              '<p class="text-xs text-slate-400">' + ferry.company + ' • Buque: <strong class="text-slate-200">' + ferry.vessel + '</strong></p>' +
+            '</div>' +
+            '<span class="bg-slate-900 border border-slate-700 text-slate-300 rounded-xl px-3 py-2 text-xs font-bold">' + ferry.deck + '</span>' +
+          '</div>' +
+          '<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">' +
+            '<div class="bg-slate-900 border border-slate-800 rounded-xl p-3"><span class="text-slate-400 block text-[11px]">Salida</span><strong class="text-amber-300 font-mono">' + ferry.departure + '</strong></div>' +
+            '<div class="bg-slate-900 border border-slate-800 rounded-xl p-3"><span class="text-slate-400 block text-[11px]">Llegada</span><strong class="text-emerald-300 font-mono">' + ferry.arrival + '</strong></div>' +
+            '<div class="bg-slate-900 border border-slate-800 rounded-xl p-3"><span class="text-slate-400 block text-[11px]">Duración</span><strong class="text-blue-300 font-mono">⏱️ ' + ferry.duration + '</strong></div>' +
+          '</div>' +
+          '<div class="flex flex-wrap gap-2 text-xs">' +
+            '<span class="bg-red-500/10 text-red-300 border border-red-500/30 rounded-full px-3 py-1 font-bold">⚠️ Check-in motos: 2h antes</span>' +
+            '<span class="bg-blue-500/10 text-blue-300 border border-blue-500/30 rounded-full px-3 py-1 font-bold">Camarote doble recomendado</span>' +
+          '</div>' +
+          '<div class="bg-slate-900/80 border border-slate-800 rounded-xl p-3 text-xs text-slate-300 leading-relaxed">' +
+            '<strong class="text-amber-400 block mb-1">Consejos para sujetar motos en bodega</strong>' +
+            'Llevar cincha propia corta o soft-loop, dejar primera marcha engranada, apoyar sobre pata lateral, no bloquear la dirección si la tripulación pide movilidad, proteger asiento/carenado con trapo y revisar tensión de cinchas antes de subir al camarote.' +
+          '</div>' +
+        '</div>';
+    }
+
+    // Renderizar desglose de transporte (Tab 5) - ferrys y tramos en moto
     function renderTransportGrid() {
       const grid = document.getElementById('transport-grid');
-      
-      const regions = ["Spain", "Mainland Italy", "Sicily", "Sardinia"];
+      const ferryHtml = ferriesData.map((ferry, index) => renderFerryCard(ferry, index)).join('');
+      const regions = ["España", "Italia continental", "Sicilia", "Cerdeña"];
       let motorbikeHtml = '';
 
       regions.forEach(reg => {
@@ -1001,75 +1204,20 @@
         if (legs.length === 0) return;
 
         let badgeColor = "bg-red-500/20 text-red-300 border-red-500/40";
-        if (reg === "Mainland Italy") badgeColor = "bg-emerald-500/20 text-emerald-300 border-emerald-500/40";
-        if (reg === "Sicily") badgeColor = "bg-amber-500/20 text-amber-300 border-amber-500/40";
-        if (reg === "Sardinia") badgeColor = "bg-sky-500/20 text-sky-300 border-sky-500/40";
+        if (reg === "Italia continental") badgeColor = "bg-emerald-500/20 text-emerald-300 border-emerald-500/40";
+        if (reg === "Sicilia") badgeColor = "bg-amber-500/20 text-amber-300 border-amber-500/40";
+        if (reg === "Cerdeña") badgeColor = "bg-sky-500/20 text-sky-300 border-sky-500/40";
 
-        motorbikeHtml += `
-          <div class="mb-4">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="text-xs px-2.5 py-0.5 rounded-full border font-bold uppercase ${badgeColor}">${reg}</span>
-              <span class="text-xs text-slate-400">(${legs.length} Days)</span>
-            </div>
-            <ul class="text-xs space-y-1.5 text-slate-300 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
-        `;
+        motorbikeHtml += '<div class="mb-4"><div class="flex items-center gap-2 mb-2"><span class="text-xs px-2.5 py-0.5 rounded-full border font-bold uppercase ' + badgeColor + '">' + reg + '</span><span class="text-xs text-slate-400">(' + legs.length + ' días)</span></div><ul class="text-xs space-y-1.5 text-slate-300 bg-slate-900/60 p-3 rounded-xl border border-slate-800">';
 
         legs.forEach(l => {
-          motorbikeHtml += `
-            <li class="flex justify-between items-center py-1.5 border-b border-slate-800/40 last:border-none text-xs">
-              <span><strong class="text-slate-200">Day ${l.day}:</strong> ${l.title}</span>
-              <div class="flex items-center gap-2 font-mono">
-                <span class="text-blue-400 text-[11px]">🛣️ ${l.highwayKm}</span>
-                <span class="text-emerald-400 text-[11px]">🏍️ ${l.secondaryKm}</span>
-                <span class="text-amber-300 font-bold ml-1">${l.km}</span>
-              </div>
-            </li>
-          `;
+          motorbikeHtml += '<li class="flex justify-between items-center py-1.5 border-b border-slate-800/40 last:border-none text-xs gap-3"><span><strong class="text-slate-200">Día ' + l.day + ':</strong> ' + l.title + '</span><div class="flex items-center gap-2 font-mono shrink-0"><span class="text-blue-400 text-[11px]">🛣️ ' + l.highwayKm + '</span><span class="text-emerald-400 text-[11px]">🏍️ ' + l.secondaryKm + '</span><span class="text-amber-300 font-bold ml-1">' + l.km + '</span></div></li>';
         });
 
-        motorbikeHtml += `</ul></div>`;
+        motorbikeHtml += '</ul></div>';
       });
 
-      grid.innerHTML = `
-        <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
-          <h3 class="font-bold text-md text-amber-400 flex items-center gap-2">🏍️ Motorbike Riding Legs (Grouped by Region)</h3>
-          ${motorbikeHtml}
-        </div>
-
-        <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
-          <h3 class="font-bold text-md text-blue-400 flex items-center gap-2">🚢 Ferry Sea Sailings (Grouped by Connection)</h3>
-          <ul class="text-xs space-y-3 text-slate-300">
-            <li class="p-3 bg-slate-900 rounded-lg border border-slate-800 flex flex-col space-y-1">
-              <div class="flex justify-between items-center">
-                <strong class="text-white">1. Spain ➔ Mainland Italy</strong>
-                <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-emerald-500/20 text-emerald-300 border-emerald-500/40">CIVITAVECCHIA</span>
-              </div>
-              <span class="text-slate-400 text-[11px]">Barcelona ➔ Civitavecchia (Rome) • Grimaldi Lines • ~20 Hours Overnight</span>
-            </li>
-            <li class="p-3 bg-slate-900 rounded-lg border border-slate-800 flex flex-col space-y-1">
-              <div class="flex justify-between items-center">
-                <strong class="text-white">2. Mainland Italy ➔ Sicily</strong>
-                <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-amber-500/20 text-amber-300 border-amber-500/40">MESSINA STRAIT</span>
-              </div>
-              <span class="text-slate-400 text-[11px]">Villa San Giovanni ➔ Messina • Caronte & Tourist Shuttle • 20 Minutes</span>
-            </li>
-            <li class="p-3 bg-slate-900 rounded-lg border border-slate-800 flex flex-col space-y-1">
-              <div class="flex justify-between items-center">
-                <strong class="text-white">3. Sicily ➔ Sardinia</strong>
-                <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-sky-500/20 text-sky-300 border-sky-500/40">CAGLIARI</span>
-              </div>
-              <span class="text-slate-400 text-[11px]">Palermo ➔ Cagliari • Grimaldi Lines • ~12 Hours Overnight</span>
-            </li>
-            <li class="p-3 bg-slate-900 rounded-lg border border-slate-800 flex flex-col space-y-1">
-              <div class="flex justify-between items-center">
-                <strong class="text-white">4. Sardinia ➔ Spain</strong>
-                <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-red-500/20 text-red-300 border-red-500/40">BARCELONA RETURN</span>
-              </div>
-              <span class="text-slate-400 text-[11px]">Porto Torres ➔ Barcelona • Grimaldi Lines • ~13.5 Hours Overnight</span>
-            </li>
-          </ul>
-        </div>
-      `;
+      grid.innerHTML = '<div class="xl:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-4">' + ferryHtml + '</div><div class="xl:col-span-2 bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4"><h3 class="font-bold text-md text-amber-400 flex items-center gap-2">🏍️ Tramos en moto (agrupados por región)</h3>' + motorbikeHtml + '</div>';
     }
 
     let currentActivityCategory = 'ALL';
@@ -1090,14 +1238,14 @@
       renderActivitiesGrouped();
     }
 
-    // Render Activities Grouped by Category & Region (Tab 6)
+    // Renderizar actividades agrupadas por categoría y región (Tab 6)
     function renderActivitiesGrouped() {
       const container = document.getElementById('activities-grouped-container');
       container.innerHTML = '';
 
       const searchVal = document.getElementById('activity-search').value.toLowerCase();
 
-      // Filter data by category pill & search string
+      // Filtrar datos por categoría y búsqueda
       const filtered = activitiesData.filter(a => {
         const matchesCat = (currentActivityCategory === 'ALL') || (a.type === currentActivityCategory);
         const matchesSearch = a.name.toLowerCase().includes(searchVal) ||
@@ -1110,19 +1258,19 @@
       if (filtered.length === 0) {
         container.innerHTML = `
           <div class="p-8 text-center text-slate-400 bg-slate-950 rounded-xl border border-slate-800">
-            <span>No activities found matching your search and category filter.</span>
+            <span>No hay actividades que coincidan con tu búsqueda y filtro de categoría.</span>
           </div>
         `;
         return;
       }
 
-      // Group filtered activities by type/category
+      // Agrupar actividades filtradas por tipo/categoría
       const categoryMap = {
-        "Thermal Spa": { label: "♨️ Natural Thermal Spas & Hot Rivers (Termas)", color: "border-emerald-500/40 text-emerald-400" },
-        "Archaeology & Ruins": { label: "🏛️ Ancient Greek & Roman Ruins & Archaeology", color: "border-amber-500/40 text-amber-400" },
-        "Motorcycle Route": { label: "🏍️ Iconic Motorbike Mountain Passes & Cliff Roads", color: "border-sky-500/40 text-sky-400" },
-        "Sightseeing & Nature": { label: "🌅 Panoramic Miradors, Coastal Overlooks & Caves", color: "border-purple-500/40 text-purple-400" },
-        "Sightseeing & Culture": { label: "🏰 Medieval Old Towns & UNESCO Monuments", color: "border-rose-500/40 text-rose-400" }
+        "Termas": { label: "♨️ Termas naturales y ríos termales", color: "border-emerald-500/40 text-emerald-400" },
+        "Arqueología y ruinas": { label: "🏛️ Ruinas griegas y romanas y arqueología", color: "border-amber-500/40 text-amber-400" },
+        "Ruta en moto": { label: "🏍️ Puertos de montaña y carreteras de acantilados en moto", color: "border-sky-500/40 text-sky-400" },
+        "Paisaje y naturaleza": { label: "🌅 Miradores panorámicos, acantilados y cuevas", color: "border-purple-500/40 text-purple-400" },
+        "Paisaje y cultura": { label: "🏰 Cascos antiguos medievales y monumentos UNESCO", color: "border-rose-500/40 text-rose-400" }
       };
 
       const grouped = {};
@@ -1141,9 +1289,9 @@
         let cardsHtml = '';
         actList.forEach(a => {
           let regionBadge = "bg-emerald-500/20 text-emerald-300 border-emerald-500/40";
-          if (a.region === "Spain") regionBadge = "bg-red-500/20 text-red-300 border-red-500/40";
-          if (a.region === "Sicily") regionBadge = "bg-amber-500/20 text-amber-300 border-amber-500/40";
-          if (a.region === "Sardinia") regionBadge = "bg-sky-500/20 text-sky-300 border-sky-500/40";
+          if (a.region === "España") regionBadge = "bg-red-500/20 text-red-300 border-red-500/40";
+          if (a.region === "Sicilia") regionBadge = "bg-amber-500/20 text-amber-300 border-amber-500/40";
+          if (a.region === "Cerdeña") regionBadge = "bg-sky-500/20 text-sky-300 border-sky-500/40";
 
           cardsHtml += `
             <div onclick='openActivityModal(${JSON.stringify(a).replace(/'/g, "&apos;")})' class="card-box bg-slate-950 border border-slate-800 p-5 rounded-2xl space-y-4 hover:border-amber-500/60 transition-all cursor-pointer shadow-sm flex flex-col justify-between">
@@ -1161,7 +1309,7 @@
                 <a href="${a.gmaps}" target="_blank" onclick="event.stopPropagation();" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1">
                   📍 Google Maps
                 </a>
-                <span class="text-amber-400 font-bold hover:underline">Details & Tips ➔</span>
+                <span class="text-amber-400 font-bold hover:underline">Detalles y consejos ➔</span>
               </div>
             </div>
           `;
@@ -1185,19 +1333,19 @@
       renderActivitiesGrouped();
     }
 
-    // Modal Triggers
+    // Apertura de modales
     function openHourlyModal(dayNum) {
       const data = daysData.find(d => d.day === dayNum);
       if (!data) return;
 
-      document.getElementById('modal-day-badge').innerText = `DAY ${data.day} • ${data.km} • ⏱️ ${data.time}`;
+      document.getElementById('modal-day-badge').innerText = `DÍA ${data.day} • ${data.km} • ⏱️ ${data.time}`;
       document.getElementById('modal-title').innerText = data.title;
 
       const timelineContainer = document.getElementById('modal-timeline');
       timelineContainer.innerHTML = `
         <div class="pb-2">
           <a href="${data.gmaps}" target="_blank" class="inline-flex items-center gap-1.5 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 px-3 py-1.5 rounded-lg text-xs font-bold">
-            🗺️ Open Live GPS Driving Directions for Day ${data.day} in Google Maps ➔
+            🗺️ Abrir indicaciones GPS en vivo para el día ${data.day} en Google Maps ➔
           </a>
         </div>
       `;
@@ -1232,39 +1380,39 @@
       }
       gmapsLink.innerHTML = `
         <a href="${act.gmaps}" target="_blank" class="inline-flex items-center gap-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/40 px-3 py-1.5 rounded-lg text-xs font-bold mt-1">
-          📍 Open ${act.name} in Google Maps ➔
+          📍 Abrir ${act.name} en Google Maps ➔
         </a>
       `;
 
       document.getElementById('activity-modal').classList.remove('hidden');
     }
 
-    // Initialize Map with CartoDB Voyager Tiles (Fixes 403 Tile Blockage)
+    // Inicializar mapa con teselas CartoDB Voyager
     function initMap() {
       const map = L.map('map').setView([39.0, 12.5], 6);
       window.map = map;
 
-      // 100% Free Public Esri WorldTopoMap (No API key, No 403 blocks)
+      // 100% Gratis Public Esri WorldTopoMap (No API key, No 403 blocks)
       L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community',
         maxZoom: 18
       }).addTo(map);
 
       const waypoints = [
-        { name: "Lloret de Mar (Home)", lat: 41.7005, lng: 2.8456, desc: "Starting & Ending Point" },
-        { name: "Port of Barcelona (Ferry)", lat: 41.368, lng: 2.175, desc: "Grimaldi Lines Ferry Port" },
-        { name: "Civitavecchia (Rome Port)", lat: 42.092, lng: 11.796, desc: "Mainland Gateway Port" },
-        { name: "Amalfi Coast (SS163)", lat: 40.634, lng: 14.602, desc: "Iconic Coastal Motorbike Road" },
-        { name: "Terme di Caronte (Calabria)", lat: 38.973, lng: 16.291, desc: "Natural Thermal Sulfur Baths" },
-        { name: "Riace Bronzes (Reggio Calabria)", lat: 38.114, lng: 15.651, desc: "5th-Century BC Greek Bronze Sculptures" },
-        { name: "Mt. Etna SP92 Loop", lat: 37.702, lng: 15.000, desc: "Volcano Lava Field Ride (1,900m)" },
-        { name: "Valley of the Temples & Icarus", lat: 37.288, lng: 13.586, desc: "Greek Temples & Bronze Sculpture" },
-        { name: "Terme Segestane (Hot River)", lat: 37.973, lng: 12.839, desc: "Natural 47°C Thermal River Dip" },
-        { name: "Palermo Port (Ferry to Sardinia)", lat: 38.127, lng: 13.369, desc: "Overnight Ferry to Cagliari" },
-        { name: "Cagliari Port (Sardinia)", lat: 39.215, lng: 9.112, desc: "Sardinia Starting Point" },
-        { name: "SS125 Orientale Sarda (Baunei)", lat: 40.031, lng: 9.664, desc: "Legendary Grippy Mountain Pass" },
-        { name: "Alghero & Capo Caccia", lat: 40.558, lng: 8.319, desc: "Medieval Coastal Town & Cliff Road" },
-        { name: "Porto Torres (Ferry to Barcelona)", lat: 40.836, lng: 8.402, desc: "Direct Ferry Port back to Spain" }
+        { name: "Lloret de Mar (Casa)", lat: 41.7005, lng: 2.8456, desc: "Punto de salida y llegada" },
+        { name: "Puerto de Barcelona (Ferry)", lat: 41.368, lng: 2.175, desc: "Puerto de ferry de Grimaldi Lines" },
+        { name: "Civitavecchia (Puerto de Roma)", lat: 42.092, lng: 11.796, desc: "Puerto de entrada a Italia continental" },
+        { name: "Costa Amalfitana (SS163)", lat: 40.634, lng: 14.602, desc: "Carretera costera icónica para moto" },
+        { name: "Terme di Caronte (Calabria)", lat: 38.973, lng: 16.291, desc: "Termas sulfurosas naturales" },
+        { name: "Bronces de Riace (Reggio Calabria)", lat: 38.114, lng: 15.651, desc: "Esculturas griegas de bronce del siglo V a. C." },
+        { name: "Vuelta SP92 al Etna", lat: 37.702, lng: 15.000, desc: "Ruta volcánica entre campos de lava (1.900 m)" },
+        { name: "Valle de los Templos e Ícaro", lat: 37.288, lng: 13.586, desc: "Templos griegos y escultura de bronce" },
+        { name: "Terme Segestane (río termal)", lat: 37.973, lng: 12.839, desc: "Baño en río termal natural a 47 °C" },
+        { name: "Puerto de Palermo (ferry a Cerdeña)", lat: 38.127, lng: 13.369, desc: "Ferry nocturno a Cagliari" },
+        { name: "Puerto de Cagliari (Cerdeña)", lat: 39.215, lng: 9.112, desc: "Punto de salida en Cerdeña" },
+        { name: "SS125 Orientale Sarda (Baunei)", lat: 40.031, lng: 9.664, desc: "Puerto de montaña legendario con mucho agarre" },
+        { name: "Alghero & Capo Caccia", lat: 40.558, lng: 8.319, desc: "Ciudad medieval costera y carretera de acantilados" },
+        { name: "Porto Torres (Ferry to Barcelona)", lat: 40.836, lng: 8.402, desc: "Puerto de ferry directo de regreso a España" }
       ];
 
       const latlngs = waypoints.map(wp => [wp.lat, wp.lng]);
@@ -1277,28 +1425,78 @@
       });
     }
 
-    // Google-style Dark / Light Mode Toggle Handler
+    const budgetDefaults = {
+      ferryPerPerson: 420,
+      hotelNights: 10,
+      hotelPerNight: 35,
+      routeKm: 2240,
+      fuelPricePerLiter: 1.85,
+      fuelConsumption: 5.0,
+      tripDays: 14,
+      foodPerDay: 35,
+      tollsAndTickets: 80
+    };
+
+    function formatEuro(value) {
+      return new Intl.NumberFormat('es-ES', {
+        style: 'currency',
+        currency: 'EUR',
+        maximumFractionDigits: 0
+      }).format(value);
+    }
+
+    function updateBudgetCalculator() {
+      const fuelSlider = document.getElementById('fuel-consumption-slider');
+      const hotelSlider = document.getElementById('hotel-night-slider');
+      const foodSlider = document.getElementById('food-day-slider');
+      if (!fuelSlider || !hotelSlider || !foodSlider) return;
+
+      const fuelConsumption = Number(fuelSlider.value);
+      const hotelPerNight = Number(hotelSlider.value);
+      const foodPerDay = Number(foodSlider.value);
+
+      const ferries = budgetDefaults.ferryPerPerson;
+      const hotels = budgetDefaults.hotelNights * hotelPerNight;
+      const fuel = (budgetDefaults.routeKm / 100) * fuelConsumption * budgetDefaults.fuelPricePerLiter;
+      const food = budgetDefaults.tripDays * foodPerDay;
+      const tolls = budgetDefaults.tollsAndTickets;
+      const total = ferries + hotels + fuel + food + tolls;
+
+      document.getElementById('fuel-consumption-label').innerText = fuelConsumption.toFixed(1).replace('.', ',') + ' L/100 km';
+      document.getElementById('hotel-night-label').innerText = formatEuro(hotelPerNight) + '/noche';
+      document.getElementById('food-day-label').innerText = formatEuro(foodPerDay) + '/día';
+
+      document.getElementById('budget-ferries').innerText = formatEuro(ferries);
+      document.getElementById('budget-hotels').innerText = formatEuro(hotels);
+      document.getElementById('budget-fuel').innerText = formatEuro(fuel);
+      document.getElementById('budget-food').innerText = formatEuro(food);
+      document.getElementById('budget-tolls').innerText = formatEuro(tolls);
+      document.getElementById('budget-grand-total').innerText = formatEuro(total);
+      document.getElementById('budget-summary').innerText = 'Base ajustada: ferrys ' + formatEuro(ferries) + ', hoteles ' + formatEuro(hotels) + ', gasolina ' + formatEuro(fuel) + ', comida ' + formatEuro(food) + ', peajes/entradas ' + formatEuro(tolls) + '.';
+    }
+    // Selector de tema claro / oscuro
     function toggleTheme() {
       const body = document.body;
       const btn = document.getElementById('theme-toggle-btn');
       body.classList.toggle('light-theme');
 
       if (body.classList.contains('light-theme')) {
-        btn.innerHTML = '☀️ <span>Light Mode</span>';
+        btn.innerHTML = '☀️ <span>Modo claro</span>';
         btn.className = 'bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm';
       } else {
-        btn.innerHTML = '🌙 <span>Dark Mode</span>';
+        btn.innerHTML = '🌙 <span>Modo oscuro</span>';
         btn.className = 'bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm';
       }
     }
 
-    // Load everything on DOM Ready
+    // Cargar todo cuando el DOM esté listo
     document.addEventListener('DOMContentLoaded', () => {
       initMap();
       renderItineraryCards();
       renderCitiesTable();
       renderTransportGrid();
       renderActivitiesGrouped();
+      updateBudgetCalculator();
     });
   </script>
 </body>
