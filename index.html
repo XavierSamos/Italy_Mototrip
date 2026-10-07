@@ -577,6 +577,24 @@
 
     <!-- TAB 6: ACTIVITIES, RUINS & SPAS (WITH CATEGORY FILTERS & SEARCH) -->
     <div id="view-activities-view" class="tab-content hidden space-y-6">
+
+      <!-- Collapsible Map Banner at the Top of Activities Tab -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl transition-all">
+        <button onclick="toggleActivitiesMap()" class="w-full bg-slate-900 hover:bg-slate-800/80 text-left p-4 flex flex-wrap justify-between items-center text-xs font-bold text-slate-200 transition-all gap-2 border-b border-slate-800/80">
+          <div class="flex items-center gap-2">
+            <span class="text-base">🗺️</span>
+            <span class="text-sm font-bold text-white">Mapa interactivo de actividades y visitas</span>
+            <span class="text-[11px] text-amber-400 bg-amber-500/10 border border-amber-500/30 px-2.5 py-0.5 rounded-full font-mono font-bold" id="map-active-count">24 marcadores</span>
+          </div>
+          <span id="activities-map-toggle-icon" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all">
+            <span id="activities-map-toggle-text">Desplegar mapa</span> <span id="activities-map-toggle-arrow">🔻</span>
+          </span>
+        </button>
+        <div id="activities-map-wrapper" class="hidden p-3 bg-slate-950 border-t border-slate-800">
+          <div id="activities-map" class="w-full h-[320px] md:h-[420px] rounded-xl border border-slate-800"></div>
+        </div>
+      </div>
+
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4">
           <div>
@@ -1068,6 +1086,7 @@
         type: "Termas",
         region: "Sicilia",
         location: "Segesta, Sicilia occidental",
+        lat: 37.975, lng: 12.836,
         bestTime: "Última hora de la tarde / atardecer",
         price: "Gratis (río natural)",
         duration: "2 horas",
@@ -1080,6 +1099,7 @@
         type: "Termas",
         region: "Italia continental",
         location: "Lamezia Terme, Calabria",
+        lat: 38.973, lng: 16.291,
         bestTime: "Parada de mediodía",
         price: "Gratis (manantial público)",
         duration: "1,5 horas",
@@ -1092,6 +1112,7 @@
         type: "Termas",
         region: "Cerdeña",
         location: "Fordongianus, Cerdeña central",
+        lat: 39.995, lng: 8.809,
         bestTime: "Última hora de la tarde",
         price: "Gratis (pozas del río) / €5 ruinas",
         duration: "1,5 horas",
@@ -1104,6 +1125,7 @@
         type: "Arqueología y ruinas",
         region: "Italia continental",
         location: "Paestum, Salerno, Campania",
+        lat: 40.420, lng: 15.006,
         bestTime: "Mañana",
         price: "€12 por persona",
         duration: "2 horas",
@@ -1116,6 +1138,7 @@
         type: "Arqueología y ruinas",
         region: "Sicilia",
         location: "Taormina, Este de Sicilia",
+        lat: 37.852, lng: 15.292,
         bestTime: "Mañana o atardecer",
         price: "€13 por persona",
         duration: "2 horas",
@@ -1128,6 +1151,7 @@
         type: "Arqueología y ruinas",
         region: "Sicilia",
         location: "Siracusa, Este de Sicilia",
+        lat: 37.075, lng: 15.278,
         bestTime: "Mañana",
         price: "€13 por persona",
         duration: "2 horas",
@@ -1140,6 +1164,7 @@
         type: "Arqueología y ruinas",
         region: "Sicilia",
         location: "Piazza Armerina, Sicilia central",
+        lat: 37.365, lng: 14.335,
         bestTime: "Mediodía",
         price: "€10 por persona",
         duration: "2 horas",
@@ -1152,6 +1177,7 @@
         type: "Arqueología y ruinas",
         region: "Sicilia",
         location: "Marinella di Selinunte, Sicilia occidental",
+        lat: 37.584, lng: 12.825,
         bestTime: "Mañana",
         price: "€9 por persona",
         duration: "2 horas",
@@ -1164,6 +1190,7 @@
         type: "Arqueología y ruinas",
         region: "Sicilia",
         location: "Calatafimi-Segesta, Sicilia occidental",
+        lat: 37.941, lng: 12.833,
         bestTime: "Mañana",
         price: "€8 por persona",
         duration: "2 horas",
@@ -1176,6 +1203,7 @@
         type: "Arqueología y ruinas",
         region: "Cerdeña",
         location: "Barumini, Cerdeña central",
+        lat: 39.704, lng: 8.991,
         bestTime: "Mañana",
         price: "€15 por persona",
         duration: "1,5 horas",
@@ -1188,6 +1216,7 @@
         type: "Paisaje y cultura",
         region: "Italia continental",
         location: "Scilla, Calabria",
+        lat: 38.254, lng: 15.717,
         bestTime: "Atardecer / Noche",
         price: "Gratis / €2 Castillo",
         duration: "1,5 horas",
@@ -1200,6 +1229,7 @@
         type: "Paisaje y cultura",
         region: "Sicilia",
         location: "Ortigia, Siracusa, Sicilia",
+        lat: 37.060, lng: 15.295,
         bestTime: "Tarde / Noche",
         price: "Gratis / €2 Catedral",
         duration: "2 horas",
@@ -1212,6 +1242,7 @@
         type: "Paisaje y cultura",
         region: "Sicilia",
         location: "Val di Noto, Sicilia",
+        lat: 36.886, lng: 14.743,
         bestTime: "Tarde",
         price: "Gratis",
         duration: "3 horas",
@@ -1224,6 +1255,7 @@
         type: "Paisaje y cultura",
         region: "Sicilia",
         location: "Cefalù, Costa norte de Sicilia",
+        lat: 38.038, lng: 14.023,
         bestTime: "Tarde",
         price: "Gratis",
         duration: "1,5 horas",
@@ -1236,6 +1268,7 @@
         type: "Paisaje y cultura",
         region: "Cerdeña",
         location: "Orgosolo, Barbagia, Cerdeña",
+        lat: 40.205, lng: 9.351,
         bestTime: "Tarde",
         price: "Gratis",
         duration: "1,5 horas",
@@ -1248,6 +1281,7 @@
         type: "Paisaje y cultura",
         region: "Cerdeña",
         location: "Bosa, Cerdeña occidental",
+        lat: 40.298, lng: 8.499,
         bestTime: "Tarde / Atardecer",
         price: "Gratis / €5 Castillo",
         duration: "1,5 horas",
@@ -1260,6 +1294,7 @@
         type: "Paisaje y cultura",
         region: "Cerdeña",
         location: "Castelsardo, Cerdeña norte",
+        lat: 40.890, lng: 8.746,
         bestTime: "Tarde",
         price: "Gratis",
         duration: "1,5 horas",
@@ -1272,6 +1307,7 @@
         type: "Paisaje y naturaleza",
         region: "Sicilia",
         location: "Realmonte, Agrigento, Sicilia",
+        lat: 37.290, lng: 13.473,
         bestTime: "Atardecer",
         price: "Gratis (miradores)",
         duration: "1 hora",
@@ -1284,6 +1320,7 @@
         type: "Ruta en moto",
         region: "Cerdeña",
         location: "Paso Genna Silana, SS125, Cerdeña",
+        lat: 40.158, lng: 9.508,
         bestTime: "Media mañana",
         price: "Gratis",
         duration: "1,5 horas",
@@ -1296,6 +1333,7 @@
         type: "Ruta en moto",
         region: "Cerdeña",
         location: "Ogliastra, Este de Cerdeña",
+        lat: 40.033, lng: 9.605,
         bestTime: "Mañana / Mediodía",
         price: "Gratis (carretera pública)",
         duration: "Ruta de día completo",
@@ -1308,6 +1346,7 @@
         type: "Ruta en moto",
         region: "Cerdeña",
         location: "Costa oeste, Cerdeña",
+        lat: 40.400, lng: 8.380,
         bestTime: "Atardecer",
         price: "Gratis",
         duration: "1,5 horas",
@@ -1320,6 +1359,7 @@
         type: "Ruta en moto",
         region: "Sicilia",
         location: "Nicolosi a Rifugio Sapienza, Sicilia",
+        lat: 37.700, lng: 15.000,
         bestTime: "Mediodía (más cálido)",
         price: "Gratis",
         duration: "3 horas",
@@ -1332,6 +1372,7 @@
         type: "Paisaje y naturaleza",
         region: "Italia continental",
         location: "Maratea, Costa de Calabria / Basilicata",
+        lat: 39.988, lng: 15.720,
         bestTime: "Media mañana",
         price: "Gratis",
         duration: "1 hora",
@@ -1344,6 +1385,7 @@
         type: "Ruta en moto",
         region: "Italia continental",
         location: "Costa del Cilento, Sur de Campania",
+        lat: 40.033, lng: 15.283,
         bestTime: "Mañana",
         price: "Gratis",
         duration: "2,5 horas",
@@ -1556,6 +1598,112 @@
       if (countEl) countEl.innerText = count;
     }
 
+    // Mapa interactivo colapsable para Actividades (Tab 6)
+    window.activitiesMap = null;
+    window.activitiesMarkersLayer = null;
+
+    function initActivitiesMap() {
+      if (window.activitiesMap) return;
+      const mapContainer = document.getElementById('activities-map');
+      if (!mapContainer) return;
+
+      window.activitiesMap = L.map('activities-map').setView([38.5, 13.0], 6);
+
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri',
+        maxZoom: 18
+      }).addTo(window.activitiesMap);
+
+      window.activitiesMarkersLayer = L.layerGroup().addTo(window.activitiesMap);
+    }
+
+    function toggleActivitiesMap() {
+      const wrapper = document.getElementById('activities-map-wrapper');
+      const textEl = document.getElementById('activities-map-toggle-text');
+      const arrowEl = document.getElementById('activities-map-toggle-arrow');
+      if (!wrapper) return;
+
+      const isHidden = wrapper.classList.contains('hidden');
+      if (isHidden) {
+        wrapper.classList.remove('hidden');
+        if (textEl) textEl.innerText = 'Plegar mapa';
+        if (arrowEl) arrowEl.innerText = '🔺';
+        
+        initActivitiesMap();
+        setTimeout(() => {
+          if (window.activitiesMap) {
+            window.activitiesMap.invalidateSize();
+            renderActivitiesGrouped();
+          }
+        }, 100);
+      } else {
+        wrapper.classList.add('hidden');
+        if (textEl) textEl.innerText = 'Desplegar mapa';
+        if (arrowEl) arrowEl.innerText = '🔻';
+      }
+    }
+
+    function getEmojiMarkerIcon(type, isFav) {
+      let emoji = "📍";
+      let bg = "bg-amber-500 border-amber-300";
+      if (type === "Termas") { emoji = "♨️"; bg = "bg-emerald-500 border-emerald-300"; }
+      else if (type === "Arqueología y ruinas") { emoji = "🏛️"; bg = "bg-amber-500 border-amber-300"; }
+      else if (type === "Ruta en moto") { emoji = "🏍️"; bg = "bg-sky-500 border-sky-300"; }
+      else if (type === "Paisaje y naturaleza") { emoji = "🌅"; bg = "bg-purple-500 border-purple-300"; }
+      else if (type === "Paisaje y cultura") { emoji = "🏰"; bg = "bg-rose-500 border-rose-300"; }
+
+      const starBadge = isFav ? '<span class="absolute -top-1.5 -right-1.5 text-xs filter drop-shadow">⭐</span>' : '';
+
+      return L.divIcon({
+        className: 'custom-emoji-marker',
+        html: `<div class="relative ${bg} text-white font-bold text-sm w-8 h-8 rounded-full flex items-center justify-center border-2 shadow-md transform hover:scale-125 transition-all cursor-pointer">${emoji}${starBadge}</div>`,
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      });
+    }
+
+    function updateActivitiesMap(filteredActivities) {
+      const countEl = document.getElementById('map-active-count');
+      if (countEl) {
+        countEl.innerText = `${filteredActivities.length} ${filteredActivities.length === 1 ? 'marcador' : 'marcadores'}`;
+      }
+
+      if (!window.activitiesMap || !window.activitiesMarkersLayer) return;
+
+      window.activitiesMarkersLayer.clearLayers();
+
+      const boundsCoords = [];
+
+      filteredActivities.forEach(act => {
+        if (act.lat && act.lng) {
+          boundsCoords.push([act.lat, act.lng]);
+          const fav = isFavorite(act.name);
+          const icon = getEmojiMarkerIcon(act.type, fav);
+          const marker = L.marker([act.lat, act.lng], { icon });
+
+          const popupContent = `
+            <div class="space-y-1 text-xs text-slate-800 p-1">
+              <strong class="font-bold text-sm text-slate-900 block">${act.name}</strong>
+              <div class="text-[11px] text-slate-600">📍 ${act.location}</div>
+              <div class="font-bold text-amber-700 font-mono text-[11px]">${act.price}</div>
+              <div class="pt-1">
+                <a href="${act.gmaps}" target="_blank" class="bg-amber-500 text-slate-950 font-bold px-2 py-0.5 rounded text-[11px] inline-block hover:bg-amber-400">
+                  🗺️ Google Maps GPS ➔
+                </a>
+              </div>
+            </div>
+          `;
+          marker.bindPopup(popupContent);
+          window.activitiesMarkersLayer.addLayer(marker);
+        }
+      });
+
+      if (boundsCoords.length > 0) {
+        const bounds = L.latLngBounds(boundsCoords);
+        window.activitiesMap.fitBounds(bounds, { padding: [40, 40], maxZoom: 13 });
+      }
+    }
+
     // Renderizar actividades agrupadas por categoría y región (Tab 6)
     function renderActivitiesGrouped() {
       const container = document.getElementById('activities-grouped-container');
@@ -1574,6 +1722,8 @@
                               a.history.toLowerCase().includes(searchVal);
         return matchesCat && matchesSearch;
       });
+
+      updateActivitiesMap(filtered);
 
       if (filtered.length === 0) {
         if (currentActivityCategory === 'FAVORITES') {
