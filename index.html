@@ -377,108 +377,325 @@
 
     <!-- TAB 4: PRICES & BUDGET BREAKDOWN -->
     <div id="view-prices-view" class="tab-content hidden space-y-6">
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
-        <div>
-          <h2 class="font-bold text-xl text-white">💰 Calculadora dinámica de presupuesto (por persona)</h2>
-          <p class="text-xs text-slate-400 mt-1">Base realista para 2 motoristas: 4 travesías con moto y camarote, 10 noches compartiendo habitación, 2.240 km de ruta y 14 días de comida.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
-          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-slate-400 block">Ferrys</span>
-            <strong class="text-amber-300 font-mono text-lg">€420</strong>
-            <p class="text-slate-400">4 travesías con moto y camarote</p>
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
+        
+        <!-- Header & Mode Selector -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-5">
+          <div>
+            <h2 class="font-bold text-xl text-white flex items-center gap-2">
+              <span>💰</span> Calculadora Modular de Presupuesto
+            </h2>
+            <p class="text-xs text-slate-400 mt-1">Cálculo dinámico en tiempo real para 12 días de expedición: ferrys confirmados con Grimaldi/Caronte, consumos reales y gastronomía modular.</p>
           </div>
-          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-slate-400 block">Hoteles base</span>
-            <strong class="text-emerald-300 font-mono text-lg">€35/noche</strong>
-            <p class="text-slate-400">Habitación de €70 compartida</p>
-          </div>
-          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-slate-400 block">Gasolina base</span>
-            <strong class="text-blue-300 font-mono text-lg">5,0 L/100 km</strong>
-            <p class="text-slate-400">€1,85/L sobre 2.240 km</p>
-          </div>
-          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-slate-400 block">Comida & espresso</span>
-            <strong class="text-rose-300 font-mono text-lg">€35/día</strong>
-            <p class="text-slate-400">Pranzo, cena y cafés</p>
-          </div>
-          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1">
-            <span class="text-slate-400 block">Peajes y entradas</span>
-            <strong class="text-cyan-300 font-mono text-lg">€80</strong>
-            <p class="text-slate-400">Museos, termas y peajes</p>
+          
+          <!-- Mode Switcher -->
+          <div class="inline-flex p-1 bg-slate-950 border border-slate-800 rounded-xl">
+            <button id="btn-mode-dual" onclick="setBudgetMode('dual')" class="px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 bg-amber-500 text-slate-950 shadow">
+              <span>🏍️🏍️</span> Padre e Hijo (2 Motos / 2 Pilotos)
+            </button>
+            <button id="btn-mode-solo" onclick="setBudgetMode('solo')" class="px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 text-slate-400 hover:text-white">
+              <span>🏍️</span> 1 Moto / 1 Piloto Solo
+            </button>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
-            <div class="flex justify-between items-start gap-3">
-              <div>
-                <h3 class="font-bold text-sm text-blue-400 uppercase">Consumo de gasolina</h3>
-                <p class="text-xs text-slate-400">Ajusta litros cada 100 km.</p>
-              </div>
-              <span id="fuel-consumption-label" class="font-mono text-blue-300 font-bold text-sm">5,0 L/100 km</span>
+        <!-- Grand Total Summary Banner -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Total Expedition -->
+          <div class="bg-gradient-to-br from-amber-500/20 via-slate-950 to-slate-900 border-2 border-amber-500/50 p-5 rounded-2xl flex flex-col justify-between shadow-lg">
+            <div class="flex justify-between items-start">
+              <span class="text-xs font-extrabold text-amber-400 uppercase tracking-wider">Coste Total Expedición</span>
+              <span id="badge-budget-mode" class="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded-full font-bold">2 Motos · 2 Pax</span>
             </div>
-            <input id="fuel-consumption-slider" type="range" min="4" max="12" step="0.1" value="5.5" oninput="updateBudgetCalculator()" class="w-full accent-blue-500">
-            <div class="flex justify-between text-[11px] text-slate-500"><span>4,0</span><span>12,0</span></div>
+            <div class="py-2">
+              <span id="budget-grand-total" class="text-4xl font-black font-mono text-white tracking-tight">€3.090</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Total acumulado de toda la expedición (ambos pilotos y motos).</p>
           </div>
 
-          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
-            <div class="flex justify-between items-start gap-3">
-              <div>
-                <h3 class="font-bold text-sm text-emerald-400 uppercase">Nivel de alojamiento</h3>
-                <p class="text-xs text-slate-400">Coste por noche y persona.</p>
-              </div>
-              <span id="hotel-night-label" class="font-mono text-emerald-300 font-bold text-sm">€35/noche</span>
+          <!-- Total Per Person -->
+          <div class="bg-gradient-to-br from-emerald-500/20 via-slate-950 to-slate-900 border-2 border-emerald-500/50 p-5 rounded-2xl flex flex-col justify-between shadow-lg">
+            <div class="flex justify-between items-start">
+              <span class="text-xs font-extrabold text-emerald-400 uppercase tracking-wider">Coste Estimado Por Persona</span>
+              <span class="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded-full font-bold">Por Piloto</span>
             </div>
-            <input id="hotel-night-slider" type="range" min="25" max="80" step="5" value="35" oninput="updateBudgetCalculator()" class="w-full accent-emerald-500">
-            <div class="flex justify-between text-[11px] text-slate-500"><span>€25</span><span>€80</span></div>
+            <div class="py-2">
+              <span id="budget-per-person" class="text-4xl font-black font-mono text-emerald-300 tracking-tight">€1.545</span>
+            </div>
+            <p class="text-[11px] text-slate-400">Parte proporcional por piloto incluyendo ferrys, moto, cama y comidas.</p>
           </div>
 
-          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
-            <div class="flex justify-between items-start gap-3">
-              <div>
-                <h3 class="font-bold text-sm text-rose-400 uppercase">Comida diaria</h3>
-                <p class="text-xs text-slate-400">Pranzo, cena, cafés y agua.</p>
-              </div>
-              <span id="food-day-label" class="font-mono text-rose-300 font-bold text-sm">€35/día</span>
-            </div>
-            <input id="food-day-slider" type="range" min="25" max="70" step="5" value="35" oninput="updateBudgetCalculator()" class="w-full accent-rose-500">
-            <div class="flex justify-between text-[11px] text-slate-500"><span>€25</span><span>€70</span></div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          <div class="lg:col-span-2 bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-2 text-xs">
-            <div class="flex justify-between border-b border-slate-800 pb-2">
-              <span>Ferrys baseline</span>
-              <span id="budget-ferries" class="font-mono text-amber-300 font-bold">€420</span>
-            </div>
-            <div class="flex justify-between border-b border-slate-800 pb-2">
-              <span>Hoteles (<span id="budget-hotel-nights">10</span> noches)</span>
-              <span id="budget-hotels" class="font-mono text-emerald-300 font-bold">€350</span>
-            </div>
-            <div class="flex justify-between border-b border-slate-800 pb-2">
-              <span>Gasolina (<span id="budget-fuel-km">2.240</span> km @ €1,85/L)</span>
-              <span id="budget-fuel" class="font-mono text-blue-300 font-bold">€207</span>
-            </div>
-            <div class="flex justify-between border-b border-slate-800 pb-2">
-              <span>Comida & espresso (<span id="budget-food-days">14</span> días)</span>
-              <span id="budget-food" class="font-mono text-rose-300 font-bold">€490</span>
+          <!-- Quick Summary List -->
+          <div class="bg-slate-950 border border-slate-800 p-4 rounded-2xl flex flex-col justify-center space-y-1.5 text-xs text-slate-300">
+            <div class="flex justify-between">
+              <span class="text-slate-400">🚢 Ferrys (4 travesías):</span>
+              <strong id="summary-ferries-badge" class="font-mono text-amber-300">€526</strong>
             </div>
             <div class="flex justify-between">
-              <span>Peajes y entradas</span>
-              <span id="budget-tolls" class="font-mono text-cyan-300 font-bold">€80</span>
+              <span class="text-slate-400">🏨 Hoteles (8 noches):</span>
+              <strong id="summary-hotels-badge" class="font-mono text-emerald-300">€640</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">⛽ Gasolina ruta:</span>
+              <strong id="summary-fuel-badge" class="font-mono text-blue-300">€765</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">🍝 Comidas (12 días):</span>
+              <strong id="summary-food-badge" class="font-mono text-rose-300">€1.200</strong>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">🛣️ Peajes y Varios:</span>
+              <strong id="summary-tolls-badge" class="font-mono text-cyan-300">€290</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modular Controls Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+          <!-- CARD 1: GASOLINA Y CONSUMOS INDEPENDIENTES -->
+          <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">⛽</span>
+                <div>
+                  <h3 class="font-bold text-sm text-blue-400 uppercase tracking-wide">Combustible y Consumos</h3>
+                  <p class="text-xs text-slate-400">Consumo independiente por montura sobre km en asfalto.</p>
+                </div>
+              </div>
+              <span id="fuel-total-cost-badge" class="font-mono text-blue-300 font-bold text-sm bg-blue-500/10 border border-blue-500/30 px-2.5 py-1 rounded-lg">€765</span>
+            </div>
+
+            <!-- Parameters: Price & Km -->
+            <div class="grid grid-cols-2 gap-4 bg-slate-900/60 p-3 rounded-xl border border-slate-800/80">
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs">
+                  <span class="text-slate-400">Precio Gasolina:</span>
+                  <span id="fuel-price-label" class="font-mono text-blue-300 font-bold">1,85 €/L</span>
+                </div>
+                <input id="fuel-price-slider" type="range" min="1.50" max="2.30" step="0.01" value="1.85" oninput="updateBudgetCalculator()" class="w-full accent-blue-500">
+                <div class="flex justify-between text-[10px] text-slate-500"><span>1,50 €</span><span>2,30 €</span></div>
+              </div>
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs">
+                  <span class="text-slate-400">Km Asfalto:</span>
+                  <span id="route-km-label" class="font-mono text-blue-300 font-bold">2.850 km</span>
+                </div>
+                <input id="route-km-slider" type="range" min="2000" max="3500" step="50" value="2850" oninput="updateBudgetCalculator()" class="w-full accent-blue-500">
+                <div class="flex justify-between text-[10px] text-slate-500"><span>2.000 km</span><span>3.500 km</span></div>
+              </div>
+            </div>
+
+            <!-- Moto 1: Africa Twin 1100 DCT -->
+            <div class="bg-slate-900/80 p-3.5 rounded-xl border border-blue-500/30 space-y-2">
+              <div class="flex justify-between items-center text-xs">
+                <div>
+                  <strong class="text-white block font-bold">Moto 1: Africa Twin 1100 DCT</strong>
+                  <span class="text-[11px] text-slate-400">24,8L dep. • DCT neumático mixto</span>
+                </div>
+                <span id="fuel-at-label" class="font-mono text-amber-300 font-bold text-sm">9,0 L/100 km</span>
+              </div>
+              <input id="fuel-at-slider" type="range" min="4.5" max="12.0" step="0.1" value="9.0" oninput="updateBudgetCalculator()" class="w-full accent-amber-500">
+              <div class="flex justify-between text-[10px] text-slate-500">
+                <span>4,5 L</span>
+                <span id="fuel-at-subtotal" class="text-amber-400 font-mono font-semibold">256,5 L • 474,53 €</span>
+                <span>12,0 L</span>
+              </div>
+            </div>
+
+            <!-- Moto 2: NC750X DCT -->
+            <div id="moto2-fuel-container" class="bg-slate-900/80 p-3.5 rounded-xl border border-sky-500/30 space-y-2">
+              <div class="flex justify-between items-center text-xs">
+                <div>
+                  <strong class="text-white block font-bold">Moto 2: Honda NC750X DCT</strong>
+                  <span class="text-[11px] text-slate-400">14,1L dep. • DCT ultraconsumo</span>
+                </div>
+                <span id="fuel-nc-label" class="font-mono text-sky-300 font-bold text-sm">5,5 L/100 km</span>
+              </div>
+              <input id="fuel-nc-slider" type="range" min="3.0" max="7.0" step="0.1" value="5.5" oninput="updateBudgetCalculator()" class="w-full accent-sky-500">
+              <div class="flex justify-between text-[10px] text-slate-500">
+                <span>3,0 L</span>
+                <span id="fuel-nc-subtotal" class="text-sky-400 font-mono font-semibold">156,8 L • 289,99 €</span>
+                <span>7,0 L</span>
+              </div>
             </div>
           </div>
 
-          <div class="bg-gradient-to-r from-amber-500/20 to-emerald-500/20 border border-amber-500/40 p-5 rounded-xl flex flex-col justify-between gap-3">
-            <span class="text-xs font-bold text-slate-300 uppercase">Coste total estimado por persona</span>
-            <span id="budget-grand-total" class="text-3xl font-black font-mono text-amber-300">€1.547</span>
-            <p id="budget-summary" class="text-xs text-slate-300 leading-relaxed">Base: ferrys €420, hoteles €350, gasolina €207, comida €490, peajes/entradas €80.</p>
+          <!-- CARD 2: ALOJAMIENTO Y HOTELES -->
+          <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🏨</span>
+                <div>
+                  <h3 class="font-bold text-sm text-emerald-400 uppercase tracking-wide">Alojamientos y Hoteles</h3>
+                  <p class="text-xs text-slate-400">8 noches en tierra (Días 1, 7 y 11 se duerme en camarote).</p>
+                </div>
+              </div>
+              <span id="hotel-total-cost-badge" class="font-mono text-emerald-300 font-bold text-sm bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-lg">€640</span>
+            </div>
+
+            <div class="bg-slate-900/80 p-4 rounded-xl border border-emerald-500/30 space-y-3">
+              <div class="flex justify-between items-center text-xs">
+                <div>
+                  <span id="hotel-room-type-label" class="text-white font-bold block">Precio Habitación Doble / Noche:</span>
+                  <span class="text-[11px] text-slate-400">Hoteles moteros con parking cerrado verificado</span>
+                </div>
+                <span id="hotel-night-label" class="font-mono text-emerald-300 font-bold text-sm">€80/noche</span>
+              </div>
+              <input id="hotel-night-slider" type="range" min="40" max="180" step="5" value="80" oninput="updateBudgetCalculator()" class="w-full accent-emerald-500">
+              <div class="flex justify-between text-[10px] text-slate-500">
+                <span>40 € (Económico)</span>
+                <span>110 € (Medio)</span>
+                <span>180 € (Premium)</span>
+              </div>
+              <div class="pt-2 border-t border-slate-800 flex justify-between items-center text-xs">
+                <span class="text-slate-400">8 Noches x <span id="hotel-cost-per-night-text">€80</span> =</span>
+                <span id="hotel-calc-breakdown" class="font-mono text-emerald-400 font-bold">€640 total (€320/pers)</span>
+              </div>
+            </div>
+
+            <!-- Info box hotel -->
+            <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-xl p-3 text-xs text-emerald-200/90 space-y-1">
+              <div class="font-bold flex items-center gap-1.5">
+                <span>🔒</span> Seguridad de Parkings Garantizada
+              </div>
+              <p class="text-[11px] leading-relaxed text-slate-300">
+                En Roma, Nápoles/Salerno, Taormina, Agrigento, Cerdeña (Ogliastra y Alghero), todos los alojamientos seleccionados cuentan con <strong>garaje privado cubierto o patio cerrado con llave</strong> para ambas monturas.
+              </p>
+            </div>
+          </div>
+
+          <!-- CARD 3: GASTRONOMÍA MODULAR (3 COMIDAS / DÍA) -->
+          <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🍝</span>
+                <div>
+                  <h3 class="font-bold text-sm text-rose-400 uppercase tracking-wide">Gastronomía Modular (3 Comidas/Día)</h3>
+                  <p class="text-xs text-slate-400">Cálculo desglosado para los 12 días completos del viaje.</p>
+                </div>
+              </div>
+              <span id="food-total-cost-badge" class="font-mono text-rose-300 font-bold text-sm bg-rose-500/10 border border-rose-500/30 px-2.5 py-1 rounded-lg">€1.200</span>
+            </div>
+
+            <!-- Meal 1: Desayuno -->
+            <div class="space-y-1.5 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-slate-300 font-semibold">☕ Colazione / Desayuno (Café + Cornetto / Bufé):</span>
+                <span id="food-breakfast-label" class="font-mono text-rose-300 font-bold">€5/pers/día</span>
+              </div>
+              <input id="food-breakfast-slider" type="range" min="3" max="12" step="1" value="5" oninput="updateBudgetCalculator()" class="w-full accent-rose-500">
+              <div class="flex justify-between text-[10px] text-slate-500"><span>€3</span><span>€12</span></div>
+            </div>
+
+            <!-- Meal 2: Pranzo -->
+            <div class="space-y-1.5 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-slate-300 font-semibold">🍝 Pranzo Regional (2h de parada y plato típico):</span>
+                <span id="food-lunch-label" class="font-mono text-rose-300 font-bold">€20/pers/día</span>
+              </div>
+              <input id="food-lunch-slider" type="range" min="10" max="40" step="1" value="20" oninput="updateBudgetCalculator()" class="w-full accent-rose-500">
+              <div class="flex justify-between text-[10px] text-slate-500"><span>€10</span><span>€40</span></div>
+            </div>
+
+            <!-- Meal 3: Cena -->
+            <div class="space-y-1.5 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-slate-300 font-semibold">🍕 Cena (Pizzería / Trattoria relajada):</span>
+                <span id="food-dinner-label" class="font-mono text-rose-300 font-bold">€25/pers/día</span>
+              </div>
+              <input id="food-dinner-slider" type="range" min="15" max="50" step="1" value="25" oninput="updateBudgetCalculator()" class="w-full accent-rose-500">
+              <div class="flex justify-between text-[10px] text-slate-500"><span>€15</span><span>€50</span></div>
+            </div>
+
+            <div class="flex justify-between items-center text-xs pt-1 border-t border-slate-800 text-slate-300">
+              <span>Total diario: <strong id="food-daily-sum" class="text-rose-400 font-mono">€50</strong>/persona/día</span>
+              <span>12 días x <span id="food-pax-count">2 pax</span> = <strong id="food-grand-sum" class="text-rose-400 font-mono">€1.200</strong></span>
+            </div>
+          </div>
+
+          <!-- CARD 4: FERRYS, PEAJES Y CONTINGENCIA -->
+          <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🚢</span>
+                <div>
+                  <h3 class="font-bold text-sm text-amber-400 uppercase tracking-wide">Ferrys Oficiales y Peajes</h3>
+                  <p class="text-xs text-slate-400">Tarifas reales confirmadas con descuentos Grimaldi / Caronte.</p>
+                </div>
+              </div>
+              <span id="ferries-tolls-total-badge" class="font-mono text-amber-300 font-bold text-sm bg-amber-500/10 border border-amber-500/30 px-2.5 py-1 rounded-lg">€816</span>
+            </div>
+
+            <!-- Ferry Fixed Breakdown -->
+            <div class="bg-slate-900/80 p-3.5 rounded-xl border border-amber-500/30 space-y-2 text-xs">
+              <div class="flex justify-between font-bold text-slate-200">
+                <span>🚢 Total 4 Travesías en Ferry:</span>
+                <span id="ferries-cost-display" class="font-mono text-amber-300">525,60 €</span>
+              </div>
+              <div class="text-[11px] text-slate-400 space-y-1">
+                <div class="flex justify-between"><span>• Ferry 1 (BCN ➔ Civitavecchia con cabina):</span><span id="ferry1-price-text">170,00 €</span></div>
+                <div class="flex justify-between"><span>• Ferry 2 (Villa S. Giovanni ➔ Mesina):</span><span id="ferry2-price-text">32,00 €</span></div>
+                <div class="flex justify-between"><span>• Ferry 3 (Palermo ➔ Cagliari diurno):</span><span id="ferry3-price-text">196,00 €</span></div>
+                <div class="flex justify-between"><span>• Ferry 4 (Porto Torres ➔ BCN camarote):</span><span id="ferry4-price-text">127,60 €</span></div>
+              </div>
+            </div>
+
+            <!-- Tolls & Contingency Sliders -->
+            <div class="space-y-3">
+              <div class="space-y-1 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-slate-300 font-semibold">🛣️ Peajes Autopistas (Telepass / Caselli):</span>
+                  <span id="tolls-label" class="font-mono text-cyan-300 font-bold">€45 / moto</span>
+                </div>
+                <input id="tolls-slider" type="range" min="20" max="90" step="5" value="45" oninput="updateBudgetCalculator()" class="w-full accent-cyan-500">
+                <div class="flex justify-between text-[10px] text-slate-500">
+                  <span>€20</span>
+                  <span id="tolls-subtotal" class="font-mono text-cyan-400">€90 total (2 motos)</span>
+                  <span>€90</span>
+                </div>
+              </div>
+
+              <div class="space-y-1 bg-slate-900/60 p-3 rounded-xl border border-slate-800">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="text-slate-300 font-semibold">🛡️ Fondo Contingencia & Varios:</span>
+                  <span id="contingency-label" class="font-mono text-purple-300 font-bold">€100 / pers</span>
+                </div>
+                <input id="contingency-slider" type="range" min="50" max="250" step="10" value="100" oninput="updateBudgetCalculator()" class="w-full accent-purple-500">
+                <div class="flex justify-between text-[10px] text-slate-500">
+                  <span>€50</span>
+                  <span id="contingency-subtotal" class="font-mono text-purple-400">€200 total (2 pax)</span>
+                  <span>€250</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Visual Distribution Bar -->
+        <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-3">
+          <div class="flex justify-between text-xs font-bold text-slate-300">
+            <span>Distribución Porcentual del Presupuesto</span>
+            <span id="budget-distribution-total">100%</span>
+          </div>
+          <div class="h-4 rounded-full overflow-hidden flex bg-slate-800 text-[10px] font-bold text-slate-950">
+            <div id="bar-ferries" style="width: 17%;" class="bg-amber-400 flex items-center justify-center" title="Ferrys"></div>
+            <div id="bar-hotels" style="width: 21%;" class="bg-emerald-400 flex items-center justify-center" title="Hoteles"></div>
+            <div id="bar-fuel" style="width: 25%;" class="bg-blue-400 flex items-center justify-center" title="Gasolina"></div>
+            <div id="bar-food" style="width: 28%;" class="bg-rose-400 flex items-center justify-center" title="Comida"></div>
+            <div id="bar-tolls" style="width: 9%;" class="bg-cyan-400 flex items-center justify-center" title="Peajes y Varios"></div>
+          </div>
+          <div class="flex flex-wrap gap-4 text-xs pt-1 justify-center">
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-amber-400"></span> <span class="text-slate-400">Ferrys: <strong id="pct-ferries" class="text-white">17%</strong></span></div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-400"></span> <span class="text-slate-400">Hoteles: <strong id="pct-hotels" class="text-white">21%</strong></span></div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-blue-400"></span> <span class="text-slate-400">Gasolina: <strong id="pct-fuel" class="text-white">25%</strong></span></div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-rose-400"></span> <span class="text-slate-400">Comidas: <strong id="pct-food" class="text-white">28%</strong></span></div>
+            <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-cyan-400"></span> <span class="text-slate-400">Peajes/Varios: <strong id="pct-tolls" class="text-white">9%</strong></span></div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -2211,54 +2428,189 @@
       });
     }
 
+    let currentBudgetMode = 'dual'; // 'dual' (Padre e Hijo, 2 Motos) | 'solo' (1 Moto, 1 Piloto)
+
     const budgetDefaults = {
-      ferryPerPerson: 420,
-      hotelNights: 10,
-      hotelPerNight: 35,
-      routeKm: 2240,
-      fuelPricePerLiter: 1.85,
-      fuelConsumption: 5.0,
-      tripDays: 14,
-      foodPerDay: 35,
-      tollsAndTickets: 80
+      routeKm: 2850,
+      hotelNights: 8, // Días 2, 3, 4, 5, 6, 8, 9, 10 en tierra (Días 1, 7 y 11 ferrys)
+      tripDays: 12,
+      ferriesDual: 525.60, // BCN 170 + Mesina 32 + Palermo-Cagliari 196 + Porto Torres 127.60
+      ferriesSolo: 415.81, // BCN 140 + Mesina 16 + Palermo-Cagliari 154.81 + Porto Torres 105
     };
 
-    function formatEuro(value) {
+    function setBudgetMode(mode) {
+      currentBudgetMode = mode;
+      const btnDual = document.getElementById('btn-mode-dual');
+      const btnSolo = document.getElementById('btn-mode-solo');
+      const moto2Container = document.getElementById('moto2-fuel-container');
+      const badgeMode = document.getElementById('badge-budget-mode');
+      const hotelRoomTypeLabel = document.getElementById('hotel-room-type-label');
+      const foodPaxCount = document.getElementById('food-pax-count');
+
+      if (mode === 'dual') {
+        if (btnDual) {
+          btnDual.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 bg-amber-500 text-slate-950 shadow";
+        }
+        if (btnSolo) {
+          btnSolo.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 text-slate-400 hover:text-white";
+        }
+        if (moto2Container) moto2Container.classList.remove('hidden');
+        if (badgeMode) badgeMode.innerText = "2 Motos · 2 Pax";
+        if (hotelRoomTypeLabel) hotelRoomTypeLabel.innerText = "Precio Habitación Doble / Noche:";
+        if (foodPaxCount) foodPaxCount.innerText = "2 pax";
+      } else {
+        if (btnSolo) {
+          btnSolo.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 bg-amber-500 text-slate-950 shadow";
+        }
+        if (btnDual) {
+          btnDual.className = "px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center gap-2 text-slate-400 hover:text-white";
+        }
+        if (moto2Container) moto2Container.classList.add('hidden');
+        if (badgeMode) badgeMode.innerText = "1 Moto · 1 Pax";
+        if (hotelRoomTypeLabel) hotelRoomTypeLabel.innerText = "Precio Habitación Individual / Noche:";
+        if (foodPaxCount) foodPaxCount.innerText = "1 pax";
+      }
+
+      updateBudgetCalculator();
+    }
+
+    function formatEuro(value, decimals = 0) {
       return new Intl.NumberFormat('es-ES', {
         style: 'currency',
         currency: 'EUR',
-        maximumFractionDigits: 0
+        maximumFractionDigits: decimals,
+        minimumFractionDigits: decimals
       }).format(value);
     }
 
     function updateBudgetCalculator() {
-      const fuelSlider = document.getElementById('fuel-consumption-slider');
+      const fuelPriceEl = document.getElementById('fuel-price-slider');
+      const routeKmEl = document.getElementById('route-km-slider');
+      const fuelAtEl = document.getElementById('fuel-at-slider');
+      const fuelNcEl = document.getElementById('fuel-nc-slider');
       const hotelSlider = document.getElementById('hotel-night-slider');
-      const foodSlider = document.getElementById('food-day-slider');
-      if (!fuelSlider || !hotelSlider || !foodSlider) return;
+      const breakfastEl = document.getElementById('food-breakfast-slider');
+      const lunchEl = document.getElementById('food-lunch-slider');
+      const dinnerEl = document.getElementById('food-dinner-slider');
+      const tollsEl = document.getElementById('tolls-slider');
+      const contingencyEl = document.getElementById('contingency-slider');
 
-      const fuelConsumption = Number(fuelSlider.value);
+      if (!fuelPriceEl || !routeKmEl || !fuelAtEl || !hotelSlider) return;
+
+      const fuelPrice = Number(fuelPriceEl.value);
+      const routeKm = Number(routeKmEl.value);
+      const fuelAt = Number(fuelAtEl.value);
+      const fuelNc = fuelNcEl ? Number(fuelNcEl.value) : 5.5;
       const hotelPerNight = Number(hotelSlider.value);
-      const foodPerDay = Number(foodSlider.value);
+      const breakfast = Number(breakfastEl.value);
+      const lunch = Number(lunchEl.value);
+      const dinner = Number(dinnerEl.value);
+      const tollPerBike = Number(tollsEl.value);
+      const contingencyPerPax = Number(contingencyEl.value);
 
-      const ferries = budgetDefaults.ferryPerPerson;
-      const hotels = budgetDefaults.hotelNights * hotelPerNight;
-      const fuel = (budgetDefaults.routeKm / 100) * fuelConsumption * budgetDefaults.fuelPricePerLiter;
-      const food = budgetDefaults.tripDays * foodPerDay;
-      const tolls = budgetDefaults.tollsAndTickets;
-      const total = ferries + hotels + fuel + food + tolls;
+      const isDual = currentBudgetMode === 'dual';
+      const numPilots = isDual ? 2 : 1;
+      const numBikes = isDual ? 2 : 1;
 
-      document.getElementById('fuel-consumption-label').innerText = fuelConsumption.toFixed(1).replace('.', ',') + ' L/100 km';
+      // Fuel calculations
+      const litersAt = (routeKm / 100) * fuelAt;
+      const costAt = litersAt * fuelPrice;
+
+      let litersNc = 0;
+      let costNc = 0;
+      if (isDual) {
+        litersNc = (routeKm / 100) * fuelNc;
+        costNc = litersNc * fuelPrice;
+      }
+      const totalFuel = costAt + costNc;
+
+      // Ferries
+      const totalFerries = isDual ? budgetDefaults.ferriesDual : budgetDefaults.ferriesSolo;
+
+      // Hotels (8 nights in land)
+      const totalHotels = budgetDefaults.hotelNights * hotelPerNight;
+
+      // Meals (12 days)
+      const dailyFoodPerPax = breakfast + lunch + dinner;
+      const totalFood = dailyFoodPerPax * budgetDefaults.tripDays * numPilots;
+
+      // Tolls & Contingency
+      const totalTolls = tollPerBike * numBikes;
+      const totalContingency = contingencyPerPax * numPilots;
+      const totalTollsAndMisc = totalTolls + totalContingency;
+
+      // Grand Totals
+      const grandTotal = totalFuel + totalFerries + totalHotels + totalFood + totalTollsAndMisc;
+      const perPerson = grandTotal / numPilots;
+
+      // Update Labels & Inputs
+      document.getElementById('fuel-price-label').innerText = fuelPrice.toFixed(2).replace('.', ',') + ' €/L';
+      document.getElementById('route-km-label').innerText = routeKm.toLocaleString('es-ES') + ' km';
+      document.getElementById('fuel-at-label').innerText = fuelAt.toFixed(1).replace('.', ',') + ' L/100 km';
+      document.getElementById('fuel-at-subtotal').innerText = `${litersAt.toFixed(1).replace('.', ',')} L • ${formatEuro(costAt, 2)}`;
+      
+      if (fuelNcEl) {
+        document.getElementById('fuel-nc-label').innerText = fuelNc.toFixed(1).replace('.', ',') + ' L/100 km';
+        document.getElementById('fuel-nc-subtotal').innerText = `${litersNc.toFixed(1).replace('.', ',')} L • ${formatEuro(costNc, 2)}`;
+      }
+
+      document.getElementById('fuel-total-cost-badge').innerText = formatEuro(totalFuel, 0);
+
       document.getElementById('hotel-night-label').innerText = formatEuro(hotelPerNight) + '/noche';
-      document.getElementById('food-day-label').innerText = formatEuro(foodPerDay) + '/día';
+      document.getElementById('hotel-cost-per-night-text').innerText = formatEuro(hotelPerNight);
+      document.getElementById('hotel-total-cost-badge').innerText = formatEuro(totalHotels, 0);
+      document.getElementById('hotel-calc-breakdown').innerText = `${formatEuro(totalHotels)} total (${formatEuro(totalHotels / numPilots)}/pers)`;
 
-      document.getElementById('budget-ferries').innerText = formatEuro(ferries);
-      document.getElementById('budget-hotels').innerText = formatEuro(hotels);
-      document.getElementById('budget-fuel').innerText = formatEuro(fuel);
-      document.getElementById('budget-food').innerText = formatEuro(food);
-      document.getElementById('budget-tolls').innerText = formatEuro(tolls);
-      document.getElementById('budget-grand-total').innerText = formatEuro(total);
-      document.getElementById('budget-summary').innerText = 'Base ajustada: ferrys ' + formatEuro(ferries) + ', hoteles ' + formatEuro(hotels) + ', gasolina ' + formatEuro(fuel) + ', comida ' + formatEuro(food) + ', peajes/entradas ' + formatEuro(tolls) + '.';
+      document.getElementById('food-breakfast-label').innerText = formatEuro(breakfast) + '/pers/día';
+      document.getElementById('food-lunch-label').innerText = formatEuro(lunch) + '/pers/día';
+      document.getElementById('food-dinner-label').innerText = formatEuro(dinner) + '/pers/día';
+      document.getElementById('food-daily-sum').innerText = formatEuro(dailyFoodPerPax);
+      document.getElementById('food-grand-sum').innerText = formatEuro(totalFood);
+      document.getElementById('food-total-cost-badge').innerText = formatEuro(totalFood, 0);
+
+      document.getElementById('ferries-cost-display').innerText = formatEuro(totalFerries, 2);
+      document.getElementById('ferry1-price-text').innerText = isDual ? '170,00 €' : '140,00 €';
+      document.getElementById('ferry2-price-text').innerText = isDual ? '32,00 €' : '16,00 €';
+      document.getElementById('ferry3-price-text').innerText = isDual ? '196,00 €' : '154,81 €';
+      document.getElementById('ferry4-price-text').innerText = isDual ? '127,60 €' : '105,00 €';
+
+      document.getElementById('tolls-label').innerText = formatEuro(tollPerBike) + ' / moto';
+      document.getElementById('tolls-subtotal').innerText = `${formatEuro(totalTolls)} total (${numBikes} moto${numBikes > 1 ? 's' : ''})`;
+      document.getElementById('contingency-label').innerText = formatEuro(contingencyPerPax) + ' / pers';
+      document.getElementById('contingency-subtotal').innerText = `${formatEuro(totalContingency)} total (${numPilots} pax)`;
+      document.getElementById('ferries-tolls-total-badge').innerText = formatEuro(totalFerries + totalTollsAndMisc, 0);
+
+      // Grand Total Cards
+      document.getElementById('budget-grand-total').innerText = formatEuro(grandTotal, 0);
+      document.getElementById('budget-per-person').innerText = formatEuro(perPerson, 0);
+
+      // Summary List
+      document.getElementById('summary-ferries-badge').innerText = formatEuro(totalFerries, 0);
+      document.getElementById('summary-hotels-badge').innerText = formatEuro(totalHotels, 0);
+      document.getElementById('summary-fuel-badge').innerText = formatEuro(totalFuel, 0);
+      document.getElementById('summary-food-badge').innerText = formatEuro(totalFood, 0);
+      document.getElementById('summary-tolls-badge').innerText = formatEuro(totalTollsAndMisc, 0);
+
+      // Percentage Distribution Bar
+      if (grandTotal > 0) {
+        const pctFerries = Math.round((totalFerries / grandTotal) * 100);
+        const pctHotels = Math.round((totalHotels / grandTotal) * 100);
+        const pctFuel = Math.round((totalFuel / grandTotal) * 100);
+        const pctFood = Math.round((totalFood / grandTotal) * 100);
+        const pctTolls = 100 - (pctFerries + pctHotels + pctFuel + pctFood);
+
+        document.getElementById('bar-ferries').style.width = pctFerries + '%';
+        document.getElementById('bar-hotels').style.width = pctHotels + '%';
+        document.getElementById('bar-fuel').style.width = pctFuel + '%';
+        document.getElementById('bar-food').style.width = pctFood + '%';
+        document.getElementById('bar-tolls').style.width = Math.max(0, pctTolls) + '%';
+
+        document.getElementById('pct-ferries').innerText = pctFerries + '%';
+        document.getElementById('pct-hotels').innerText = pctHotels + '%';
+        document.getElementById('pct-fuel').innerText = pctFuel + '%';
+        document.getElementById('pct-food').innerText = pctFood + '%';
+        document.getElementById('pct-tolls').innerText = Math.max(0, pctTolls) + '%';
+      }
     }
     // Selector de tema claro / oscuro con persistencia
     function applyTheme(theme) {
