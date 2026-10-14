@@ -627,6 +627,9 @@
           <button onclick="setActivityCategory('Paisaje y naturaleza')" id="act-cat-Paisaje y naturaleza" class="act-cat-btn bg-slate-950 text-purple-400 border border-slate-700 hover:border-purple-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
             🌅 <span>Naturaleza y miradores</span>
           </button>
+          <button onclick="setActivityCategory('FREE')" id="act-cat-FREE" class="act-cat-btn bg-slate-950 text-emerald-400 border border-slate-700 hover:border-emerald-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            💚 <span>Gratis</span>
+          </button>
         </div>
 
         <!-- Grouped Activity Cards Container -->
@@ -868,6 +871,9 @@
 
       if (tabId === 'map-view' && window.map) {
         setTimeout(() => { window.map.invalidateSize(); }, 200);
+      }
+      if (tabId === 'activities-view' && window.activitiesMap) {
+        setTimeout(() => { window.activitiesMap.invalidateSize(); }, 200);
       }
     }
 
@@ -1680,14 +1686,17 @@
           const fav = isFavorite(act.name);
           const icon = getEmojiMarkerIcon(act.type, fav);
           const marker = L.marker([act.lat, act.lng], { icon });
-
+          const safeName = act.name.replace(/'/g, "\\'");
           const popupContent = `
-            <div class="space-y-1 text-xs text-slate-800 p-1">
-              <strong class="font-bold text-sm text-slate-900 block">${act.name}</strong>
+            <div class="space-y-1.5 text-xs text-slate-800 p-1 min-w-[200px]">
+              <strong class="font-bold text-sm text-slate-900 block leading-tight">${act.name}</strong>
               <div class="text-[11px] text-slate-600">📍 ${act.location}</div>
               <div class="font-bold text-amber-700 font-mono text-[11px]">${act.price}</div>
-              <div class="pt-1">
-                <a href="${act.gmaps}" target="_blank" class="bg-amber-500 text-slate-950 font-bold px-2 py-0.5 rounded text-[11px] inline-block hover:bg-amber-400">
+              <div class="pt-1 flex flex-col gap-1">
+                <button onclick="openActivityByName('${safeName}')" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-2.5 py-1 rounded text-[11px] transition-all text-center">
+                  🔍 Ver detalles y consejos ➔
+                </button>
+                <a href="${act.gmaps}" target="_blank" class="w-full text-center bg-slate-100 border border-slate-300 text-slate-700 font-bold px-2 py-0.5 rounded text-[11px] hover:bg-slate-200">
                   🗺️ Google Maps GPS ➔
                 </a>
               </div>
@@ -1704,6 +1713,13 @@
       }
     }
 
+    function openActivityByName(actName) {
+      const act = activitiesData.find(a => a.name === actName);
+      if (act) {
+        openActivityModal(act);
+      }
+    }
+
     // Renderizar actividades agrupadas por categoría y región (Tab 6)
     function renderActivitiesGrouped() {
       const container = document.getElementById('activities-grouped-container');
@@ -1714,8 +1730,10 @@
       // Filtrar datos por categoría y búsqueda
       const filtered = activitiesData.filter(a => {
         const isFav = isFavorite(a.name);
+        const isFree = a.price.toLowerCase().includes('gratis');
         const matchesCat = (currentActivityCategory === 'ALL') || 
-                           (currentActivityCategory === 'FAVORITES' ? isFav : a.type === currentActivityCategory);
+                           (currentActivityCategory === 'FAVORITES' ? isFav :
+                            (currentActivityCategory === 'FREE' ? isFree : a.type === currentActivityCategory));
         const matchesSearch = a.name.toLowerCase().includes(searchVal) ||
                               a.type.toLowerCase().includes(searchVal) ||
                               a.location.toLowerCase().includes(searchVal) ||
