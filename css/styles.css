@@ -1,0 +1,108 @@
+#map { height: 460px; width: 100%; border-radius: 1rem; }
+.tab-btn.active {
+  background-color: rgba(245, 158, 11, 0.2);
+  border-color: #f59e0b;
+  color: #f59e0b;
+}
+
+/* Hide scrollbar but keep scroll functionality */
+.overflow-x-auto::-webkit-scrollbar { height: 4px; }
+.overflow-x-auto::-webkit-scrollbar-track { background: transparent; }
+.overflow-x-auto::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
+
+/* Mobile Responsive Overrides */
+@media (max-width: 768px) {
+  #map { height: 280px; }
+  h1 { font-size: 1.25rem !important; }
+  h2 { font-size: 1.1rem !important; }
+  .max-w-7xl { padding-left: 0; padding-right: 0; }
+}
+
+/* Mobile Responsiveness & Badge Alignment Fixes */
+.badge-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+}
+
+/* Light Theme as Default (Google Material Inspired & High-Contrast Overrides) */
+body.light-theme {
+  background-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+body.light-theme .bg-slate-900,
+body.light-theme #hourly-modal > div,
+body.light-theme #activity-modal > div {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04) !important;
+}
+body.light-theme .bg-slate-950,
+body.light-theme .card-box {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05) !important;
+}
+body.light-theme .card-box:hover {
+  border-color: #d97706 !important;
+  box-shadow: 0 6px 16px rgba(217, 119, 6, 0.12) !important;
+}
+body.light-theme .bg-slate-800\/50, 
+body.light-theme .bg-slate-800\/60,
+body.light-theme .bg-slate-800\/90,
+body.light-theme .bg-slate-900\/60,
+body.light-theme .bg-slate-900\/40,
+body.light-theme .bg-slate-900\/80 {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+body.light-theme .text-white {
+  color: #0f172a !important;
+}
+body.light-theme .text-slate-400, 
+body.light-theme .text-slate-300 {
+  color: #334155 !important;
+}
+body.light-theme .text-slate-200 {
+  color: #1e293b !important;
+}
+body.light-theme .text-amber-400, 
+body.light-theme .text-amber-300 {
+  color: #b45309 !important;
+}
+body.light-theme .text-emerald-400, 
+body.light-theme .text-emerald-300 {
+  color: #047857 !important;
+}
+body.light-theme .border-slate-800, 
+body.light-theme .border-slate-700 {
+  border-color: #e2e8f0 !important;
+}
+body.light-theme input {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+body.light-theme .tab-btn.active {
+  background-color: #fef3c7 !important;
+  border-color: #d97706 !important;
+  color: #b45309 !important;
+}
+/* Region Badges & Km Badges in Light Theme */
+body.light-theme .bg-red-500\/20 { background-color: #fee2e2 !important; color: #991b1b !important; border-color: #fca5a5 !important; }
+body.light-theme .bg-emerald-500\/20 { background-color: #d1fae5 !important; color: #065f46 !important; border-color: #6ee7b7 !important; }
+body.light-theme .bg-amber-500\/20 { background-color: #fef3c7 !important; color: #92400e !important; border-color: #fcd34d !important; }
+body.light-theme .bg-sky-500\/20 { background-color: #e0f2fe !important; color: #075985 !important; border-color: #7dd3fc !important; }
+body.light-theme .bg-blue-500\/10, body.light-theme .bg-blue-500\/20 { background-color: #dbeafe !important; color: #1e40af !important; border-color: #93c5fd !important; }
+body.light-theme .bg-slate-800, 
+body.light-theme .day-km-badge { 
+  background-color: #e2e8f0 !important; 
+  color: #0f172a !important; 
+}
+body.light-theme .bg-slate-700, 
+body.light-theme .bg-slate-700\/80 { 
+  background-color: #cbd5e1 !important; 
+  color: #0f172a !important; 
+}

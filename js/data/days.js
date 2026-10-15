@@ -1,0 +1,268 @@
+// Datos completos sincronizados con el calendario oficial y ferrys confirmados (Noviembre 2026)
+
+const daysData = [
+  {
+    day: 1, date: "Lunes 9 Noviembre 2026", title: "Lloret de Mar ➔ Puerto de Barcelona (Ferry nocturno Grimaldi)", km: "75 km", highwayKm: "50 km", secondaryKm: "25 km", time: "1,0 h", mode: "Moto + ferry",
+    region: "España", regionColor: "bg-red-500/20 text-red-300 border-red-500/40",
+    isFerry: true, vessel: "MV Cruise Roma · Grimaldi Lines", checkin: "19:30 (Muelle Barcelona)", departure: "21:30", arrival: "19:00 (Mar 10)",
+    cities: ["Lloret de Mar", "Blanes", "Mataró", "Puerto de Barcelona"],
+    hotel: "Camarote doble en Grimaldi MV Cruise Roma (Bodega)",
+    parkingType: "🚢 Bodega cerrada de vehículos (freno mano DCT)",
+    activities: [],
+    pranzo: "Preparación y comida en casa antes de cargar maletas",
+    summary: "Puesta a punto final y salida vespertina hacia Barcelona. Llegada obligatoria al muelle a las 19:30 (check-in motos 2h antes). Zarpe oficial a las 21:30 en el buque MV Cruise Roma rumbo a Civitavecchia.",
+    gmaps: "https://www.google.com/maps/dir/Lloret+de+Mar,+España/Port+de+Barcelona,+Barcelona,+España",
+    timeline: [
+      { time: "16:00 - 17:30", act: "Puesta a punto final y carga de maletas en Lloret de Mar: revisión de presiones, engrase de cadena y documentación." },
+      { time: "17:30 - 19:00", act: "Ruta por autopista C-32 y enlace litoral hacia el Puerto de Barcelona con luz de atardecer." },
+      { time: "19:30", act: "⚠️ LLEGADA OBLIGATORIA AL MUELLE (Check-in Motos Grimaldi - Terminal Moll de Costa)." },
+      { time: "20:00 - 21:00", act: "Embarque preferente de motos en bodega, amarre con cinchas y activación obligatoria del freno de mano mecánico en motos DCT. Acomodación en camarote." },
+      { time: "21:30", act: "🚢 ZARPE OFICIAL DEL MV CRUISE ROMA rumbo a Civitavecchia (21h 30m de travesía nocturna)." },
+      { time: "22:00", act: "Cena relajada a bordo y descanso en camarote privado." }
+    ]
+  },
+  {
+    day: 2, date: "Martes 10 Noviembre 2026", title: "En el mar ➔ Desembarque en Civitavecchia (19:00) ➔ Santa Severa", km: "20 km", highwayKm: "5 km", secondaryKm: "15 km", time: "0,5 h", mode: "Ferry + moto",
+    region: "Italia continental", regionColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+    isFerry: true, vessel: "MV Cruise Roma · Grimaldi Lines", checkin: "A bordo", departure: "En alta mar", arrival: "19:00 (Civitavecchia)",
+    cities: ["En el mar Tirreno", "Porto di Civitavecchia", "Santa Severa"],
+    hotel: "Hotel / B&B costero en Santa Severa (evita tráfico de Roma)",
+    parkingType: "🟢 Patio interior cerrado bajo llave",
+    activities: ["Coliseo y Foros Imperiales de Roma"],
+    pranzo: "Pranzo a bordo en el restaurante del ferry",
+    summary: "Jornada completa de travesía por el mar Tirreno. Llegada y atraque programado a Civitavecchia a las 19:00. Desembarque con motos y trayecto corto nocturno hasta el hotel en Santa Severa.",
+    gmaps: "https://www.google.com/maps/dir/Porto+di+Civitavecchia,+Italy/Santa+Severa,+Lazio,+Italy",
+    timeline: [
+      { time: "08:30 - 10:00", act: "Desayuno en la cafetería del barco con vistas al mar abierto y puesta a punto de mapas offline." },
+      { time: "13:00 - 14:30", act: "Pranzo a bordo y descanso en camarote privado." },
+      { time: "17:30 - 18:30", act: "Preparación de equipaje y bajada a la bodega de vehículos para desatar motos y chequear anclajes." },
+      { time: "19:00", act: "⚓ LLEGADA Y ATRAQUE EN CIVITAVECCHIA. Desembarque ordenado con las motos." },
+      { time: "19:30 - 20:15", act: "Enlace corto por la SS1 Aurelia hasta Santa Severa evitando entrar en el tráfico de Roma." },
+      { time: "20:15", act: "🏨 Llegada al hotel y motos aseguradas en patio privado cerrado bajo llave." },
+      { time: "20:45", act: "Cena de bienvenida en trattoria costera con pasta fresca y pescado." }
+    ]
+  },
+  {
+    day: 3, date: "Miércoles 11 Noviembre 2026", title: "Civitavecchia ➔ Roma Bypass ➔ Costa Amalfitana (SS163) ➔ Paestum", km: "340 km", highwayKm: "220 km", secondaryKm: "120 km", time: "4,5 h", mode: "Moto",
+    region: "Italia continental", regionColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+    isFerry: false,
+    cities: ["Santa Severa", "Roma Bypass A90", "A1 Sur", "Valico di Chiunzi", "Positano", "Amalfi", "Salerno", "Paestum"],
+    hotel: "Agriturismo rural en Paestum con recinto cerrado",
+    parkingType: "🟢 Agriturismo con finca vallada y portón",
+    activities: ["Valico di Chiunzi & Costiera Amalfitana", "Parque Arqueológico de Pompeya", "Templos Griegos de Paestum", "Parque Nacional del Cilento y Cabo Palinuro"],
+    pranzo: "Scialatielli ai frutti di mare y Mozzarella di Bufala Campana DOP",
+    summary: "Bypass de Roma por autopista, descenso por los Montes Lattari (Valico di Chiunzi) hacia las míticas curvas de la Costa Amalfitana (SS163), templos griegos de Paestum y noche en agriturismo con portón.",
+    gmaps: "https://www.google.com/maps/dir/Santa+Severa,+Italy/Valico+di+Chiunzi,+Italy/Amalfi,+Italy/Paestum,+Italy",
+    timeline: [
+      { time: "07:30 - 08:30", act: "Desayuno italiano (espresso + cornetto), revisión de presiones y salida puntual a las 08:30." },
+      { time: "08:30 - 10:30", act: "Enlace rápido por A12 y A1 sur circunvalando Roma hacia Campania con carreteras despejadas." },
+      { time: "10:30 - 11:00", act: "☕ Pausa café espresso en área de servicio antes de Nápoles." },
+      { time: "11:00 - 13:00", act: "Subida al Valico di Chiunzi con panorámica del Vesubio y descenso directo a las curvas de la Costa Amalfitana (SS163)." },
+      { time: "13:00 - 15:00", act: "🍝 Pausa Sagrada de Comida (Pranzo - 2h) en trattoria de costa: Scialatielli ai frutti di mare y Mozzarella di Bufala DOP." },
+      { time: "15:00 - 16:45", act: "Tramo de curvas costeras por Salerno y llegada a Paestum con luz dorada frente a los 3 templos griegos dóricos." },
+      { time: "16:45 - 17:15", act: "🏨 Llegada al agriturismo en Paestum antes del anochecer. Motos en recinto vallado." },
+      { time: "20:00", act: "🍕 Cena tradicional campana y descanso." }
+    ]
+  },
+  {
+    day: 4, date: "Jueves 12 Noviembre 2026", title: "Cilento ➔ Maratea (SS18) ➔ Terme di Caronte ➔ Scilla (Chianalea)", km: "310 km", highwayKm: "110 km", secondaryKm: "200 km", time: "4,5 h", mode: "Moto",
+    region: "Italia continental", regionColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+    isFerry: false,
+    cities: ["Paestum", "Sapri", "Maratea (Cristo)", "Acquappesa", "Terme di Caronte", "Scilla"],
+    hotel: "Hotel en Scilla con garaje cerrado cubierto",
+    parkingType: "🔒 Garaje privado cubierto y cerrado (custodito)",
+    activities: ["Mirador costero del Cristo de Maratea", "Terme di Caronte", "Castillo Ruffo y Barrio de Pescadores de Chianalea di Scilla"],
+    pranzo: "Pasta casera con 'Nduja de Calabria, berenjenas rellenas y embutidos",
+    summary: "Carretera costera de acantilados SS18 por Maratea, baño termal al aire libre en Terme di Caronte (Calabria) y noche en el barrio marinero de Chianalea di Scilla.",
+    gmaps: "https://www.google.com/maps/dir/Paestum,+Italy/Maratea,+Italy/Terme+di+Caronte,+Lamezia+Terme,+Italy/Scilla,+Italy",
+    timeline: [
+      { time: "07:30 - 08:30", act: "Desayuno, engrase de cadena y salida matinal puntual a las 08:30." },
+      { time: "08:30 - 10:30", act: "Curvas costeras salvajes del Parque del Cilento y llegada a los acantilados de Maratea." },
+      { time: "10:30 - 11:00", act: "☕ Pausa café bajo el imponente Cristo Redentor de Maratea con vistas a 50 km de costa." },
+      { time: "11:00 - 13:00", act: "Carretera tirrena SS18 entrando en Calabria entre acantilados verticales." },
+      { time: "13:00 - 15:00", act: "🍝 Pranzo (2h): pasta casera con 'Nduja de Calabria y berenjenas rellenas." },
+      { time: "15:00 - 16:30", act: "♨️ Baño relajante en las pozas sulfurosas naturales de Terme di Caronte (~39°C)." },
+      { time: "16:45 - 17:15", act: "🏨 Llegada a Scilla antes del anochecer. Motos en garaje cerrado cubierto." },
+      { time: "18:00 - 19:30", act: "Passeggiata a pie por el barrio pesquero de Chianalea con casas sobre el mar y fortaleza marina." },
+      { time: "20:00", act: "Cena marinera con pez espada fresco frente al Estrecho de Mesina." }
+    ]
+  },
+  {
+    day: 5, date: "Viernes 13 Noviembre 2026", title: "Scilla ➔ Ferry Mesina (Caronte) ➔ Taormina & Castelmola ➔ Etna SP92 / Mareneve", km: "190 km", highwayKm: "30 km", secondaryKm: "160 km", time: "3,5 h", mode: "Moto + ferry",
+    region: "Sicilia", regionColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+    isFerry: false, isShortFerry: true, vessel: "Elio / Lanzadera 24h · Caronte & Tourist",
+    cities: ["Scilla", "Villa San Giovanni", "Messina", "Taormina", "Castelmola", "Rifugio Sapienza (Etna)", "Mareneve"],
+    hotel: "Hotel en Taormina / Giardini Naxos con garaje cerrado",
+    parkingType: "🔒 Garaje privado cerrado en Taormina",
+    activities: ["Teatro Griego de Taormina e Isola Bella", "Strada Panoramica Mareneve (Etna Norte)", "Circuito volcánico SP92 del Etna"],
+    pranzo: "Pasta alla Norma tradicional y salchicha al hinojo en Nicolosi (Etna)",
+    summary: "Ferry continuo Caronte por el Estrecho de Mesina (20 min), subida vertiginosa a Castelmola sobre Taormina y ascensión motera al volcán Etna por la SP92 entre ríos de lava negra. Noche en Taormina.",
+    gmaps: "https://www.google.com/maps/dir/Scilla,+Italy/Villa+San+Giovanni,+Italy/Messina,+Italy/Castelmola,+Italy/Rifugio+Sapienza,+Nicolosi,+Italy/Taormina,+Italy",
+    timeline: [
+      { time: "08:00 - 08:30", act: "Enlace corto a Villa San Giovanni y embarque directo en ferry lanzadera Caronte (sin reserva previa, motos en proa)." },
+      { time: "09:00 - 09:30", act: "¡Entrada en Sicilia! Desembarque en Messina y enlace panorámico hacia la costa jónica." },
+      { time: "10:30 - 11:30", act: "☕ Café con Cannolo siciliano en el nido de águilas de Castelmola con vistas 360° al Etna y mar." },
+      { time: "12:00 - 13:00", act: "Subida por curvas hacia el volcán Etna cruzando coladas de lava de erupciones recientes." },
+      { time: "13:00 - 15:00", act: "🍝 Pranzo (2h): Pasta alla Norma y embutidos de los Nebrodi en trattoria de Nicolosi/Etna." },
+      { time: "15:00 - 16:45", act: "Ruta volcánica por la SP92 y Strada Mareneve a 1.900 m de altitud con luz dorada." },
+      { time: "16:45 - 17:15", act: "🏨 Llegada al hotel en Taormina / Giardini Naxos con garaje privado cerrado para motos." },
+      { time: "18:00 - 19:30", act: "Paseo a pie por el casco histórico de Taormina y vistas al mar iluminado." },
+      { time: "20:00", act: "Cena siciliana y descanso." }
+    ]
+  },
+  {
+    day: 6, date: "Sábado 14 Noviembre 2026", title: "Taormina ➔ Valle de los Templos de Agrigento ➔ Cretto di Burri ➔ Palermo", km: "320 km", highwayKm: "110 km", secondaryKm: "210 km", time: "4,5 h", mode: "Moto",
+    region: "Sicilia", regionColor: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+    isFerry: false,
+    cities: ["Taormina", "Catania", "Piazza Armerina", "Agrigento (Templos)", "Cretto di Burri", "Palermo"],
+    hotel: "Hotel en Palermo con garaje vigilado 24h cerca del puerto",
+    parkingType: "🔒 Garaje cerrado vigilado 24h (Palermo)",
+    activities: ["Valle de los Templos de Agrigento", "Scala dei Turchi", "Parque Arqueológico de Selinunte", "Erice Medieval y Belvedere Trapani", "Terme Segestane (Fiume Caldo)"],
+    pranzo: "Caponata siciliana, Panelle, Arancini y pasta con sardas",
+    summary: "Cruce del corazón de Sicilia hasta los colosales Templos Dóricos de Agrigento, memorial de Land Art Cretto di Burri y llegada a Palermo para pernoctar junto al puerto antes del ferry diurno.",
+    gmaps: "https://www.google.com/maps/dir/Taormina,+Italy/Valle+dei+Templi,+Agrigento,+Italy/Gibellina+Nuova,+Italy/Porto+di+Palermo,+Italy",
+    timeline: [
+      { time: "07:30 - 08:30", act: "Desayuno y salida a las 08:30 atravesando las colinas del interior siciliano." },
+      { time: "10:30 - 11:00", act: "☕ Pausa café en las colinas de Caltanissetta." },
+      { time: "11:30 - 13:00", act: "🏛️ Visita al Valle de los Templos de Agrigento (Templo de la Concordia e Ícaro Caído)." },
+      { time: "13:00 - 15:00", act: "🍝 Pranzo (2h): Caponata siciliana, Panelle y pasta con sardas en trattoria de Agrigento." },
+      { time: "15:00 - 16:30", act: "Parada mística en el laberinto de Land Art del Cretto di Burri (Gibellina) y enlace hacia Palermo." },
+      { time: "16:45 - 17:15", act: "🏨 Llegada al hotel en Palermo con garaje cerrado y vigilado junto al puerto." },
+      { time: "18:00 - 19:30", act: "Paseo a pie por los Cuatro Canti, Teatro Massimo y la Catedral de Palermo." },
+      { time: "20:00", act: "Cena de comida tradicional palermitana y descanso temprano para madrugar al ferry." }
+    ]
+  },
+  {
+    day: 7, date: "Domingo 15 Noviembre 2026", title: "Ferry Diurno Grimaldi Palermo (09:00) ➔ Cagliari (21:00)", km: "10 km", highwayKm: "0 km", secondaryKm: "10 km", time: "0,3 h", mode: "Ferry diurno",
+    region: "Cerdeña", regionColor: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+    isFerry: true, vessel: "MV Europa Palace · Grimaldi Lines (Ferry DIURNO)", checkin: "07:00 AM (Muelle Palermo)", departure: "09:00 AM", arrival: "21:00 (Cagliari)",
+    cities: ["Porto di Palermo", "Mar Tirreno meridional", "Porto di Cagliari"],
+    hotel: "Hotel en Cagliari con garaje privado cerrado",
+    parkingType: "🔒 Garaje cerrado en hotel de Cagliari",
+    activities: ["Mercado de Ballarò y Vucciria en Palermo", "Bastione di Saint Remy y Barrio de Castello (Cagliari)"],
+    pranzo: "Pranzo a bordo en el restaurante del MV Europa Palace",
+    summary: "DÍA CLAVE DE CONEXIÓN ENTRE ISLAS. Llegada al muelle de Palermo a las 07:00 AM (obligatorio). Ferry DIURNO de 12 horas en el buque MV Europa Palace de Grimaldi. Llegada a Cagliari a las 21:00 y noche en Cerdeña.",
+    gmaps: "https://www.google.com/maps/dir/Porto+di+Palermo,+Italy/Porto+di+Cagliari,+Italy",
+    timeline: [
+      { time: "06:30 - 07:00", act: "Salida del hotel y traslado inmediato de 5 minutos al muelle de embarque de Palermo." },
+      { time: "07:00", act: "⚠️ LLEGADA OBLIGATORIA AL MUELLE DE PALERMO (Check-in Motos Grimaldi - Banchina Puntone)." },
+      { time: "07:30 - 08:30", act: "Embarque de motos en el MV Europa Palace, freno de mano mecánico DCT activado, cinchas aseguradas y acceso a camarote de día." },
+      { time: "09:00", act: "🚢 ZARPE DEL FERRY DIURNO PALERMO ➔ CAGLIARI (12h de travesía por el sur de Cerdeña)." },
+      { time: "10:30 - 11:30", act: "Café en cubierta viendo alejarse la costa siciliana y el Monte Pellegrino." },
+      { time: "13:00 - 15:00", act: "Pranzo a bordo en el restaurante y descanso en camarote." },
+      { time: "21:00", act: "⚓ ATRAQUE EN CAGLIARI (Cerdeña). Desembarque ordenado con las motos." },
+      { time: "21:30", act: "🏨 Llegada al hotel en Cagliari con garaje cerrado reservado." },
+      { time: "22:00", act: "Cena sarda tardía: Culurgiones artesanales y copa de Cannonau di Sardegna." }
+    ]
+  },
+  {
+    day: 8, date: "Lunes 16 Noviembre 2026", title: "Cagliari ➔ Su Nuraxi de Barumini ➔ Mítica SS125 Orientale Sarda ➔ Baunei", km: "210 km", highwayKm: "20 km", secondaryKm: "190 km", time: "3,5 h", mode: "Moto",
+    region: "Cerdeña", regionColor: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+    isFerry: false,
+    cities: ["Cagliari", "Barumini", "Jerzu", "Lanusei", "Tortolì / Arbatax", "Baunei"],
+    hotel: "Hotel en Baunei con garaje privado cerrado",
+    parkingType: "🔒 Garaje cerrado privado para motos (Baunei)",
+    activities: ["Pedra Longa (Baunei)", "SS125 Orientale Sarda Pass", "SS198 di Seui e Lanusei"],
+    pranzo: "Malloreddus a la campidanese con salchicha sarda y queso pecorino",
+    summary: "Fortaleza megalítica de Su Nuraxi (UNESCO), enlace con el asfalto de circuito de la mítica SS125 Orientale Sarda cruzando los cañones de Ogliastra hasta Baunei.",
+    gmaps: "https://www.google.com/maps/dir/Cagliari,+Italy/Su+Nuraxi,+Barumini,+Italy/Lanusei,+Italy/Baunei,+Italy",
+    timeline: [
+      { time: "07:30 - 08:30", act: "Desayuno sardo, revisión de presiones y salida puntual hacia el interior." },
+      { time: "08:30 - 10:00", act: "Ruta hacia el yacimiento nurágico prehistórico de Su Nuraxi de Barumini (1500 a.C.)." },
+      { time: "10:00 - 11:00", act: "🏛️ Visita a la fortaleza megalítica de tres plantas de basalto y pausa café." },
+      { time: "11:00 - 13:00", act: "Entrada a las curvas míticas de Ogliastra por Jerzu y Lanusei con asfalto impecable." },
+      { time: "13:00 - 15:00", act: "🍝 Pranzo (2h): Malloreddus a la campidanese y queso pecorino sardo en trattoria de montaña." },
+      { time: "15:00 - 16:45", act: "Tramo legendario de la SS125 Orientale Sarda con curvas enlazadas hasta Baunei bajo la luz dorada." },
+      { time: "16:45 - 17:15", act: "🏨 Llegada al hotel en Baunei con garaje privado cerrado antes del anochecer." },
+      { time: "18:00 - 19:30", act: "Mirador costero de Pedra Longa y paseo relajado por Baunei." },
+      { time: "20:00", act: "Cena tradicional sarda y descanso." }
+    ]
+  },
+  {
+    day: 9, date: "Martes 17 Noviembre 2026", title: "Baunei ➔ Genna Silana ➔ Barbagia (SS198 / S'Arcu de Tascussì) ➔ Alghero", km: "235 km", highwayKm: "0 km", secondaryKm: "235 km", time: "4,5 h", mode: "Moto",
+    region: "Cerdeña", regionColor: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+    isFerry: false,
+    cities: ["Baunei", "Paso Genna Silana (1.017m)", "Dorgali", "Mamoiada / Orgosolo", "Fonni (S'Arcu de Tascussì)", "Bosa", "Alghero"],
+    hotel: "Hotel en paseo marítimo de Alghero con garaje subterráneo",
+    parkingType: "🔒 Garaje subterráneo privado cerrado",
+    activities: ["Passo S'Arcu de Tascussì (1.245m)", "Gairo Vecchio (Pueblo Fantasma)", "Puerto de Montaña Genna Silana y Mirador de la Gola di Gorropu", "Murales Políticos de Orgosolo"],
+    pranzo: "Porceddu tradicional (cochinillo sardo al horno de leña) y pan carasau",
+    summary: "La etapa reina de curvas de Cerdeña: Paso Genna Silana (1.017m) con vistas a Gorropu, murales de Orgosolo, el puerto de montaña más alto de Cerdeña (S'Arcu de Tascussì 1.245m) y llegada a la ciudad amurallada de Alghero.",
+    gmaps: "https://www.google.com/maps/dir/Baunei,+Italy/Passo+Genna+Silana,+Italy/Orgosolo,+Italy/Bosa,+Italy/Alghero,+Italy",
+    timeline: [
+      { time: "07:30 - 08:30", act: "Desayuno en Baunei, revisión de equipaje y salida a las 08:30." },
+      { time: "08:30 - 10:00", act: "Ascenso al Paso Genna Silana (1.017 m) sobre el colosal cañón de Gorropu." },
+      { time: "10:00 - 10:30", act: "☕ Café en lo alto del puerto con vistas panorámicas alpinas." },
+      { time: "10:30 - 13:00", act: "Curvas infinitas por el corazón de Barbagia cruzando Orgosolo, Fonni y el puerto más alto de Cerdeña (S'Arcu de Tascussì 1.245 m)." },
+      { time: "13:00 - 15:00", act: "🍝 Pranzo (2h): Porceddu (cochinillo sardo asado a la leña) y pan carasau en agriturismo." },
+      { time: "15:00 - 16:45", act: "Descenso hacia la costa oeste por Bosa y la mítica carretera de acantilados SP105 hacia Alghero." },
+      { time: "16:45 - 17:15", act: "🏨 Llegada al hotel en Alghero con parking privado cerrado antes del anochecer." },
+      { time: "18:00 - 19:30", act: "Passeggiata sobre las murallas catalanas de Alghero viendo ponerse el sol sobre el mar." },
+      { time: "20:00", act: "Cena con Paella algherese y marisco local." }
+    ]
+  },
+  {
+    day: 10, date: "Miércoles 18 Noviembre 2026", title: "Alghero ➔ Costa Bosa SP105 ➔ Capo Caccia ➔ Porto Torres", km: "120 km", highwayKm: "0 km", secondaryKm: "120 km", time: "2,5 h", mode: "Moto",
+    region: "Cerdeña", regionColor: "bg-sky-500/20 text-sky-300 border-sky-500/40",
+    isFerry: false,
+    cities: ["Alghero", "Capo Caccia (Gruta de Neptuno)", "Stintino (La Pelosa)", "Porto Torres"],
+    hotel: "Hotel en Porto Torres con garaje cerrado vigilado",
+    parkingType: "🔒 Garaje cerrado privado (Porto Torres)",
+    activities: ["Su Nuraxi de Barumini", "Termas Romanas de Fordongianus (Forum Traiani)", "Bosa y Castillo de Malaspina", "SP105 carretera costera de acantilados Bosa-Alghero"],
+    pranzo: "Fregola sarda marinera con almejas y gambas rojas",
+    summary: "Día de disfrute panorámico por los acantilados de Capo Caccia, la bahía turquesa de Stintino y enlace tranquilo a Porto Torres para pernoctar descansados junto al puerto del ferry.",
+    gmaps: "https://www.google.com/maps/dir/Alghero,+Italy/Capo+Caccia,+Italy/Stintino,+Italy/Porto+Torres,+Italy",
+    timeline: [
+      { time: "08:00 - 09:00", act: "Desayuno tranquilo junto al mar en Alghero." },
+      { time: "09:00 - 11:30", act: "Ruta panorámica a Capo Caccia, acantilados de 180 m y mirador de la Escala del Cabirol." },
+      { time: "11:30 - 13:00", act: "Carreteras costeras secundarias hacia Stintino y vistas a la Isla de Asinara." },
+      { time: "13:00 - 15:00", act: "🍝 Pranzo marinero (2h): Fregola sarda con marisco fresco." },
+      { time: "15:00 - 16:45", act: "Paseo en moto hacia Porto Torres, repostaje final y lavado ligero de visores." },
+      { time: "16:45 - 17:15", act: "🏨 Check-in en hotel en Porto Torres con garaje seguro para las motos." },
+      { time: "18:00 - 19:30", act: "Paseo por la Basílica románica de San Gavino y la zona portuaria." },
+      { time: "20:00", act: "Cena relajada y descanso completo para madrugar hacia el ferry." }
+    ]
+  },
+  {
+    day: 11, date: "Jueves 19 Noviembre 2026", title: "Ferry Porto Torres (10:00) ➔ Barcelona (01:00 AM del Viernes 20)", km: "10 km", highwayKm: "0 km", secondaryKm: "10 km", time: "0,3 h", mode: "Ferry diurno/nocturno",
+    region: "España", regionColor: "bg-red-500/20 text-red-300 border-red-500/40",
+    isFerry: true, vessel: "MV Cruise Roma · Grimaldi Lines (15h)", checkin: "08:00 AM (Muelle Porto Torres)", departure: "10:00 AM", arrival: "01:00 AM (Vie 20 BCN)",
+    cities: ["Porto Torres", "Mar Balear", "Puerto de Barcelona"],
+    hotel: "Camarote doble en Grimaldi MV Cruise Roma (Bodega)",
+    parkingType: "🚢 Bodega cerrada de vehículos (freno mano DCT)",
+    activities: ["Spiaggia La Pelosa y Torre Aragonesa (Stintino)", "Roccia dell'Elefante y Ciudadela de Castelsardo"],
+    pranzo: "Pranzo a bordo en el restaurante del barco",
+    summary: "Llegada al muelle de Porto Torres a las 08:00 AM (obligatorio). Ferry de 15h en el MV Cruise Roma con salida a las 10:00 AM cruzando el Mediterráneo rumbo a Barcelona (llegada prevista 01:00 AM del Viernes 20).",
+    gmaps: "https://www.google.com/maps/dir/Porto+Torres+Ferry+Terminal,+Italy/Port+de+Barcelona,+Barcelona,+España",
+    timeline: [
+      { time: "07:30 - 08:00", act: "Salida del hotel y traslado de 5 minutos al muelle de embarque." },
+      { time: "08:00", act: "⚠️ LLEGADA OBLIGATORIA AL MUELLE DE PORTO TORRES (Check-in Motos Grimaldi - Molo di Ponente)." },
+      { time: "08:30 - 09:30", act: "Embarque de motos, freno de mano DCT activado, cinchas aseguradas y acomodación en camarote." },
+      { time: "10:00", act: "🚢 ZARPE OFICIAL DEL FERRY PORTO TORRES ➔ BARCELONA (15h de navegación)." },
+      { time: "13:00 - 15:00", act: "Pranzo a bordo en el restaurante del barco." },
+      { time: "15:00 - 20:00", act: "Tarde de descanso en camarote, selección de fotos y vídeos de la ruta." },
+      { time: "20:30 - 22:00", act: "Última cena en alta mar." },
+      { time: "00:00 - 00:45", act: "Preparación de equipaje y bajada al garaje de vehículos." }
+    ]
+  },
+  {
+    day: 12, date: "Viernes 20 Noviembre 2026", title: "Desembarque en Barcelona (01:00 AM) ➔ Vuelta triunfal a Lloret de Mar (02:15 AM)", km: "75 km", highwayKm: "50 km", secondaryKm: "25 km", time: "1,1 h", mode: "Moto",
+    region: "España", regionColor: "bg-red-500/20 text-red-300 border-red-500/40",
+    isFerry: false,
+    cities: ["Puerto de Barcelona", "Ronda Litoral", "C-32", "Blanes", "Lloret de Mar"],
+    hotel: "Casa en Lloret de Mar",
+    parkingType: "🏠 Garaje propio en Lloret de Mar",
+    activities: [],
+    pranzo: "Comida familiar de celebración de fin de viaje en casa",
+    summary: "Atraco en Barcelona de madrugada a la 01:00. Desembarque rápido con las motos y tramo final nocturno y despejado hasta casa en Lloret de Mar (02:15 AM). ¡Expedición completada con éxito!",
+    gmaps: "https://www.google.com/maps/dir/Port+de+Barcelona,+Barcelona,+España/Lloret+de+Mar,+España",
+    timeline: [
+      { time: "01:00", act: "⚓ Atraque del MV Cruise Roma en la Terminal Grimaldi de Barcelona. Desembarque con las motos." },
+      { time: "01:15 - 01:30", act: "Salida del puerto de Barcelona por la Ronda Litoral con tráfico completamente despejado." },
+      { time: "01:30 - 02:15", act: "Tramo final por autopista C-32 hacia la Costa Brava con el aire fresco de la noche." },
+      { time: "02:15", act: "🏁 LLEGADA TRIUNFAL A CASA EN LLORET DE MAR. Motos guardadas en el garaje propio." },
+      { time: "02:30", act: "Descarga de maletas, ducha caliente y a descansar tras un viaje épico." },
+      { time: "Viernes y Fin de Semana", act: "Fin de semana entero libre por delante para descansar, lavar motos y revivir la aventura." }
+    ]
+  }
+];
