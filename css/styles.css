@@ -239,6 +239,14 @@ body.light-theme .bg-sky-950\/30 {
 body.light-theme .bg-sky-950\/30 * {
   color: #0369a1 !important;
 }
+body.light-theme #btn-share-whatsapp {
+  background-color: #ecfdf5 !important;
+  border-color: #059669 !important;
+  color: #064e3b !important;
+}
+body.light-theme #btn-share-whatsapp:hover {
+  background-color: #d1fae5 !important;
+}
 
 /* ==========================================================================
    Modo Roadbook de Tanque Imprimible (@media print)

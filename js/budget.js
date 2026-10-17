@@ -184,3 +184,35 @@ function updateBudgetCalculator() {
     document.getElementById('pct-tolls').innerText = Math.max(0, pctTolls) + '%';
   }
 }
+
+// Copiar resumen del viaje formateado para WhatsApp
+function copyWhatsAppSummary() {
+  const total = document.getElementById('budget-grand-total')?.innerText || '€3.090';
+  const perPerson = document.getElementById('budget-per-person')?.innerText || '€1.545';
+  const modeText = currentBudgetMode === 'dual' ? '2 Motos · 2 Pilotos (Padre e Hijo)' : '1 Moto · 1 Piloto Solo';
+
+  const text = `🏍️ *EXPEDICIÓN EN MOTO: ITALIA 2026*
+📅 *Fechas:* 9 al 20 de Noviembre de 2026 (12 etapas)
+👥 *Modalidad:* ${modeText}
+🏍️ *Motos:* Honda Africa Twin 1100 DCT + Honda NC750X DCT
+🛣️ *Ruta:* 1.915 km en moto (Lloret ➔ Roma ➔ Sicilia ➔ Cerdeña)
+🚢 *Ferrys oficiales:* 4 travesías confirmadas (~525,60 €)
+🏨 *Alojamiento:* 9 noches hotel con parking cerrado + 2 camarotes ferry
+💰 *Coste Estimado:* ${total} (${perPerson} / piloto)
+🔒 *Seguridad:* Freno de mano mecánico DCT activado en bodegas de ferry.`;
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('btn-share-whatsapp');
+      if (btn) {
+        const orig = btn.innerHTML;
+        btn.innerHTML = `<span>✅</span> <span>¡Copiado!</span>`;
+        setTimeout(() => { btn.innerHTML = orig; }, 2500);
+      }
+    }).catch(() => {
+      alert('Resumen para WhatsApp:\n\n' + text);
+    });
+  } else {
+    alert('Resumen para WhatsApp:\n\n' + text);
+  }
+}
