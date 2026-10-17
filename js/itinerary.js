@@ -1,8 +1,41 @@
+// Variable de estado para el filtro de región en el itinerario
+let currentItinFilter = 'ALL';
+
+// Filtro interactivo por región para las tarjetas del itinerario
+function filterItineraryByRegion(key) {
+  currentItinFilter = key;
+  const buttons = document.querySelectorAll('.itin-filter-btn');
+  buttons.forEach(btn => {
+    btn.classList.remove('active', 'bg-amber-500/20', 'text-amber-300', 'border-amber-500/40');
+    btn.classList.add('bg-slate-950', 'text-slate-400', 'border-slate-700');
+  });
+  const activeBtn = document.getElementById(`itin-filter-${key}`);
+  if (activeBtn) {
+    activeBtn.classList.remove('bg-slate-950', 'text-slate-400', 'border-slate-700');
+    activeBtn.classList.add('active', 'bg-amber-500/20', 'text-amber-300', 'border-amber-500/40');
+  }
+
+  let filtered = daysData;
+  if (key === 'ESP') {
+    filtered = daysData.filter(d => d.day === 1 || d.day === 12);
+  } else if (key === 'PENINSULA') {
+    filtered = daysData.filter(d => d.day === 2 || d.day === 3 || d.day === 4);
+  } else if (key === 'SICILIA') {
+    filtered = daysData.filter(d => d.day === 5 || d.day === 6);
+  } else if (key === 'CERDENA') {
+    filtered = daysData.filter(d => d.day === 8 || d.day === 9 || d.day === 10);
+  } else if (key === 'FERRY') {
+    filtered = daysData.filter(d => d.isFerry || d.isShortFerry);
+  }
+  renderItineraryCards(filtered);
+}
+
 // Renderizar tarjetas de itinerario (Tab 2) con diseño estructurado
-function renderItineraryCards() {
+function renderItineraryCards(daysToRender = daysData) {
   const container = document.getElementById('itinerary-cards-container');
+  if (!container) return;
   container.innerHTML = '';
-  daysData.forEach(d => {
+  daysToRender.forEach(d => {
     const card = document.createElement('div');
     card.className = "card-box bg-slate-950 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between space-y-4 hover:border-amber-500/60 transition-all cursor-pointer shadow-sm";
     card.onclick = () => openHourlyModal(d.day);
@@ -77,6 +110,15 @@ function renderItineraryCards() {
       </div>
     `;
 
+    // Badges de alerta de altitud y repostaje
+    let alertBadges = '';
+    if (d.hasHighAltitude) {
+      alertBadges += `<span class="badge-pill bg-sky-500/20 text-sky-800 dark:text-sky-300 border border-sky-500/40 px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap" title="${d.altitudePass || 'Paso >1.000m'}">❄️ Puerto >1.000m (${d.day === 5 ? 'Etna 1.900m' : 'Gennargentu 1.245m'})</span>`;
+    }
+    if (d.hasFuelAlert) {
+      alertBadges += `<span class="badge-pill bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-amber-500/40 px-2 py-0.5 rounded text-[10px] font-bold whitespace-nowrap" title="Etapa >200km: Repostaje programado a mitad de jornada">⛽ Repostaje >200km</span>`;
+    }
+
     card.innerHTML = `
       <div class="space-y-3.5">
         <!-- Header Badges -->
@@ -96,6 +138,7 @@ function renderItineraryCards() {
         <div class="flex flex-wrap gap-1.5 text-[11px]">
           <span class="badge-pill bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded-md font-mono whitespace-nowrap">🛣️ Autopista: ${d.highwayKm}</span>
           <span class="badge-pill bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-md font-mono whitespace-nowrap">🏍️ Secundaria: ${d.secondaryKm}</span>
+          ${alertBadges}
         </div>
 
         <div>
@@ -153,6 +196,32 @@ function openHourlyModal(dayNum) {
         <div class="text-[11px] bg-amber-500/10 border border-amber-500/30 rounded p-2 text-amber-300 flex items-start gap-1.5">
           <span>⚠️</span>
           <span><strong>Protocolo Honda DCT en Ferry:</strong> En motos automáticas DCT, parar motor deja la caja en neutro. Es <u>obligatorio accionar la palanca del freno de mano mecánico</u> (semimanillar izquierdo) al amarrar en bodega.</span>
+        </div>
+      </div>
+    `;
+  }
+
+  let altitudeHtml = '';
+  if (data.hasHighAltitude) {
+    altitudeHtml = `
+      <div class="bg-sky-950/30 border border-sky-500/40 rounded-xl p-3 text-xs text-sky-200 mb-3 flex items-start gap-2">
+        <span class="text-base shrink-0">❄️</span>
+        <div>
+          <strong class="text-sky-300 block font-bold">Aviso de Altitud y Térmicos: ${data.altitudePass || 'Puerto >1.000m'}</strong>
+          <span>En cotas superiores a 1.000 m en noviembre las temperaturas pueden descender de 8°C y el asfalto retiene humedad. Llevar sotocasco, guantes de invierno y membrana cortaviento a mano.</span>
+        </div>
+      </div>
+    `;
+  }
+
+  let fuelHtml = '';
+  if (data.hasFuelAlert) {
+    fuelHtml = `
+      <div class="bg-amber-950/20 border border-amber-500/30 rounded-xl p-3 text-xs text-amber-200 mb-3 flex items-start gap-2">
+        <span class="text-base shrink-0">⛽</span>
+        <div>
+          <strong class="text-amber-300 block font-bold">Gestión de Autonomía (>200 km):</strong>
+          <span>Autonomía segura: Africa Twin ~275 km, NC750X ~255 km. Parada técnica de repostaje self-service programada a las 12:30. En la NC750X la boca de llenado está bajo el asiento del acompañante.</span>
         </div>
       </div>
     `;
@@ -216,6 +285,8 @@ function openHourlyModal(dayNum) {
       </a>
     </div>
     ${ferryHtml}
+    ${altitudeHtml}
+    ${fuelHtml}
     ${parkingHtml}
     ${pranzoHtml}
     ${activitiesHtml}

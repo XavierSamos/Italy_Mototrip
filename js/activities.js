@@ -191,6 +191,42 @@ function openActivityByName(actName) {
   }
 }
 
+// Vinculación bidireccional Actividades ↔ Itinerario Diario
+function getActivityDayInfo(actName) {
+  if (typeof daysData === 'undefined' || !Array.isArray(daysData)) return null;
+  const clean = str => str.toLowerCase().replace(/[^a-z0-9áéíóúüñ]/gi, '');
+  const target = clean(actName);
+  for (const d of daysData) {
+    if (d.activities && d.activities.length > 0) {
+      for (const act of d.activities) {
+        const aClean = clean(act);
+        if (aClean === target || aClean.includes(target) || target.includes(aClean)) {
+          return { day: d.day, title: d.title };
+        }
+      }
+    }
+  }
+  return null;
+}
+
+function goToDayItinerary(dayNum) {
+  if (typeof switchTab === 'function') {
+    switchTab('itinerary-view');
+  }
+  if (typeof closeModal === 'function') {
+    closeModal('activity-modal');
+  }
+  setTimeout(() => {
+    if (typeof openHourlyModal === 'function') {
+      openHourlyModal(dayNum);
+    }
+    const container = document.getElementById('itinerary-cards-container');
+    if (container && container.children && container.children[dayNum - 1]) {
+      container.children[dayNum - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, 180);
+}
+
 // Renderizar actividades agrupadas por categoría y región (Tab 6)
 function renderActivitiesGrouped() {
   const container = document.getElementById('activities-grouped-container');
@@ -264,24 +300,40 @@ function renderActivitiesGrouped() {
 
       const fav = isFavorite(a.name);
       const safeName = a.name.replace(/'/g, "\\'");
+      const dayInfo = getActivityDayInfo(a.name);
 
       cardsHtml += `
-        <div onclick='openActivityModal(${JSON.stringify(a).replace(/'/g, "&apos;")})' class="card-box bg-slate-950 border border-slate-800 p-5 rounded-2xl space-y-4 hover:border-amber-500/60 transition-all cursor-pointer shadow-sm flex flex-col justify-between">
+        <div onclick='openActivityModal(${JSON.stringify(a).replace(/'/g, "&apos;")})' class="card-box bg-slate-950 border border-slate-800 p-5 rounded-2xl space-y-3 hover:border-amber-500/60 transition-all cursor-pointer shadow-sm flex flex-col justify-between">
           <div class="space-y-2">
-            <div class="flex justify-between items-center text-xs gap-2">
-              <span class="badge-pill text-[10px] px-2.5 py-1 rounded-full border font-bold uppercase whitespace-nowrap ${regionBadge}">${a.region}</span>
-              <div class="flex items-center gap-2">
-                <span class="font-mono text-amber-300 font-bold text-xs whitespace-nowrap">${a.price}</span>
-                <button onclick="event.stopPropagation(); toggleFavorite('${safeName}')" class="text-base leading-none p-1 rounded hover:bg-slate-800/80 transition-all ${fav ? 'text-amber-400 font-bold scale-110' : 'text-slate-500 hover:text-amber-400'}" title="${fav ? 'Quitar de favoritos' : 'Añadir a favoritos'}">
-                  ${fav ? '⭐' : '☆'}
-                </button>
+            <!-- Header: Badges & Favorite Star -->
+            <div class="flex justify-between items-start gap-2">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span class="badge-pill text-[10px] px-2.5 py-1 rounded-full border font-bold uppercase ${regionBadge}">${a.region}</span>
+                ${dayInfo ? `
+                  <button type="button" onclick="event.stopPropagation(); goToDayItinerary(${dayInfo.day})" class="inline-flex items-center gap-1 text-[10px] font-bold bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full transition-all" title="Ver en Itinerario Día ${dayInfo.day}: ${dayInfo.title}">
+                    📅 Día ${dayInfo.day}
+                  </button>
+                ` : ''}
               </div>
+              <button onclick="event.stopPropagation(); toggleFavorite('${safeName}')" class="shrink-0 text-base leading-none p-1 rounded hover:bg-slate-800/80 transition-all ${fav ? 'text-amber-400 font-bold scale-110' : 'text-slate-500 hover:text-amber-400'}" title="${fav ? 'Quitar de favoritos' : 'Añadir a favoritos'}">
+                ${fav ? '⭐' : '☆'}
+              </button>
             </div>
-            <h4 class="font-bold text-sm text-white pt-1">${a.name}</h4>
-            <p class="text-xs text-slate-400">📍 ${a.location}</p>
+
+            <!-- Title -->
+            <h4 class="font-bold text-sm text-white pt-1 leading-snug">${a.name}</h4>
+
+            <!-- Location & Price Row (Prevents overflow) -->
+            <div class="flex flex-wrap items-center justify-between text-xs text-slate-400 gap-1.5 pt-0.5">
+              <span class="truncate max-w-[210px]" title="${a.location}">📍 ${a.location}</span>
+              <span class="font-mono text-amber-700 dark:text-amber-300 font-bold text-xs bg-amber-500/10 px-2 py-0.5 rounded shrink-0">${a.price}</span>
+            </div>
+
+            <!-- Short History -->
             <p class="text-xs text-slate-300 line-clamp-2 leading-relaxed pt-1">${a.history}</p>
           </div>
 
+          <!-- Bottom Action Buttons -->
           <div class="pt-3 border-t border-slate-800/80 flex justify-between items-center text-[11px]">
             <a href="${a.gmaps}" target="_blank" onclick="event.stopPropagation();" class="bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 px-3 py-1.5 rounded-lg font-bold flex items-center gap-1">
               📍 Google Maps
@@ -313,6 +365,24 @@ function filterActivities() {
 function openActivityModal(act) {
   currentModalAct = act;
   document.getElementById('act-type-badge').innerText = act.type;
+  
+  // Enlace al día del itinerario si aplica
+  const dayInfo = getActivityDayInfo(act.name);
+  const dayBadgeEl = document.getElementById('act-day-badge');
+  if (dayBadgeEl) {
+    if (dayInfo) {
+      dayBadgeEl.innerHTML = `
+        <button type="button" onclick="goToDayItinerary(${dayInfo.day})" class="inline-flex items-center gap-1 text-[11px] font-bold bg-amber-500/20 hover:bg-amber-500/30 text-amber-700 dark:text-amber-300 border border-amber-500/40 px-2.5 py-0.5 rounded-full transition-all" title="Ver Día ${dayInfo.day} en Itinerario">
+          📅 Día ${dayInfo.day}: ${dayInfo.title} ➔
+        </button>
+      `;
+      dayBadgeEl.classList.remove('hidden');
+    } else {
+      dayBadgeEl.innerHTML = '';
+      dayBadgeEl.classList.add('hidden');
+    }
+  }
+
   document.getElementById('act-title').innerText = act.name;
   document.getElementById('act-location').innerText = act.location;
   document.getElementById('act-history').innerText = act.history;

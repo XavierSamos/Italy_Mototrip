@@ -3,8 +3,8 @@
 let currentBudgetMode = 'dual'; // 'dual' (Padre e Hijo, 2 Motos) | 'solo' (1 Moto, 1 Piloto)
 
 const budgetDefaults = {
-  routeKm: 2850,
-  hotelNights: 8, // Días 2, 3, 4, 5, 6, 8, 9, 10 en tierra (Días 1, 7 y 11 ferrys)
+  routeKm: 1950,
+  hotelNights: 9, // Días 2, 3, 4, 5, 6, 7, 8, 9, 10 en tierra (Días 1 y 11 ferrys)
   tripDays: 12,
   ferriesDual: 525.60, // BCN 170 + Mesina 32 + Palermo-Cagliari 196 + Porto Torres 127.60
   ferriesSolo: 415.81, // BCN 140 + Mesina 16 + Palermo-Cagliari 154.81 + Porto Torres 105

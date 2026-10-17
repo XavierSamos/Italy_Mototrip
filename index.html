@@ -33,6 +33,10 @@
         <button onclick="toggleTheme()" id="theme-toggle-btn" class="bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm">
           ☀️ <span>Modo claro</span>
         </button>
+        <!-- Print Tank Roadbook Button -->
+        <button onclick="window.print()" id="btn-print-roadbook" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm print:hidden" title="Imprimir roadbook para bolsa sobre-depósito">
+          🖨️ <span>Imprimir Roadbook</span>
+        </button>
       </div>
     </div>
 
@@ -110,19 +114,19 @@
             <h3 class="font-bold text-md text-emerald-400">⚡ Resumen rápido</h3>
             <ul class="text-xs space-y-2 text-slate-300">
               <li class="flex justify-between border-b border-slate-800 pb-1.5">
-                <span>Distancia total en moto:</span> <strong class="text-amber-400 font-mono">1.865 km</strong>
+                <span>Distancia total en moto:</span> <strong class="text-amber-400 font-mono">1.915 km</strong>
               </li>
               <li class="flex justify-between border-b border-slate-800 pb-1.5">
-                <span>🛣️ Autopista:</span> <strong class="text-blue-400 font-mono">620 km (33 %)</strong>
+                <span>🛣️ Autopista:</span> <strong class="text-blue-400 font-mono">595 km (31 %)</strong>
               </li>
               <li class="flex justify-between border-b border-slate-800 pb-1.5">
-                <span>🏍️ Carretera secundaria / Curvas de montaña:</span> <strong class="text-emerald-400 font-mono">1.245 km (67 %)</strong>
+                <span>🏍️ Carretera secundaria / Curvas de montaña:</span> <strong class="text-emerald-400 font-mono">1.320 km (69 %)</strong>
               </li>
               <li class="flex justify-between border-b border-slate-800 pb-1.5">
-                <span>Horas totales en moto:</span> <strong class="text-amber-400 font-mono">~30,5 horas</strong>
+                <span>Horas totales en moto:</span> <strong class="text-amber-400 font-mono">~31 horas</strong>
               </li>
               <li class="flex justify-between border-b border-slate-800 pb-1.5">
-                <span>Tramos en ferry nocturno:</span> <strong class="text-blue-400 font-mono">3 travesías principales</strong>
+                <span>Tramos en ferry:</span> <strong class="text-blue-400 font-mono">4 travesías oficiales</strong>
               </li>
               <li class="flex justify-between">
                 <span>Termas y aguas termales:</span> <strong class="text-emerald-400 font-mono">2 lugares naturales</strong>
@@ -151,35 +155,35 @@
           <div class="grid grid-cols-7 gap-1 text-center min-w-[340px] text-slate-300">
             <span class="text-slate-600">-</span><span class="text-slate-600">-</span><span class="text-slate-600">-</span><span class="text-slate-600">-</span><span class="text-slate-600">-</span><span class="text-slate-600">-</span><span class="text-slate-500">1</span>
             <span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span>
-            <span class="bg-amber-500/20 text-amber-300 font-bold rounded border border-amber-500/40 p-1" title="Día 1: Salida BCN 21:30">[9]</span>
+            <span class="bg-amber-500/20 text-amber-800 dark:text-amber-300 font-bold rounded border border-amber-500/40 p-1" title="Día 1: Salida BCN 21:30">[9]</span>
             <span class="bg-slate-800 text-slate-200 font-bold rounded p-1" title="Día 2: Llegada Civitavecchia 19:00">10</span>
             <span class="bg-slate-800 text-slate-200 font-bold rounded p-1" title="Día 3: Costa Amalfitana / Paestum">11</span>
             <span class="bg-slate-800 text-slate-200 font-bold rounded p-1" title="Día 4: Maratea / Scilla">12</span>
-            <span class="bg-amber-500/20 text-amber-300 font-bold rounded border border-amber-500/40 p-1" title="Día 5: Ferry Mesina / Etna">[13]</span>
+            <span class="bg-yellow-500/20 text-yellow-800 dark:text-yellow-300 font-bold rounded border border-yellow-500/40 p-1" title="Día 5: Ferry Mesina / Etna">[13]</span>
             <span class="bg-slate-800 text-slate-200 font-bold rounded p-1" title="Día 6: Agrigento / Palermo">14</span>
-            <span class="bg-sky-500/20 text-sky-300 font-bold rounded border border-sky-500/40 p-1" title="Día 7: Ferry Diurno Palermo-Cagliari (09:00-21:00)">[15]</span>
+            <span class="bg-sky-500/20 text-sky-800 dark:text-sky-300 font-bold rounded border border-sky-500/40 p-1" title="Día 7: Ferry Diurno Palermo-Cagliari (09:00-21:00)">[15]</span>
             <span class="bg-slate-800 text-slate-200 font-bold rounded p-1" title="Día 8: Cerdeña / SS125 / Baunei">16</span>
             <span class="bg-slate-800 text-slate-200 font-bold rounded p-1" title="Día 9: Barbagia / Alghero">17</span>
             <span class="bg-slate-800 text-slate-200 font-bold rounded p-1" title="Día 10: Capo Caccia / Porto Torres">18</span>
-            <span class="bg-red-500/20 text-red-300 font-bold rounded border border-red-500/40 p-1" title="Día 11: Ferry Porto Torres ➔ BCN (10:00 AM)">[19]</span>
-            <span class="bg-emerald-500/20 text-emerald-300 font-bold rounded border border-emerald-500/40 p-1" title="Día 12: Llegada BCN 01:00 AM ➔ Lloret 02:15 AM">[20]</span>
+            <span class="bg-rose-500/20 text-rose-800 dark:text-rose-300 font-bold rounded border border-rose-500/40 p-1" title="Día 11: Ferry Porto Torres ➔ BCN (10:00 AM)">[19]</span>
+            <span class="bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 font-bold rounded border border-emerald-500/40 p-1" title="Día 12: Llegada BCN 01:00 AM ➔ Lloret 02:15 AM">[20]</span>
             <span class="text-slate-400">21</span><span class="text-slate-400">22</span>
             <span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span>
             <span>30</span>
           </div>
-          <div class="mt-3 text-[11px] text-slate-400 flex flex-wrap gap-x-4 gap-y-1">
-            <div><span class="text-amber-300 font-bold">[9]</span> = Salida Ferry BCN ➔ Civitavecchia (21:30)</div>
-            <div><span class="text-amber-300 font-bold">[13]</span> = Ferry Estrecho de Mesina (Caronte)</div>
-            <div><span class="text-sky-300 font-bold">[15]</span> = Ferry Diurno Grimaldi Palermo ➔ Cagliari (09:00–21:00)</div>
-            <div><span class="text-red-300 font-bold">[19]</span> = Ferry Porto Torres ➔ BCN (10:00 AM)</div>
-            <div><span class="text-emerald-300 font-bold">[20]</span> = Llegada de madrugada a BCN (01:00) y Lloret (02:15 AM)</div>
+          <div class="mt-3 text-[11px] text-slate-300 flex flex-wrap items-center gap-x-5 gap-y-2">
+            <div class="flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded font-mono font-bold border bg-amber-500/20 text-amber-800 dark:text-amber-300 border-amber-500/40">[9]</span> <span>Salida Ferry BCN ➔ Civitavecchia (21:30)</span></div>
+            <div class="flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded font-mono font-bold border bg-yellow-500/20 text-yellow-800 dark:text-yellow-300 border-yellow-500/40">[13]</span> <span>Ferry Estrecho de Mesina (Caronte)</span></div>
+            <div class="flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded font-mono font-bold border bg-sky-500/20 text-sky-800 dark:text-sky-300 border-sky-500/40">[15]</span> <span>Ferry Diurno Grimaldi Palermo ➔ Cagliari (09:00–21:00)</span></div>
+            <div class="flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded font-mono font-bold border bg-rose-500/20 text-rose-800 dark:text-rose-300 border-rose-500/40">[19]</span> <span>Ferry Porto Torres ➔ BCN (10:00 AM)</span></div>
+            <div class="flex items-center gap-1.5"><span class="px-1.5 py-0.5 rounded font-mono font-bold border bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border-emerald-500/40">[20]</span> <span>Llegada de madrugada a BCN (01:00) y Lloret (02:15 AM)</span></div>
           </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
           <!-- Ferry 1 Card -->
           <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-            <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-emerald-500/20 text-emerald-300 border-emerald-500/40">FERRY 1 (IDA)</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-amber-500/20 text-amber-800 dark:text-amber-300 border-amber-500/40">FERRY 1 (IDA)</span>
             <h4 class="font-bold text-white text-sm">BCN ➔ Civitavecchia</h4>
             <div class="text-slate-300 text-[11px]">Grimaldi · <em>MV Cruise Roma</em></div>
             <div class="font-mono text-amber-300 text-[11px]">Lun 9 Nov · 21:30 ➔ Mar 10 · 19:00</div>
@@ -189,7 +193,7 @@
 
           <!-- Ferry 2 Card -->
           <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-            <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-amber-500/20 text-amber-300 border-amber-500/40">FERRY 2 (ESTRECHO)</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-yellow-500/20 text-yellow-800 dark:text-yellow-300 border-yellow-500/40">FERRY 2 (ESTRECHO)</span>
             <h4 class="font-bold text-white text-sm">Villa S. Giovanni ➔ Mesina</h4>
             <div class="text-slate-300 text-[11px]">Caronte & Tourist · Lanzadera 24h</div>
             <div class="font-mono text-amber-300 text-[11px]">Vie 13 Nov · Continuo (cada 20m)</div>
@@ -199,7 +203,7 @@
 
           <!-- Ferry 3 Card -->
           <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-            <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-sky-500/20 text-sky-300 border-sky-500/40">FERRY 3 (ISLA A ISLA)</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-sky-500/20 text-sky-800 dark:text-sky-300 border-sky-500/40">FERRY 3 (ISLA A ISLA)</span>
             <h4 class="font-bold text-white text-sm">Palermo ➔ Cagliari</h4>
             <div class="text-slate-300 text-[11px]">Grimaldi · <em>MV Europa Palace</em></div>
             <div class="font-mono text-amber-300 text-[11px]">Dom 15 Nov · 09:00 AM ➔ 21:00</div>
@@ -209,7 +213,7 @@
 
           <!-- Ferry 4 Card -->
           <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
-            <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-red-500/20 text-red-300 border-red-500/40">FERRY 4 (VUELTA)</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold bg-rose-500/20 text-rose-800 dark:text-rose-300 border-rose-500/40">FERRY 4 (VUELTA)</span>
             <h4 class="font-bold text-white text-sm">Porto Torres ➔ Barcelona</h4>
             <div class="text-slate-300 text-[11px]">Grimaldi · <em>MV Cruise Roma</em></div>
             <div class="font-mono text-amber-300 text-[11px]">Jue 19 Nov · 10:00 AM ➔ Vie 20 · 01:00</div>
@@ -228,6 +232,28 @@
             <h2 class="font-bold text-xl text-white">📅 Itinerario Diario (haz clic en cualquier día para ver el detalle por horas)</h2>
             <p class="text-xs text-slate-400">Incluye horarios por horas, paradas para comer, tiempos de conducción y visitas</p>
           </div>
+        </div>
+
+        <!-- Region Filter Pills -->
+        <div class="flex flex-wrap gap-2 text-xs font-semibold pt-1 print:hidden" id="itinerary-region-filters">
+          <button onclick="filterItineraryByRegion('ALL')" id="itin-filter-ALL" class="itin-filter-btn active bg-amber-500/20 text-amber-300 border border-amber-500/40 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            🌟 <span>Todas (12)</span>
+          </button>
+          <button onclick="filterItineraryByRegion('ESP')" id="itin-filter-ESP" class="itin-filter-btn bg-slate-950 text-slate-400 border border-slate-700 hover:border-amber-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            🇪🇸 <span>España (2)</span>
+          </button>
+          <button onclick="filterItineraryByRegion('PENINSULA')" id="itin-filter-PENINSULA" class="itin-filter-btn bg-slate-950 text-slate-400 border border-slate-700 hover:border-amber-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            🏛️ <span>Península (3)</span>
+          </button>
+          <button onclick="filterItineraryByRegion('SICILIA')" id="itin-filter-SICILIA" class="itin-filter-btn bg-slate-950 text-slate-400 border border-slate-700 hover:border-amber-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            🌋 <span>Sicilia (2)</span>
+          </button>
+          <button onclick="filterItineraryByRegion('CERDENA')" id="itin-filter-CERDENA" class="itin-filter-btn bg-slate-950 text-slate-400 border border-slate-700 hover:border-amber-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            🏝️ <span>Cerdeña (3)</span>
+          </button>
+          <button onclick="filterItineraryByRegion('FERRY')" id="itin-filter-FERRY" class="itin-filter-btn bg-slate-950 text-slate-400 border border-slate-700 hover:border-amber-500 px-3 py-1.5 rounded-xl transition-all flex items-center gap-1">
+            🚢 <span>Travesías Ferry (4)</span>
+          </button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="itinerary-cards-container">
@@ -323,12 +349,12 @@
               <strong id="summary-ferries-badge" class="font-mono text-amber-300">€526</strong>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">🏨 Hoteles (8 noches):</span>
-              <strong id="summary-hotels-badge" class="font-mono text-emerald-300">€640</strong>
+              <span class="text-slate-400">🏨 Hoteles (9 noches):</span>
+              <strong id="summary-hotels-badge" class="font-mono text-emerald-300">€720</strong>
             </div>
             <div class="flex justify-between">
               <span class="text-slate-400">⛽ Gasolina ruta:</span>
-              <strong id="summary-fuel-badge" class="font-mono text-blue-300">€765</strong>
+              <strong id="summary-fuel-badge" class="font-mono text-blue-300">€523</strong>
             </div>
             <div class="flex justify-between">
               <span class="text-slate-400">🍝 Comidas (12 días):</span>
@@ -354,7 +380,7 @@
                   <p class="text-xs text-slate-400">Consumo independiente por montura sobre km en asfalto.</p>
                 </div>
               </div>
-              <span id="fuel-total-cost-badge" class="font-mono text-blue-300 font-bold text-sm bg-blue-500/10 border border-blue-500/30 px-2.5 py-1 rounded-lg">€765</span>
+              <span id="fuel-total-cost-badge" class="font-mono text-blue-300 font-bold text-sm bg-blue-500/10 border border-blue-500/30 px-2.5 py-1 rounded-lg">€523</span>
             </div>
 
             <!-- Parameters: Price & Km -->
@@ -370,10 +396,10 @@
               <div class="space-y-1">
                 <div class="flex justify-between text-xs">
                   <span class="text-slate-400">Km Asfalto:</span>
-                  <span id="route-km-label" class="font-mono text-blue-300 font-bold">2.850 km</span>
+                  <span id="route-km-label" class="font-mono text-blue-300 font-bold">1.950 km</span>
                 </div>
-                <input id="route-km-slider" type="range" min="2000" max="3500" step="50" value="2850" oninput="updateBudgetCalculator()" class="w-full accent-blue-500">
-                <div class="flex justify-between text-[10px] text-slate-500"><span>2.000 km</span><span>3.500 km</span></div>
+                <input id="route-km-slider" type="range" min="1500" max="3000" step="25" value="1950" oninput="updateBudgetCalculator()" class="w-full accent-blue-500">
+                <div class="flex justify-between text-[10px] text-slate-500"><span>1.500 km</span><span>3.000 km</span></div>
               </div>
             </div>
 
@@ -389,7 +415,7 @@
               <input id="fuel-at-slider" type="range" min="4.5" max="12.0" step="0.1" value="9.0" oninput="updateBudgetCalculator()" class="w-full accent-amber-500">
               <div class="flex justify-between text-[10px] text-slate-500">
                 <span>4,5 L</span>
-                <span id="fuel-at-subtotal" class="text-amber-400 font-mono font-semibold">256,5 L • 474,53 €</span>
+                <span id="fuel-at-subtotal" class="text-amber-400 font-mono font-semibold">175,5 L • 324,68 €</span>
                 <span>12,0 L</span>
               </div>
             </div>
@@ -406,7 +432,7 @@
               <input id="fuel-nc-slider" type="range" min="3.0" max="7.0" step="0.1" value="5.5" oninput="updateBudgetCalculator()" class="w-full accent-sky-500">
               <div class="flex justify-between text-[10px] text-slate-500">
                 <span>3,0 L</span>
-                <span id="fuel-nc-subtotal" class="text-sky-400 font-mono font-semibold">156,8 L • 289,99 €</span>
+                <span id="fuel-nc-subtotal" class="text-sky-400 font-mono font-semibold">107,3 L • 198,41 €</span>
                 <span>7,0 L</span>
               </div>
             </div>
@@ -419,10 +445,10 @@
                 <span class="text-lg">🏨</span>
                 <div>
                   <h3 class="font-bold text-sm text-emerald-400 uppercase tracking-wide">Alojamientos y Hoteles</h3>
-                  <p class="text-xs text-slate-400">8 noches en tierra (Días 1, 7 y 11 se duerme en camarote).</p>
+                  <p class="text-xs text-slate-400">9 noches en tierra (Días 1 y 11 en camarote; Día 7 ferry diurno con noche en hotel en Cagliari).</p>
                 </div>
               </div>
-              <span id="hotel-total-cost-badge" class="font-mono text-emerald-300 font-bold text-sm bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-lg">€640</span>
+              <span id="hotel-total-cost-badge" class="font-mono text-emerald-300 font-bold text-sm bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-lg">€720</span>
             </div>
 
             <div class="bg-slate-900/80 p-4 rounded-xl border border-emerald-500/30 space-y-3">
@@ -440,8 +466,8 @@
                 <span>180 € (Premium)</span>
               </div>
               <div class="pt-2 border-t border-slate-800 flex justify-between items-center text-xs">
-                <span class="text-slate-400">8 Noches x <span id="hotel-cost-per-night-text">€80</span> =</span>
-                <span id="hotel-calc-breakdown" class="font-mono text-emerald-400 font-bold">€640 total (€320/pers)</span>
+                <span class="text-slate-400">9 Noches x <span id="hotel-cost-per-night-text">€80</span> =</span>
+                <span id="hotel-calc-breakdown" class="font-mono text-emerald-400 font-bold">€720 total (€360/pers)</span>
               </div>
             </div>
 
@@ -823,24 +849,22 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-800/60">
-              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 1</td><td class="p-3 text-white font-medium"><em>Ferry Cabina</em> (BCN ➔ Civitavecchia)</td><td class="p-3 text-slate-400">Mar</td><td class="p-3 font-mono text-emerald-300">Incluido (€80–€100 cabina)</td><td class="p-3 text-slate-300">Bodega cerrada del barco (llevar cinchas suaves propias)</td></tr>
-              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 2</td><td class="p-3 text-white font-medium">Santa Severa / Civitavecchia</td><td class="p-3 text-slate-400">Lacio</td><td class="p-3 font-mono text-emerald-300">€60 – €85</td><td class="p-3 text-slate-300">B&B / Hotel costero con patio privado cerrado (evita entrar en Roma)</td></tr>
-              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 3</td><td class="p-3 text-white font-medium">Cilento (Paestum / Agropoli / Palinuro)</td><td class="p-3 text-slate-400">Campania</td><td class="p-3 font-mono text-emerald-300">€50 – €75</td><td class="p-3 text-slate-300">Agriturismo rural con portón cerrado y finca vallada (mucho más seguro que Nápoles)</td></tr>
-              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 4</td><td class="p-3 text-white font-medium">Scilla (barrio pesquero de Chianalea)</td><td class="p-3 text-slate-400">Calabria</td><td class="p-3 font-mono text-emerald-300">€55 – €80</td><td class="p-3 text-slate-300">Hotel Scilla (con garage privado custodito) o B&B con plaza reservada</td></tr>
-              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 5</td><td class="p-3 text-white font-medium">Taormina / Giardini Naxos</td><td class="p-3 text-slate-400">Sicilia</td><td class="p-3 font-mono text-emerald-300">€60 – €85</td><td class="p-3 text-slate-300">Hoteles en Giardini Naxos o laderas de Taormina con parking cerrado privado</td></tr>
-              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 6</td><td class="p-3 text-white font-medium">Siracusa / Noto</td><td class="p-3 text-slate-400">Sicilia</td><td class="p-3 font-mono text-emerald-300">€55 – €80</td><td class="p-3 text-slate-300">Masseria o B&B con patio interior cerrado fuera de Ortigia (ZTL estricta)</td></tr>
-              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 7</td><td class="p-3 text-white font-medium">Agrigento (Valle de los Templos)</td><td class="p-3 text-slate-400">Sicilia</td><td class="p-3 font-mono text-emerald-300">€50 – €75</td><td class="p-3 text-slate-300">Agriturismos entre olivares con portón cerrado frente a los templos griegos</td></tr>
-              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 8</td><td class="p-3 text-white font-medium"><em>Ferry Cabina</em> (Palermo ➔ Cagliari)</td><td class="p-3 text-slate-400">Mar</td><td class="p-3 font-mono text-emerald-300">Incluido (€75 cabina)</td><td class="p-3 text-slate-300">Bodega cerrada del barco</td></tr>
-              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 9</td><td class="p-3 text-white font-medium">Baunei / Arbatax (Ogliastra)</td><td class="p-3 text-slate-400">Cerdeña</td><td class="p-3 font-mono text-emerald-300">€50 – €70</td><td class="p-3 text-slate-300">Hotel de montaña o costa con garaje privado (zona rural muy tranquila y segura)</td></tr>
-              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 10</td><td class="p-3 text-white font-medium">Tempio Pausania / Castelsardo</td><td class="p-3 text-slate-400">Cerdeña</td><td class="p-3 font-mono text-emerald-300">€55 – €75</td><td class="p-3 text-slate-300">Casa rural / agriturismo en la Gallura con recinto cerrado privado</td></tr>
-              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 11</td><td class="p-3 text-white font-medium">Alghero</td><td class="p-3 text-slate-400">Cerdeña</td><td class="p-3 font-mono text-emerald-300">€60 – €85</td><td class="p-3 text-slate-300">Hotel en paseo marítimo con parking privado o garaje cerrado subterráneo</td></tr>
-              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 12</td><td class="p-3 text-white font-medium">Alghero / Fordongianus (Día Termas)</td><td class="p-3 text-slate-400">Cerdeña</td><td class="p-3 font-mono text-emerald-300">€50 – €70</td><td class="p-3 text-slate-300">Agriturismo con parking privado (día comodín para termas o lluvia)</td></tr>
-              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 13</td><td class="p-3 text-white font-medium"><em>Ferry Cabina</em> (Porto Torres ➔ BCN)</td><td class="p-3 text-slate-400">Mar</td><td class="p-3 font-mono text-emerald-300">Incluido (€80 cabina)</td><td class="p-3 text-slate-300">Bodega cerrada del barco</td></tr>
-              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 14</td><td class="p-3 text-white font-medium">Lloret de Mar</td><td class="p-3 text-slate-400">Cataluña</td><td class="p-3 font-mono text-emerald-300">Casa</td><td class="p-3 text-slate-300">Garaje propio</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 1 (Lun 9 Nov)</td><td class="p-3 text-white font-medium"><em>Ferry 1 (Camarote)</em> (BCN ➔ Civitavecchia)</td><td class="p-3 text-slate-400">Mar Tirreno</td><td class="p-3 font-mono text-emerald-300">Incluido en billete (€170 ferry)</td><td class="p-3 text-slate-300">Bodega de vehículos MV Cruise Roma (freno de mano DCT obligatorio)</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 2 (Mar 10 Nov)</td><td class="p-3 text-white font-medium">Santa Severa / Civitavecchia (Desembarque 19:00)</td><td class="p-3 text-slate-400">Lacio</td><td class="p-3 font-mono text-emerald-300">€60 – €85 (Base €80)</td><td class="p-3 text-slate-300">B&B / Hotel costero con patio privado cerrado bajo llave (evita atascos de Roma)</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 3 (Mié 11 Nov)</td><td class="p-3 text-white font-medium">Paestum / Cilento</td><td class="p-3 text-slate-400">Campania</td><td class="p-3 font-mono text-emerald-300">€55 – €80 (Base €80)</td><td class="p-3 text-slate-300">Agriturismo rural con finca vallada y portón cerrado (máxima seguridad)</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 4 (Jue 12 Nov)</td><td class="p-3 text-white font-medium">Scilla (barrio pesquero de Chianalea)</td><td class="p-3 text-slate-400">Calabria</td><td class="p-3 font-mono text-emerald-300">€55 – €80 (Base €80)</td><td class="p-3 text-slate-300">Hotel / B&B con garaje cerrado custodito para ambas motos</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 5 (Vie 13 Nov)</td><td class="p-3 text-white font-medium">Taormina / Giardini Naxos</td><td class="p-3 text-slate-400">Sicilia</td><td class="p-3 font-mono text-emerald-300">€65 – €90 (Base €80)</td><td class="p-3 text-slate-300">Hotel con parking privado cerrado (acceso directo a ruta del Etna)</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 6 (Sáb 14 Nov)</td><td class="p-3 text-white font-medium">Palermo (zona puerto para embarque matinal)</td><td class="p-3 text-slate-400">Sicilia</td><td class="p-3 font-mono text-emerald-300">€60 – €85 (Base €80)</td><td class="p-3 text-slate-300">Garaje cubierto vigilado 24h junto al puerto (check-in a las 07:00 AM)</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 7 (Dom 15 Nov)</td><td class="p-3 text-white font-medium">Cagliari (Llegada ferry diurno 21:00)</td><td class="p-3 text-slate-400">Cerdeña</td><td class="p-3 font-mono text-emerald-300">€65 – €85 (Base €80)</td><td class="p-3 text-slate-300">Hotel con garaje cerrado privado en Cagliari tras desembarcar del MV Europa Palace</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 8 (Lun 16 Nov)</td><td class="p-3 text-white font-medium">Baunei / Ogliastra (SS125 Orientale Sarda)</td><td class="p-3 text-slate-400">Cerdeña</td><td class="p-3 font-mono text-emerald-300">€55 – €75 (Base €80)</td><td class="p-3 text-slate-300">Hotel motero de montaña con garaje privado cerrado</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 9 (Mar 17 Nov)</td><td class="p-3 text-white font-medium">Alghero (Casco histórico costero)</td><td class="p-3 text-slate-400">Cerdeña</td><td class="p-3 font-mono text-emerald-300">€60 – €85 (Base €80)</td><td class="p-3 text-slate-300">Hotel con garaje subterráneo cerrado privado fuera de la ZTL</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 10 (Mié 18 Nov)</td><td class="p-3 text-white font-medium">Porto Torres (junto al puerto de embarque)</td><td class="p-3 text-slate-400">Cerdeña</td><td class="p-3 font-mono text-emerald-300">€55 – €75 (Base €80)</td><td class="p-3 text-slate-300">Hotel con recinto cerrado privado para embarque a las 08:00 AM</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-amber-400">Noche 11 (Jue 19 Nov)</td><td class="p-3 text-white font-medium"><em>Ferry 4 (Camarote)</em> (Porto Torres ➔ BCN)</td><td class="p-3 text-slate-400">Mar Mediterráneo</td><td class="p-3 font-mono text-emerald-300">Incluido en billete (€127,60)</td><td class="p-3 text-slate-300">Bodega de vehículos (travesía de 15h, atraque a la 01:00 AM en BCN)</td></tr>
+              <tr class="hover:bg-slate-900/60"><td class="p-3 font-bold text-emerald-400">Llegada (Vie 20 Nov)</td><td class="p-3 text-white font-medium">Lloret de Mar (Llegada 02:15 AM)</td><td class="p-3 text-slate-400">España</td><td class="p-3 font-mono text-emerald-300">Casa</td><td class="p-3 text-slate-300">Garaje propio · Fin de expedición</td></tr>
               <tr class="bg-amber-500/10 font-bold border-t border-amber-500/30">
-                <td class="p-3 text-amber-400" colspan="3">TOTAL ALOJAMIENTO TERRESTRE (10 NOCHES COMPARTIENDO TWIN)</td>
-                <td class="p-3 font-mono text-emerald-300">€545 – €805 total</td>
-                <td class="p-3 text-right font-mono text-amber-300">≈ €275 – €405 por persona</td>
+                <td class="p-3 text-amber-400" colspan="3">TOTAL ALOJAMIENTOS EN TIERRA (9 NOCHES DE HOTEL TWIN CON PARKING SEGURO)</td>
+                <td class="p-3 font-mono text-emerald-300">720 € total (Base 80 €/noche)</td>
+                <td class="p-3 text-right font-mono text-amber-300">360 € por piloto</td>
               </tr>
             </tbody>
           </table>
@@ -1009,7 +1033,10 @@
     <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto p-6 shadow-2xl space-y-4">
       <div class="flex flex-wrap justify-between items-start gap-2">
         <div>
-          <span id="act-type-badge" class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Termas</span>
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="act-type-badge" class="text-xs font-bold text-emerald-400 uppercase tracking-wider">Termas</span>
+            <span id="act-day-badge"></span>
+          </div>
           <h3 id="act-title" class="text-xl font-bold text-white mt-1">Título de la actividad</h3>
           <p id="act-location" class="text-xs text-slate-400">Ubicación</p>
         </div>

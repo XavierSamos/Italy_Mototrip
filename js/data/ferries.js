@@ -12,7 +12,7 @@ const ferriesData = [
     checkin: "19:30 (2h antes)", 
     price: "170,00 € (Tarifa Special OTONO50)",
     deck: "Bodega de vehículos (cubierta protegida)", 
-    color: "border-emerald-500/40 text-emerald-300 bg-emerald-500/20" 
+    color: "border-amber-500/40 text-amber-800 dark:text-amber-300 bg-amber-500/20" 
   },
   { 
     route: "Villa San Giovanni ➔ Messina", 
@@ -25,7 +25,7 @@ const ferriesData = [
     checkin: "Llegada directa sin reserva (10-15m antes)", 
     price: "~32,00 € (16 € / moto)",
     deck: "Ferry lanzadera del Estrecho", 
-    color: "border-amber-500/40 text-amber-300 bg-amber-500/20" 
+    color: "border-yellow-500/40 text-yellow-800 dark:text-yellow-300 bg-yellow-500/20" 
   },
   { 
     route: "Palermo ➔ Cagliari (Isla a Isla)", 
@@ -38,7 +38,7 @@ const ferriesData = [
     checkin: "07:00 AM (2h antes)", 
     price: "~196,00 € (2 Motos + Cabina día)",
     deck: "Ferry diurno Grimaldi", 
-    color: "border-sky-500/40 text-sky-300 bg-sky-500/20" 
+    color: "border-sky-500/40 text-sky-800 dark:text-sky-300 bg-sky-500/20" 
   },
   { 
     route: "Porto Torres ➔ Barcelona", 
@@ -51,6 +51,6 @@ const ferriesData = [
     checkin: "08:00 AM (2h antes)", 
     price: "127,60 € (Tarifa Barbagia + OTONO50)",
     deck: "Ferry de regreso a España", 
-    color: "border-red-500/40 text-red-300 bg-red-500/20" 
+    color: "border-rose-500/40 text-rose-800 dark:text-rose-300 bg-rose-500/20" 
   }
 ];

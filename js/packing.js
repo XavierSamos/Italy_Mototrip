@@ -11,8 +11,29 @@ function initPackingChecklist() {
     if (cb.id && saved[cb.id] !== undefined) {
       cb.checked = !!saved[cb.id];
     }
-    cb.addEventListener('change', savePackingChecklist);
+    cb.addEventListener('change', () => {
+      savePackingChecklist();
+      updatePackingProgress();
+    });
   });
+  updatePackingProgress();
+}
+
+function updatePackingProgress() {
+  const checkboxes = document.querySelectorAll('#view-packing-view input[type="checkbox"]');
+  const total = checkboxes.length;
+  if (!total) return;
+  const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+  const percent = Math.round((checked / total) * 100);
+
+  const textEl = document.getElementById('packing-progress-text');
+  if (textEl) {
+    textEl.innerText = `${checked} de ${total} elementos (${percent}%)`;
+  }
+  const barEl = document.getElementById('packing-progress-bar');
+  if (barEl) {
+    barEl.style.width = `${percent}%`;
+  }
 }
 
 function savePackingChecklist() {
@@ -33,5 +54,6 @@ function resetPackingChecklist() {
       cb.checked = false;
     });
     localStorage.removeItem('mototrip_packing');
+    updatePackingProgress();
   }
 }
