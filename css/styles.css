@@ -106,3 +106,103 @@ body.light-theme .bg-slate-700\/80 {
   background-color: #cbd5e1 !important; 
   color: #0f172a !important; 
 }
+
+/* === REGLAS CRÍTICAS DE CONTRASTE EN TEMA CLARO (WCAG AA) === */
+/* 1. Aviso DCT en Bodega de Ferrys (Tarjetas de Itinerario y Modales) */
+body.light-theme .bg-amber-500\/10 {
+  background-color: #fef3c7 !important; /* amber-100 */
+  border-color: #fcd34d !important; /* amber-300 */
+}
+body.light-theme .text-amber-200,
+body.light-theme .text-amber-300 {
+  color: #78350f !important; /* amber-900 / alto contraste */
+}
+body.light-theme .text-amber-400 {
+  color: #92400e !important;
+}
+
+/* 2. Modal Horario de la Jornada (openHourlyModal) y Bloque Pranzo */
+body.light-theme .bg-amber-950\/20 {
+  background-color: #fef3c7 !important;
+  border-color: #f59e0b !important;
+  color: #78350f !important;
+}
+body.light-theme .bg-amber-950\/20 strong {
+  color: #451a03 !important;
+}
+body.light-theme #modal-timeline .text-amber-400,
+body.light-theme #modal-timeline .text-amber-300 {
+  color: #78350f !important;
+}
+body.light-theme #modal-day-badge {
+  color: #78350f !important;
+}
+
+/* 3. Pestaña de Presupuesto (Tab 4): Tarjetas de Totales y Avisos */
+body.light-theme .from-amber-500\/20.via-slate-950,
+body.light-theme .from-amber-500\/20 {
+  background: #ffffff !important;
+  border-color: #d97706 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.12) !important;
+}
+body.light-theme .from-emerald-500\/20.via-slate-950,
+body.light-theme .from-emerald-500\/20 {
+  background: #ffffff !important;
+  border-color: #059669 !important;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.12) !important;
+}
+body.light-theme #budget-grand-total {
+  color: #0f172a !important;
+}
+body.light-theme #budget-per-person {
+  color: #064e3b !important;
+}
+body.light-theme .bg-gradient-to-br p {
+  color: #475569 !important;
+}
+body.light-theme .bg-emerald-950\/20 {
+  background-color: #ecfdf5 !important;
+  border-color: #a7f3d0 !important;
+  color: #064e3b !important;
+}
+body.light-theme .bg-emerald-950\/20 * {
+  color: #064e3b !important;
+}
+body.light-theme .text-emerald-200\/90 {
+  color: #064e3b !important;
+}
+body.light-theme #fuel-at-subtotal,
+body.light-theme #fuel-nc-subtotal {
+  color: #b45309 !important;
+}
+body.light-theme .text-sky-400,
+body.light-theme .text-sky-300 {
+  color: #0369a1 !important;
+}
+body.light-theme .text-blue-400,
+body.light-theme .text-blue-300 {
+  color: #1d4ed8 !important;
+}
+
+/* 4. Pestañas Activas y Botones de Selección */
+body.light-theme .tab-btn.active {
+  background-color: #fef3c7 !important;
+  border-color: #d97706 !important;
+  color: #0f172a !important;
+  font-weight: 800 !important;
+}
+body.light-theme #btn-mode-dual.bg-amber-500,
+body.light-theme #btn-mode-solo.bg-amber-500 {
+  background-color: #f59e0b !important;
+  color: #0f172a !important;
+  font-weight: 800 !important;
+}
+body.light-theme #btn-mode-dual:not(.bg-amber-500),
+body.light-theme #btn-mode-solo:not(.bg-amber-500) {
+  color: #475569 !important;
+}
+body.light-theme #btn-mode-dual:not(.bg-amber-500):hover,
+body.light-theme #btn-mode-solo:not(.bg-amber-500):hover {
+  color: #0f172a !important;
+}
+
