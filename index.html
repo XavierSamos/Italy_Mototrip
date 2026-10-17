@@ -679,6 +679,57 @@
           </div>
         </div>
 
+        <!-- Dedicated Honda DCT Ferry Stowing Protocol Box -->
+        <div class="bg-gradient-to-r from-amber-500/10 via-slate-950 to-indigo-950/20 border-2 border-amber-500/50 rounded-2xl p-5 space-y-4 shadow-xl">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-800 pb-3">
+            <div class="flex items-center gap-2.5">
+              <span class="text-2xl">⚠️</span>
+              <div>
+                <h3 class="font-black text-sm text-amber-300 uppercase tracking-wide">Protocolo Maestro de Trincado en Bodega para Motos Honda DCT</h3>
+                <p class="text-xs text-slate-400">Instrucciones críticas para Africa Twin CRF1100L DCT y NC750X DCT en las 4 travesías marítimas.</p>
+              </div>
+            </div>
+            <span class="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-black uppercase px-2.5 py-1 rounded-full whitespace-nowrap">
+              Obligatorio en Bodega
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+            <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-rose-400 flex items-center gap-1.5 text-xs">
+                <span>⚙️</span> ¿Por qué es crítico en las motos DCT?
+              </div>
+              <p class="text-slate-300 leading-relaxed text-[11px]">
+                En una moto con cambio manual tradicional, al parar el motor en 1ª marcha la compresión del pistón bloquea mecánicamente la rueda trasera impidiendo que ruede. En las transmisiones automáticas <strong>Honda DCT</strong>, al cortar el encendido la presión de las electroválvulas hidráulicas cae a cero y <strong>el cambio queda en punto muerto mecánico libre</strong>. Si no se acciona el freno de mano mecánico, la moto puede rodar con el oleaje y precipitarse al suelo.
+              </p>
+            </div>
+
+            <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="font-bold text-emerald-400 flex items-center gap-1.5 text-xs">
+                <span>📋</span> Paso a Paso del Amarre Seguro en 5 Minutos
+              </div>
+              <ol class="text-[11px] text-slate-300 space-y-1.5 list-decimal list-inside leading-relaxed">
+                <li><strong class="text-white">Pata lateral SIEMPRE</strong>: Jamás apoyar en caballete central (eleva el centro de gravedad y facilita el vuelco).</li>
+                <li><strong class="text-white">Freno de mano DCT</strong>: Tirar con fuerza de la palanca del freno de mano mecánico en el semimanillar izquierdo hasta escuchar el trinquete.</li>
+                <li><strong class="text-white">Brida o velcro en maneta derecha</strong>: Bloquear la maneta del freno delantero con una cinta elástica o de velcro.</li>
+                <li><strong class="text-white">Bloqueo de dirección</strong>: Girar el manillar completamente hacia la izquierda y bloquear con la llave.</li>
+                <li><strong class="text-white">Protección del asiento</strong>: Colocar un trapo de microfibra bajo la cincha del marinero antes de apretar el tensor.</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- Port Logistical Card -->
+          <div class="bg-indigo-950/30 border border-indigo-500/40 rounded-xl p-3.5 text-xs text-slate-300 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div class="space-y-0.5">
+              <strong class="text-indigo-300 block font-bold">📦 Logística Portuaria Rápida con el Frunk de la NC750X:</strong>
+              <span class="text-[11px] text-slate-400">Guarda los billetes impresos, DNI/Pasaportes y Carta Verde en el hueco delantero (frunk) de la NC750X. Te permitirá mostrarlos en el control aduanero en segundos sin desmontar maletas ni abrir pulpos.</span>
+            </div>
+            <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-mono text-[11px] px-3 py-1.5 rounded-lg whitespace-nowrap font-bold shrink-0">
+              Check-in 2h Antes
+            </span>
+          </div>
+        </div>
+
         <div class="grid grid-cols-1 xl:grid-cols-2 gap-6" id="transport-grid">
           <!-- Injected via JS -->
         </div>
@@ -815,14 +866,27 @@
     <!-- TAB 7: MOTORBIKE PACKING & GEAR LIST -->
     <div id="view-packing-view" class="tab-content hidden space-y-6">
       <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-800 pb-4">
           <div>
-            <h2 class="font-bold text-xl text-white">🧰 Lista esencial de equipaje para viaje en moto (edición noviembre)</h2>
-            <p class="text-xs text-slate-400">Checklist interactiva para padre e hijo. Marca cada cosa al preparar las maletas laterales.</p>
+            <h2 class="font-bold text-xl text-white flex items-center gap-2">
+              <span>🧰</span> Checklist Maestra de Equipaje (Edición Noviembre 2 Motos)
+            </h2>
+            <p class="text-xs text-slate-400 mt-1">Lista interactiva con guardado automático en el navegador para la expedición de padre e hijo en Africa Twin 1100 DCT y NC750X DCT.</p>
           </div>
           <button onclick="resetPackingChecklist()" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-3.5 py-2 rounded-xl text-xs font-bold transition-all shrink-0 flex items-center gap-1.5">
             🔄 Restablecer Lista
           </button>
+        </div>
+
+        <!-- Interactive Progress Counter -->
+        <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
+          <div class="flex justify-between items-center text-xs">
+            <span class="font-bold text-slate-300">Progreso del equipaje preparado:</span>
+            <span id="packing-progress-text" class="font-mono text-amber-400 font-bold">0 de 36 elementos (0%)</span>
+          </div>
+          <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+            <div id="packing-progress-bar" class="bg-gradient-to-r from-amber-500 to-emerald-400 h-full transition-all duration-300" style="width: 0%;"></div>
+          </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-xs">
@@ -830,81 +894,90 @@
           <!-- Category 1: Documents & Ferry Essentials -->
           <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
             <h3 class="font-bold text-sm text-amber-400 flex items-center gap-1.5">
-              📄 Documentación y billetes de ferry
+              📄 Documentación Oficial y Billetes de Ferry
             </h3>
             <ul class="space-y-2 text-slate-300">
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-doc-passports" class="rounded accent-amber-500"> <span>Pasaportes / DNI y carnés de conducir</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-doc-registration" class="rounded accent-amber-500"> <span>Documentación de las motos y seguro (Carta Verde)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-doc-tickets" class="rounded accent-amber-500"> <span>Billetes de ferry impresos (Grimaldi y GNV)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-doc-keys" class="rounded accent-amber-500"> <span>Llaves de repuesto de contacto / maletas (guardadas por separado)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-doc-ehic" class="rounded accent-amber-500"> <span>Tarjetas Sanitarias Europeas (TSE)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-doc-passports" class="rounded accent-amber-500"> <span>Pasaportes / DNI en vigor y permisos de conducir moto A</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-doc-registration" class="rounded accent-amber-500"> <span>Permisos de circulación de ambas motos y Fichas Técnicas ITV</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-doc-insurance" class="rounded accent-amber-500"> <span>Seguros con Carta Verde y teléfono de asistencia internacional</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-doc-tickets" class="rounded accent-amber-500"> <span>Billetes de ferrys Grimaldi y Caronte impresos + PDF offline en móvil</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-doc-keys" class="rounded accent-amber-500"> <span>Llaves de repuesto de contacto y maletas (cruzadas en la otra moto)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-doc-ehic" class="rounded accent-amber-500"> <span>Tarjetas Sanitarias Europeas (TSE) físicas</span></li>
             </ul>
           </div>
 
           <!-- Category 2: November Riding Gear -->
           <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
             <h3 class="font-bold text-sm text-blue-400 flex items-center gap-1.5">
-              🧥 Equipación de moto (frío y lluvia de noviembre)
+              🧥 Equipación Térmica e Impermeable (Noviembre)
             </h3>
             <ul class="space-y-2 text-slate-300">
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-gear-goretex" class="rounded accent-amber-500"> <span>Chaqueta y pantalón Gore-Tex / impermeables</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-gear-thermal" class="rounded accent-amber-500"> <span>Camiseta y malla térmica de primera capa (para el Etna)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-gear-goretex" class="rounded accent-amber-500"> <span>Trajes de cordura técnicos impermeables / membranas Gore-Tex</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-gear-thermal" class="rounded accent-amber-500"> <span>Camisetas y mallas térmicas de lana merina (Etna/Gennargentu 6°C-12°C)</span></li>
               <li class="flex items-center gap-2"><input type="checkbox" id="pack-gear-gloves" class="rounded accent-amber-500"> <span>Guantes de invierno impermeables + guantes de entretiempo</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-gear-neck" class="rounded accent-amber-500"> <span>Braga de cuello cortaviento / sotocasco</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-gear-boots" class="rounded accent-amber-500"> <span>Botas impermeables de moto y visor Pinlock</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-gear-neck" class="rounded accent-amber-500"> <span>Sotocascos térmicos y bragas cortaviento de cuello (Windstopper)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-gear-boots" class="rounded accent-amber-500"> <span>Botas de moto touring impermeables de caña alta</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-gear-pinlock" class="rounded accent-amber-500"> <span>Visores de casco con lente antivaho Pinlock instalada</span></li>
             </ul>
           </div>
 
           <!-- Category 3: Tools & Tire Repair -->
           <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
             <h3 class="font-bold text-sm text-emerald-400 flex items-center gap-1.5">
-              🛠️ Herramientas y kit de reparación de la moto
+              🛠️ Herramientas, Neumáticos Tubeless y Kit Ferry DCT
             </h3>
             <ul class="space-y-2 text-slate-300">
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-tools-puncture" class="rounded accent-amber-500"> <span>Kit de mechas para neumáticos tubeless y cartuchos CO2 / mini bomba</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-tools-multitool" class="rounded accent-amber-500"> <span>Multiherramienta compacta / llaves Allen / Torx</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-tools-lube" class="rounded accent-amber-500"> <span>Grasa de cadena y trapo pequeño</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-tools-ties" class="rounded accent-amber-500"> <span>Bridas, cinta americana y cinta aislante</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-tools-straps" class="rounded accent-amber-500"> <span>Cinchas para el ferry / trapos (proteger el asiento en el ferry)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-tools-puncture" class="rounded accent-amber-500"> <span>Kit mechas tubeless (radios Africa Twin 21"/18" y aleación 17" NC750X)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-tools-compressor" class="rounded accent-amber-500"> <span>Mini compresor eléctrico 12V con toma mechero / USB para presiones</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-tools-velcro" class="rounded accent-amber-500"> <span>Bridas de velcro para trabar la maneta de freno delantero en ferrys</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-tools-microfiber" class="rounded accent-amber-500"> <span>Trapos suaves de microfibra para proteger el asiento del trincado</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-tools-straps" class="rounded accent-amber-500"> <span>Cinchas adicionales tipo Rokstraps o lazos suaves (soft-loops)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-tools-chain" class="rounded accent-amber-500"> <span>Grasa de cadena en spray de viaje y multiherramienta Allen/Torx</span></li>
             </ul>
           </div>
 
-          <!-- Category 4: Electronics & Navigation -->
+          <!-- Category 4: Security & Storage -->
+          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
+            <h3 class="font-bold text-sm text-amber-300 flex items-center gap-1.5">
+              🔒 Seguridad, Candados y Almacenamiento (Frunk NC750X)
+            </h3>
+            <ul class="space-y-2 text-slate-300">
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-sec-locks" class="rounded accent-amber-500"> <span>Candados de disco con alarma acústica (120dB) para paradas en ruta</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-sec-chain" class="rounded accent-amber-500"> <span>Cadena cementada de alta seguridad para atar ambas motos juntas</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-sec-frunk" class="rounded accent-amber-500"> <span>Frunk de 23L de la NC750X organizado (documentos y ropa de acceso rápido)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-sec-drybags" class="rounded accent-amber-500"> <span>Bolsas estancas interiores para las maletas laterales</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-sec-handbrake" class="rounded accent-amber-500"> <span>Comprobación de tensión del freno de mano mecánico DCT antes de salir</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-sec-duct" class="rounded accent-amber-500"> <span>Rollo de cinta americana y bridas de plástico resistentes</span></li>
+            </ul>
+          </div>
+
+          <!-- Category 5: Electronics & Navigation -->
           <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
             <h3 class="font-bold text-sm text-purple-400 flex items-center gap-1.5">
-              📱 Electrónica y navegación GPS
+              📱 Electrónica, Navegación GPS e Intercomunicadores
             </h3>
             <ul class="space-y-2 text-slate-300">
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-elec-mount" class="rounded accent-amber-500"> <span>Soportes de móvil para manillar y cables de carga impermeables</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-elec-intercom" class="rounded accent-amber-500"> <span>Intercomunicador / Bluetooth de casco (comunicación padre-hijo)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-elec-powerbank" class="rounded accent-amber-500"> <span>Batería externa de alta capacidad (20.000 mAh)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-elec-maps" class="rounded accent-amber-500"> <span>Mapas sin conexión descargados (Google Maps / Maps.me)</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-elec-mount" class="rounded accent-amber-500"> <span>Soportes de manillar antivibración para smartphone</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-elec-intercom" class="rounded accent-amber-500"> <span>Intercomunicadores Bluetooth de casco emparejados padre e hijo</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-elec-powerbank" class="rounded accent-amber-500"> <span>Powerbank de 20.000 mAh con carga rápida y cables blindados</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-elec-maps" class="rounded accent-amber-500"> <span>Mapas offline completos de Italia, Sicilia y Cerdeña descargados</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-elec-chargers" class="rounded accent-amber-500"> <span>Adaptadores de enchufe europeo y cargadores USB para camarotes</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-elec-torch" class="rounded accent-amber-500"> <span>Linterna frontal LED compacta para la noche</span></li>
             </ul>
           </div>
 
-          <!-- Category 5: Hot Springs & Casual Clothing -->
+          <!-- Category 6: Hot Springs & Safety -->
           <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
             <h3 class="font-bold text-sm text-rose-400 flex items-center gap-1.5">
-              ♨️ Termas y ropa cómoda
+              ♨️ Termas Naturales, Botiquín y Confort Marítimo
             </h3>
             <ul class="space-y-2 text-slate-300">
               <li class="flex items-center gap-2"><input type="checkbox" id="pack-spa-swimsuit" class="rounded accent-amber-500"> <span>Bañadores (para Terme Segestane y Caronte)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-spa-towel" class="rounded accent-amber-500"> <span>Toalla de secado rápido y escarpines (para ríos termales rocosos)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-spa-casual" class="rounded accent-amber-500"> <span>Ropa cómoda compacta para la tarde/noche y zapatillas para caminar</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-spa-toiletries" class="rounded accent-amber-500"> <span>Neceser y toalla de microfibra</span></li>
-            </ul>
-          </div>
-
-          <!-- Category 6: Safety & Emergency -->
-          <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-3">
-            <h3 class="font-bold text-sm text-cyan-400 flex items-center gap-1.5">
-              🩹 Primeros auxilios y seguridad en carretera
-            </h3>
-            <ul class="space-y-2 text-slate-300">
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-safe-firstaid" class="rounded accent-amber-500"> <span>Botiquín compacto para moto</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-spa-shoes" class="rounded accent-amber-500"> <span>Escarpines de agua de suela dura para ríos termales de guijarros</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-spa-towel" class="rounded accent-amber-500"> <span>Toallas de microfibra de secado ultrarrápido</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-safe-firstaid" class="rounded accent-amber-500"> <span>Botiquín de primeros auxilios homologado</span></li>
+              <li class="flex items-center gap-2"><input type="checkbox" id="pack-safe-seasick" class="rounded accent-amber-500"> <span>Biodramina con cafeína para travesías en ferry (21h30m y 15h)</span></li>
               <li class="flex items-center gap-2"><input type="checkbox" id="pack-safe-vests" class="rounded accent-amber-500"> <span>Chalecos reflectantes de alta visibilidad (obligatorios en Italia)</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-safe-torch" class="rounded accent-amber-500"> <span>Linterna LED pequeña / frontal</span></li>
-              <li class="flex items-center gap-2"><input type="checkbox" id="pack-safe-meds" class="rounded accent-amber-500"> <span>Medicación personal e ibuprofeno</span></li>
             </ul>
           </div>
 
